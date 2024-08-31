@@ -3,11 +3,11 @@
     <type>org.netbeans.modules.web.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
-            <name>consorcio-war</name>
+            <name>Consorcio-war</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="100">
-                    <file>${reference.consorcio-ejb.dist}</file>
+                    <file>${reference.Consorcio-ejb.dist}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
@@ -20,7 +20,7 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>consorcio-ejb</foreign-project>
+                <foreign-project>Consorcio-ejb</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>dist</target>
