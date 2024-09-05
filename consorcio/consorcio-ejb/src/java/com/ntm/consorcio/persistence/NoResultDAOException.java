@@ -8,12 +8,12 @@ import javax.ejb.ApplicationException;
  */
 
 @ApplicationException(rollback=false)
-public class ErrorDAOException extends Exception {
+public class NoResultDAOException extends Exception {
     
-    public ErrorDAOException() {
+    public NoResultDAOException() {
     }
     
-    public ErrorDAOException(String mensaje) {
+    public NoResultDAOException(String mensaje) {
         super(mensaje);
     }
 }
