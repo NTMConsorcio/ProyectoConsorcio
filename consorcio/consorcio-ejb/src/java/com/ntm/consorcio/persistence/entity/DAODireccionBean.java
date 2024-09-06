@@ -1,6 +1,6 @@
 package com.ntm.consorcio.persistence.entity;
 
-import com.ntm.consorcio.domain.entity.Pais;
+import com.ntm.consorcio.domain.entity.Direccion;
 import com.ntm.consorcio.persistence.ErrorDAOException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import javax.ejb.Stateless;
@@ -18,55 +18,61 @@ import java.util.Collection;
  */
 @Stateless
 @LocalBean
-public class DAOPaisBean {
+public class DAODireccionBean {
     @PersistenceContext private EntityManager em;
     
     /**
      * Persiste el objeto en base de datos
-     * @param pais Pais
+     * @param direccion Direccion
      */
-    public void guardarPais(Pais pais) {
-        em.persist(pais);
+    public void guardarDireccion(Direccion direccion) {
+        em.persist(direccion);
     }
     
     /**
      * Actualiza el objeto actual en base de datos
-     * @param pais Pais
+     * @param direccion Direccion
      */
-    public void actualizarPais(Pais pais) {
+    public void actualizarDireccion(Direccion direccion) {
         em.setFlushMode(FlushModeType.COMMIT);
-        em.merge(pais);
+        em.merge(direccion);
         em.flush();
     }
     
     /**
      * Busca el objeto con el id ingresado
      * @param id String
-     * @return Pais
+     * @return Direccion
      * @throws NoResultException 
      */
-    public Pais buscarPais(String id) throws NoResultException {
-        return em.find(Pais.class, id);
+    public Direccion buscarDireccion(String id) throws NoResultException {
+        return em.find(Direccion.class, id);
     }
     
     /**
-     * Busca el objeto con el nombre especificado
-     * @param nombre String
-     * @return Pais
+     * Busca el objeto con la numeración y calle especificados
+     * @param numeracion String con la numeración
+     * @param calle String con la calle
+     * @return Direccion
      * @throws ErrorDAOException
      * @throws NoResultDAOException 
      */
-    public Pais buscarPaisPorNombre(String nombre) throws ErrorDAOException, NoResultDAOException {
+    public Direccion buscarDireccionPorNumeracionYCalle(String numeracion, String calle) throws ErrorDAOException, NoResultDAOException {
         try {
-            if (nombre.length() > 255) {
-                throw new ErrorDAOException("La longitud del nombre es incorrecta. Debe tener menos de 255 caracteres");
+            if (numeracion.length() > 255) {
+                throw new ErrorDAOException("La longitud de la numeración es incorrecta. Debe tener menos de 255 caracteres");
+            }
+            if (calle.length() > 255) {
+                throw new ErrorDAOException("La longitud de la calle es incorrecta. Debe tener menos de 255 caracteres");
             }
             
-            return (Pais)  em.createQuery("SELECT pa "
-                                          + " FROM pais pa"
-                                          + " WHERE pa.nombre = :nombre"
+            return (Direccion)  em.createQuery("SELECT pa "
+                                          + " FROM direccion pa"
+                                          + " WHERE pa.numeracion = :numeracion"
+                                          + " AND pa.calle = :calle"
                                           + " AND pa.eliminado = FALSE").
-                                          setParameter("nombre", nombre).
+                                          setParameter("numeracion", numeracion).
+                                          setParameter("calle", calle).
                                           getSingleResult();
         } catch (NoResultException ex) {
             throw new NoResultDAOException("No se encontró la información solicitada");
@@ -78,15 +84,17 @@ public class DAOPaisBean {
         }
     }
     
+    
     /**
      * Busca la lista de objetos de la clase actualmente activos
-     * @return Collection<Pais>
+     * @return Collection<Direccion>
      * @throws ErrorDAOException 
      */
-    public Collection<Pais> listarPaisActivo() throws ErrorDAOException {
+    /*
+    public Collection<Direccion> listarDireccionActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM pais p"
+                                    + " FROM direccion p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
@@ -94,4 +102,5 @@ public class DAOPaisBean {
             throw new ErrorDAOException("Error del sistema.");
         }
     }  
+    */
 }

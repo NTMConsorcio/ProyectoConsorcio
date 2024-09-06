@@ -1,6 +1,6 @@
 package com.ntm.consorcio.persistence.entity;
 
-import com.ntm.consorcio.domain.entity.Pais;
+import com.ntm.consorcio.domain.entity.Provincia;
 import com.ntm.consorcio.persistence.ErrorDAOException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import javax.ejb.Stateless;
@@ -18,52 +18,52 @@ import java.util.Collection;
  */
 @Stateless
 @LocalBean
-public class DAOPaisBean {
+public class DAOProvinciaBean {
     @PersistenceContext private EntityManager em;
     
     /**
      * Persiste el objeto en base de datos
-     * @param pais Pais
+     * @param provincia Provincia
      */
-    public void guardarPais(Pais pais) {
-        em.persist(pais);
+    public void guardarProvincia(Provincia provincia) {
+        em.persist(provincia);
     }
     
     /**
      * Actualiza el objeto actual en base de datos
-     * @param pais Pais
+     * @param provincia Provincia
      */
-    public void actualizarPais(Pais pais) {
+    public void actualizarProvincia(Provincia provincia) {
         em.setFlushMode(FlushModeType.COMMIT);
-        em.merge(pais);
+        em.merge(provincia);
         em.flush();
     }
     
     /**
      * Busca el objeto con el id ingresado
      * @param id String
-     * @return Pais
+     * @return Provincia
      * @throws NoResultException 
      */
-    public Pais buscarPais(String id) throws NoResultException {
-        return em.find(Pais.class, id);
+    public Provincia buscarProvincia(String id) throws NoResultException {
+        return em.find(Provincia.class, id);
     }
     
     /**
      * Busca el objeto con el nombre especificado
      * @param nombre String
-     * @return Pais
+     * @return Provincia
      * @throws ErrorDAOException
      * @throws NoResultDAOException 
      */
-    public Pais buscarPaisPorNombre(String nombre) throws ErrorDAOException, NoResultDAOException {
+    public Provincia buscarProvinciaPorNombre(String nombre) throws ErrorDAOException, NoResultDAOException {
         try {
             if (nombre.length() > 255) {
                 throw new ErrorDAOException("La longitud del nombre es incorrecta. Debe tener menos de 255 caracteres");
             }
             
-            return (Pais)  em.createQuery("SELECT pa "
-                                          + " FROM pais pa"
+            return (Provincia)  em.createQuery("SELECT pa "
+                                          + " FROM provincia pa"
                                           + " WHERE pa.nombre = :nombre"
                                           + " AND pa.eliminado = FALSE").
                                           setParameter("nombre", nombre).
@@ -80,13 +80,13 @@ public class DAOPaisBean {
     
     /**
      * Busca la lista de objetos de la clase actualmente activos
-     * @return Collection<Pais>
+     * @return Collection<Provincia>
      * @throws ErrorDAOException 
      */
-    public Collection<Pais> listarPaisActivo() throws ErrorDAOException {
+    public Collection<Provincia> listarProvinciaActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM pais p"
+                                    + " FROM provincia p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
