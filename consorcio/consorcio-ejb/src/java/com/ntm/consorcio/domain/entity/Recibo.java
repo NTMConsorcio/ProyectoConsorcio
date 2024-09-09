@@ -54,7 +54,7 @@ public class Recibo implements Serializable {
         return "com.ntm.consorcio.domain.entity.Recibo[ id=" + id + " ]";
     }
 
-    public boolean isEliminado() {
+    public boolean getEliminado() {
         return eliminado;
     }
 
