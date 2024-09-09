@@ -1,5 +1,6 @@
 package com.ntm.consorcio.domain.entity;
 
+import com.ntm.consorcio.domain.entity.Localidad;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ public class Direccion implements Serializable {
     private String calle;
     private String numeracion;
     private boolean eliminado;
+    private Localidad localidad;
    
     /**
      * Crea un código hash para un objeto. Si id no es null se llama a su método hashCode, caso contrario se utiliza 0.
@@ -87,6 +89,14 @@ public class Direccion implements Serializable {
     }
     
     /**
+     * Getter de la localidad
+     * @return Localidad localidad;
+     */
+    public Localidad getLocalidad() {
+        return this.localidad;
+    }
+    
+    /**
      * Setter de id
      * @param id String
      */
@@ -116,5 +126,13 @@ public class Direccion implements Serializable {
      */
     public void setCalle(String calle) {
         this.calle = calle;
+    }
+    
+    /**
+     * Setter de localidad
+     * @param localidad Localidad
+     */
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
     }
 }

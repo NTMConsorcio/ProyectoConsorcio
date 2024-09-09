@@ -1,5 +1,6 @@
 package com.ntm.consorcio.logic.entity;
 
+import com.ntm.consorcio.domain.entity.Pais;
 import com.ntm.consorcio.domain.entity.Provincia;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
@@ -20,18 +21,23 @@ import javax.ejb.Stateless;
 public class ProvinciaServiceBean {
     
     private @EJB DAOProvinciaBean dao;
+    private @EJB PaisServiceBean paisService;
     
     /**
      * Crea un objeto de la clase
      * @param nombre String con el nombre
      * @throws ErrorServiceException 
      */
-    public void crearProvincia(String nombre) throws ErrorServiceException {
-
+    public void crearProvincia(String nombre, String idPais) throws ErrorServiceException {
+        Pais pais;
         try {
             
             if (nombre == null || nombre.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el nombre");
+            }
+            
+            if (idPais == null || idPais.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar el id del país");
             }
 
             try {
@@ -40,11 +46,18 @@ public class ProvinciaServiceBean {
             } catch (NoResultDAOException ex) {
                
             }
-
+                
+            try {
+                pais = paisService.buscarPais(idPais);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró el país seleccionado");
+            }
+            
             Provincia provincia = new Provincia();
             provincia.setId(UUID.randomUUID().toString());
             provincia.setNombre(nombre);
             provincia.setEliminado(false);
+            provincia.setPais(pais);
 
             dao.guardarProvincia(provincia);
 
@@ -62,8 +75,8 @@ public class ProvinciaServiceBean {
      * @param nombre String con el nombre
      * @throws ErrorServiceException 
      */
-    public void modificarProvincia(String idProvincia, String nombre) throws ErrorServiceException {
-
+    public void modificarProvincia(String idProvincia, String nombre, String idPais) throws ErrorServiceException {
+        Pais pais;
         try {
 
             Provincia provincia = buscarProvincia(idProvincia);
@@ -78,8 +91,15 @@ public class ProvinciaServiceBean {
                   throw new ErrorServiceException("Existe una provincia con el nombre indicado");  
                 }
             } catch (NoResultDAOException ex) {}
-
+            
+            try {
+                pais = paisService.buscarPais(idPais);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró el país seleccionado");
+            }
+            
             provincia.setNombre(nombre);
+            provincia.setPais(pais);
             
             dao.actualizarProvincia(provincia);
 

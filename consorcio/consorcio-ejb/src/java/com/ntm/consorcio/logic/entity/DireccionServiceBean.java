@@ -1,5 +1,6 @@
 package com.ntm.consorcio.logic.entity;
 
+import com.ntm.consorcio.domain.entity.Localidad;
 import com.ntm.consorcio.domain.entity.Direccion;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
@@ -20,6 +21,7 @@ import javax.ejb.Stateless;
 public class DireccionServiceBean {
     
     private @EJB DAODireccionBean dao;
+    private @EJB LocalidadServiceBean localidadService;
     
     /**
      * Crea un objeto de la clase
@@ -27,8 +29,8 @@ public class DireccionServiceBean {
      * @param numeracion String con la numeración
      * @throws ErrorServiceException 
      */
-    public void crearDireccion(String calle, String numeracion) throws ErrorServiceException {
-
+    public void crearDireccion(String calle, String numeracion, String idLocalidad) throws ErrorServiceException {
+        Localidad localidad;
         try {
             
             if (calle == null || calle.isEmpty()) {
@@ -47,12 +49,18 @@ public class DireccionServiceBean {
               
             }
             */
+            try {
+                localidad = localidadService.buscarLocalidad(idLocalidad);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró la localidad seleccionada");
+            }
             
             Direccion direccion = new Direccion();
             direccion.setId(UUID.randomUUID().toString());
             direccion.setNumeracion(numeracion);
             direccion.setCalle(calle);
             direccion.setEliminado(false);
+            direccion.setLocalidad(localidad);
 
             dao.guardarDireccion(direccion);
 
@@ -71,8 +79,8 @@ public class DireccionServiceBean {
      * @param numeracion String con la numeración
      * @throws ErrorServiceException 
      */
-    public void modificarDireccion(String idDireccion, String calle, String numeracion) throws ErrorServiceException {
-
+    public void modificarDireccion(String idDireccion, String calle, String numeracion, String idLocalidad) throws ErrorServiceException {
+        Localidad localidad;
         try {
 
             Direccion direccion = buscarDireccion(idDireccion);
@@ -94,8 +102,15 @@ public class DireccionServiceBean {
             } catch (NoResultDAOException ex) {}
             */
             
+            try {
+                localidad = localidadService.buscarLocalidad(idLocalidad);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró la localidad seleccionada");
+            }
+            
             direccion.setCalle(calle);
             direccion.setNumeracion(numeracion);
+            direccion.setLocalidad(localidad);
             
             dao.actualizarDireccion(direccion);
 

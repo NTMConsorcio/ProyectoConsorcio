@@ -1,5 +1,6 @@
 package com.ntm.consorcio.logic.entity;
 
+import com.ntm.consorcio.domain.entity.Provincia;
 import com.ntm.consorcio.domain.entity.Departamento;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
@@ -20,14 +21,15 @@ import javax.ejb.Stateless;
 public class DepartamentoServiceBean {
     
     private @EJB DAODepartamentoBean dao;
+    private @EJB ProvinciaServiceBean provinciaService;
     
     /**
      * Crea un objeto de la clase
      * @param nombre String con el nombre
      * @throws ErrorServiceException 
      */
-    public void crearDepartamento(String nombre) throws ErrorServiceException {
-
+    public void crearDepartamento(String nombre, String idProvincia) throws ErrorServiceException {
+        Provincia provincia;
         try {
             
             if (nombre == null || nombre.isEmpty()) {
@@ -39,11 +41,18 @@ public class DepartamentoServiceBean {
                 throw new ErrorServiceException("Existe un departamento con el nombre indicado");
             } catch (NoResultDAOException ex) {
             }
+            
+            try {
+                provincia = provinciaService.buscarProvincia(idProvincia);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró la provincia seleccionada");
+            }
 
             Departamento departamento = new Departamento();
             departamento.setId(UUID.randomUUID().toString());
             departamento.setNombre(nombre);
             departamento.setEliminado(false);
+            departamento.setProvincia(provincia);
 
             dao.guardarDepartamento(departamento);
 
@@ -61,8 +70,8 @@ public class DepartamentoServiceBean {
      * @param nombre String con el nombre
      * @throws ErrorServiceException 
      */
-    public void modificarDepartamento(String idDepartamento, String nombre) throws ErrorServiceException {
-
+    public void modificarDepartamento(String idDepartamento, String nombre, String idProvincia) throws ErrorServiceException {
+        Provincia provincia;
         try {
 
             Departamento departamento = buscarDepartamento(idDepartamento);
@@ -78,8 +87,14 @@ public class DepartamentoServiceBean {
                 }
             } catch (NoResultDAOException ex) {}
 
-            departamento.setNombre(nombre);
+            try {
+                provincia = provinciaService.buscarProvincia(idProvincia);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró la provincia seleccionada");
+            }
             
+            departamento.setNombre(nombre);
+            departamento.setProvincia(provincia);
             dao.actualizarDepartamento(departamento);
 
         } catch (ErrorServiceException e) {

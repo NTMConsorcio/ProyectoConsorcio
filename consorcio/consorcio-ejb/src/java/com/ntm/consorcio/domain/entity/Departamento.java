@@ -1,5 +1,6 @@
 package com.ntm.consorcio.domain.entity;
 
+import com.ntm.consorcio.domain.entity.Provincia;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ public class Departamento implements Serializable {
     private String id;
     private String nombre;
     private boolean eliminado;
+    private Provincia provincia;
    
     /**
      * Crea un código hash para un objeto. Si id no es null se llama a su método hashCode, caso contrario se utiliza 0.
@@ -78,6 +80,14 @@ public class Departamento implements Serializable {
     }
     
     /**
+     * Getter de provincia
+     * @return Provincia
+     */
+    public Provincia getProvincia() {
+        return this.provincia;
+    }
+    
+    /**
      * Setter de id
      * @param id String
      */
@@ -101,4 +111,11 @@ public class Departamento implements Serializable {
         this.eliminado = eliminado;
     }
     
+    /**
+     * Setter de provincia
+     * @param provincia Provincia
+     */
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
 }

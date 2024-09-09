@@ -1,5 +1,6 @@
 package com.ntm.consorcio.logic.entity;
 
+import com.ntm.consorcio.domain.entity.Departamento;
 import com.ntm.consorcio.domain.entity.Localidad;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
@@ -20,14 +21,14 @@ import javax.ejb.Stateless;
 public class LocalidadServiceBean {
     
     private @EJB DAOLocalidadBean dao;
-    
+    private @EJB DepartamentoServiceBean departamentoService;
     /**
      * Crea un objeto de la clase
      * @param nombre String con el nombre
      * @throws ErrorServiceException 
      */
-    public void crearLocalidad(String nombre, String codigoPostal) throws ErrorServiceException {
-
+    public void crearLocalidad(String nombre, String codigoPostal, String idDepartamento) throws ErrorServiceException {
+        Departamento departamento;
         try {
             
             if (nombre == null || nombre.isEmpty()) {
@@ -40,12 +41,19 @@ public class LocalidadServiceBean {
             } catch (NoResultDAOException ex) {
                
             }
-
+            
+            try {
+                departamento = departamentoService.buscarDepartamento(idDepartamento);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró el departamento seleccionado");
+            }
+            
             Localidad localidad = new Localidad();
             localidad.setId(UUID.randomUUID().toString());
             localidad.setNombre(nombre);
             localidad.setCodigoPostal(codigoPostal);
             localidad.setEliminado(false);
+            localidad.setDepartamento(departamento);
 
             dao.guardarLocalidad(localidad);
 
@@ -63,8 +71,8 @@ public class LocalidadServiceBean {
      * @param nombre String con el nombre
      * @throws ErrorServiceException 
      */
-    public void modificarLocalidad(String idLocalidad, String nombre, String codigoPostal) throws ErrorServiceException {
-
+    public void modificarLocalidad(String idLocalidad, String nombre, String codigoPostal, String idDepartamento) throws ErrorServiceException {
+        Departamento departamento;
         try {
 
             Localidad localidad = buscarLocalidad(idLocalidad);
@@ -79,9 +87,16 @@ public class LocalidadServiceBean {
                   throw new ErrorServiceException("Existe una localidad con el nombre indicado");  
                 }
             } catch (NoResultDAOException ex) {}
-
+            
+            try {
+                departamento = departamentoService.buscarDepartamento(idDepartamento);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró el departamento seleccionado");
+            }
+            
             localidad.setNombre(nombre);
             localidad.setCodigoPostal(codigoPostal);
+            localidad.setDepartamento(departamento);
             
             dao.actualizarLocalidad(localidad);
 
