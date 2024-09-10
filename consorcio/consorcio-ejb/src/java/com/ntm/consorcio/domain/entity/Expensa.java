@@ -21,6 +21,7 @@ public class Expensa implements Serializable {
     private Date fechaDesde;
     private Date fechaHasta;
     private double importe;
+    private boolean eliminado;
     
 
     @Override
@@ -48,6 +49,16 @@ public class Expensa implements Serializable {
         return "com.ntm.consorcio.domain.entity.Expensa[ id=" + id + " ]";
     }
 
+    public boolean getEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+
+    
+    
     public String getId() {
         return id;
     }

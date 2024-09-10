@@ -23,7 +23,7 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class ReciboServiceBean {
-     private @EJB DAOReciboBean dao;
+    private @EJB DAOReciboBean dao;
      
       /**
      * Crea un objeto de la clase
