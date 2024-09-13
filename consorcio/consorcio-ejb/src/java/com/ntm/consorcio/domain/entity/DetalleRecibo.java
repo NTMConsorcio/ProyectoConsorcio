@@ -20,7 +20,7 @@ public class DetalleRecibo implements Serializable {
     private int cantidad;
     private double subtotal;
     private boolean eliminado;
-    
+    private ExpensaInmueble expensaInmueble;
     
     @Override
     public int hashCode() {
@@ -46,6 +46,16 @@ public class DetalleRecibo implements Serializable {
     public String toString() {
         return "com.ntm.consorcio.domain.entity.DetalleRecibo[ id=" + id + " ]";
     }
+
+    public ExpensaInmueble getExpensaInmueble() {
+        return expensaInmueble;
+    }
+
+    public void setExpensaInmueble(ExpensaInmueble expensaInmueble) {
+        this.expensaInmueble = expensaInmueble;
+    }
+    
+    
 
     public String getId() {
         return id;
