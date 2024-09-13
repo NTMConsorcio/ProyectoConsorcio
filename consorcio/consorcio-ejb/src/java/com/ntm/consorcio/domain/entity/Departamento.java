@@ -1,20 +1,22 @@
 package com.ntm.consorcio.domain.entity;
 
+import com.ntm.consorcio.domain.entity.Provincia;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 /**
- * Representa la información esencial y las características de un país
+ * Representa la información esencial y las características de un departamento.
  * @version 1.0.0
  * @author Tomas Rando
  */
 
 @Entity
-public class Pais implements Serializable {
+public class Departamento implements Serializable {
     @Id
     private String id;
     private String nombre;
     private boolean eliminado;
+    private Provincia provincia;
    
     /**
      * Crea un código hash para un objeto. Si id no es null se llama a su método hashCode, caso contrario se utiliza 0.
@@ -34,10 +36,10 @@ public class Pais implements Serializable {
      */
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Pais)) {
+        if (!(object instanceof Departamento)) {
             return false;
         }
-        Pais other = (Pais) object;
+        Departamento other = (Departamento) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -50,7 +52,7 @@ public class Pais implements Serializable {
      */
     @Override
     public String toString() {
-        return "com.ntm.consorcio.dominio.entity.Pais[ id=" + id + " ]";
+        return "com.ntm.consorcio.dominio.entity.Departamento[ id=" + id + " ]";
     }
     
     /**
@@ -78,6 +80,14 @@ public class Pais implements Serializable {
     }
     
     /**
+     * Getter de provincia
+     * @return Provincia
+     */
+    public Provincia getProvincia() {
+        return this.provincia;
+    }
+    
+    /**
      * Setter de id
      * @param id String
      */
@@ -86,7 +96,7 @@ public class Pais implements Serializable {
     }
     
     /**
-     * Setter de nombre de país
+     * Setter de nombre del objeto
      * @param nombre String 
      */
     public void setNombre(String nombre) {
@@ -101,4 +111,11 @@ public class Pais implements Serializable {
         this.eliminado = eliminado;
     }
     
+    /**
+     * Setter de provincia
+     * @param provincia Provincia
+     */
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
 }

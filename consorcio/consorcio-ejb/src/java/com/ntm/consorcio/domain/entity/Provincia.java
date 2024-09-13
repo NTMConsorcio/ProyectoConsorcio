@@ -1,20 +1,22 @@
 package com.ntm.consorcio.domain.entity;
 
+import com.ntm.consorcio.domain.entity.Pais;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 /**
- * Representa la información esencial y las características de un país
+ * Representa la información esencial y las características de una provincia
  * @version 1.0.0
  * @author Tomas Rando
  */
 
 @Entity
-public class Pais implements Serializable {
+public class Provincia implements Serializable {
     @Id
     private String id;
     private String nombre;
     private boolean eliminado;
+    private Pais pais;
    
     /**
      * Crea un código hash para un objeto. Si id no es null se llama a su método hashCode, caso contrario se utiliza 0.
@@ -34,10 +36,10 @@ public class Pais implements Serializable {
      */
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Pais)) {
+        if (!(object instanceof Provincia)) {
             return false;
         }
-        Pais other = (Pais) object;
+        Provincia other = (Provincia) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -50,7 +52,7 @@ public class Pais implements Serializable {
      */
     @Override
     public String toString() {
-        return "com.ntm.consorcio.dominio.entity.Pais[ id=" + id + " ]";
+        return "com.ntm.consorcio.dominio.entity.Provincia[ id=" + id + " ]";
     }
     
     /**
@@ -70,6 +72,14 @@ public class Pais implements Serializable {
     }
     
     /**
+     * Getter de pais
+     * @return Pais 
+     */
+    public Pais getPais() {
+        return this.pais;
+    }
+    
+    /**
      * Getter del valor de eliminado
      * @return boolean
      */
@@ -86,7 +96,7 @@ public class Pais implements Serializable {
     }
     
     /**
-     * Setter de nombre de país
+     * Setter de nombre del objeto
      * @param nombre String 
      */
     public void setNombre(String nombre) {
@@ -101,4 +111,10 @@ public class Pais implements Serializable {
         this.eliminado = eliminado;
     }
     
+    /** Setter de Pais
+     * @param pais Pais
+     */
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
 }

@@ -1,20 +1,23 @@
 package com.ntm.consorcio.domain.entity;
 
+import com.ntm.consorcio.domain.entity.Localidad;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 /**
- * Representa la información esencial y las características de un país
+ * Representa la información esencial y las características de una provincia
  * @version 1.0.0
  * @author Tomas Rando
  */
 
 @Entity
-public class Pais implements Serializable {
+public class Direccion implements Serializable {
     @Id
     private String id;
-    private String nombre;
+    private String calle;
+    private String numeracion;
     private boolean eliminado;
+    private Localidad localidad;
    
     /**
      * Crea un código hash para un objeto. Si id no es null se llama a su método hashCode, caso contrario se utiliza 0.
@@ -34,10 +37,10 @@ public class Pais implements Serializable {
      */
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof Pais)) {
+        if (!(object instanceof Direccion)) {
             return false;
         }
-        Pais other = (Pais) object;
+        Direccion other = (Direccion) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -50,7 +53,7 @@ public class Pais implements Serializable {
      */
     @Override
     public String toString() {
-        return "com.ntm.consorcio.dominio.entity.Pais[ id=" + id + " ]";
+        return "com.ntm.consorcio.dominio.entity.Direccion[ id=" + id + " ]";
     }
     
     /**
@@ -62,11 +65,11 @@ public class Pais implements Serializable {
     }
     
     /**
-     * Getter del nombre
-     * @return String nombre
+     * Getter de numeración
+     * @return String numeración
      */
-    public String getNombre() {
-        return this.nombre;
+    public String getNumeracion() {
+        return this.numeracion;
     }
     
     /**
@@ -78,6 +81,22 @@ public class Pais implements Serializable {
     }
     
     /**
+     * Getter de la calle
+     * @return String calle
+     */
+    public String getCalle() {
+        return this.calle;
+    }
+    
+    /**
+     * Getter de la localidad
+     * @return Localidad localidad;
+     */
+    public Localidad getLocalidad() {
+        return this.localidad;
+    }
+    
+    /**
      * Setter de id
      * @param id String
      */
@@ -86,11 +105,11 @@ public class Pais implements Serializable {
     }
     
     /**
-     * Setter de nombre de país
-     * @param nombre String 
+     * Setter de la numeración del departamento
+     * @param numeracion String 
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNumeracion(String numeracion) {
+        this.numeracion = numeracion;
     }
     
     /**
@@ -101,4 +120,19 @@ public class Pais implements Serializable {
         this.eliminado = eliminado;
     }
     
+    /**
+     * Setter de la calle
+     * @param calle String con la calle
+     */
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+    
+    /**
+     * Setter de localidad
+     * @param localidad Localidad
+     */
+    public void setLocalidad(Localidad localidad) {
+        this.localidad = localidad;
+    }
 }
