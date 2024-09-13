@@ -3,25 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/persistence/entity/DAOLocalidadBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/logic/ErrorServiceException.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/logic/entity/DireccionServiceBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/logic/entity/DepartamentoServiceBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Direccion.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Departamento.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/persistence/entity/DAODireccionBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Recibo.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/logic/entity/LocalidadServiceBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/persistence/entity/DAOPaisBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Pais.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/persistence/entity/DAODepartamentoBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/logic/entity/PaisServiceBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/persistence/NoResultDAOException.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Localidad.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/persistence/entity/DAOProvinciaBean.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Provincia.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/persistence/ErrorDAOException.java</file>
-            <file>file:/E:/Universidad/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/logic/entity/ProvinciaServiceBean.java</file>
+            <file>file:/C:/Users/Martinotebook/Documents/nacho%20(podes%20borrar%20tranqui)/2°%20año/Paradigmas/lab/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Pais.java</file>
+            <file>file:/C:/Users/Martinotebook/Documents/nacho%20(podes%20borrar%20tranqui)/2°%20año/Paradigmas/lab/ProyectoConsorcio/consorcio/consorcio-ejb/src/java/com/ntm/consorcio/domain/entity/Consorcio.java</file>
         </group>
     </open-files>
 </project-private>
