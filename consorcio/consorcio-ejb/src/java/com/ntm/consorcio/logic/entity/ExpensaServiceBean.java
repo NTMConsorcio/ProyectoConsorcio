@@ -7,9 +7,7 @@ package com.ntm.consorcio.logic.entity;
 
 import com.ntm.consorcio.persistence.entity.DAOExpensaBean;
 import com.ntm.consorcio.domain.entity.Expensa;
-import static com.ntm.consorcio.domain.entity.Pais_.nombre;
 import com.ntm.consorcio.logic.ErrorServiceException;
-import com.ntm.consorcio.persistence.NoResultDAOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
