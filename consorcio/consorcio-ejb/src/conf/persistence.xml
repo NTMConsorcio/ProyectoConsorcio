@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-<<<<<<< HEAD
   <persistence-unit name="Consorcio-ejbPU" transaction-type="JTA">
     <jta-data-source>jdbc/__TimerPool</jta-data-source>
-=======
-  <persistence-unit name="ConsorcioPU" transaction-type="JTA">
-    <jta-data-source>jdbc/consorcio</jta-data-source>
->>>>>>> f28100bdb2b71470c6c121be303794e7bf1c3f34
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
