@@ -1,9 +1,9 @@
 package com.ntm.consorcio.domain.entity;
 
-import com.ntm.consorcio.domain.entity.Localidad;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 /**
  * Representa la información esencial y las características de una provincia
  * @version 1.0.0
@@ -17,6 +17,7 @@ public class Direccion implements Serializable {
     private String calle;
     private String numeracion;
     private boolean eliminado;
+    @ManyToOne
     private Localidad localidad;
    
     /**
