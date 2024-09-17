@@ -7,6 +7,7 @@ package com.ntm.consorcio.domain.entity;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Id;
 
 /**
@@ -32,6 +33,37 @@ public class Consorcio implements Serializable{
         this.eliminado=Boolean.FALSE;
         
     }
+    @Override
+    public String toString() {
+        return "com.ospelsym.dominio.especialidad.Especialidad[ id=" + id + " ]";
+    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Consorcio other = (Consorcio) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    
     public String getId(){
         return this.id;
     }
@@ -55,14 +87,7 @@ public class Consorcio implements Serializable{
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
     }
-    @Override
-    public String toString() {
-        return "Consorcio{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", eliminado=" + eliminado +
-                '}';
-    }
+  
     //    public Direccion getDireccion() {
     //    return direccion;
     //}
