@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -24,7 +25,9 @@ public class ExpensaInmueble implements Serializable {
     private Estado estado;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaVencimiento;
+    @ManyToOne
     private Expensa expensa;
+    @ManyToOne
     private Inmueble inmueble;
     
     public enum Estado {}

@@ -8,6 +8,7 @@ package com.ntm.consorcio.domain.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -20,6 +21,8 @@ public class DetalleRecibo implements Serializable {
     private int cantidad;
     private double subtotal;
     private boolean eliminado;
+    @ManyToOne
+    private ExpensaInmueble expensaInmueble;
     
     
     @Override
@@ -47,6 +50,14 @@ public class DetalleRecibo implements Serializable {
         return "com.ntm.consorcio.domain.entity.DetalleRecibo[ id=" + id + " ]";
     }
 
+    public ExpensaInmueble getExpensaInmueble() {
+        return expensaInmueble;
+    }
+
+    public void setExpensaInmueble(ExpensaInmueble expensaInmueble) {
+        this.expensaInmueble = expensaInmueble;
+    }
+    
     public String getId() {
         return id;
     }

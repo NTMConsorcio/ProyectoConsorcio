@@ -5,11 +5,14 @@
  */
 package com.ntm.consorcio.domain.entity;
 
-import com.ntm.consorcio.domain.entity.DetalleRecibo;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -22,7 +25,8 @@ public class Recibo implements Serializable {
     private Date fechaPago;
     private double total;
     private FormaDePago formaDePago;
-    private DetalleRecibo detalleRecibo;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Collection<DetalleRecibo> detalleRecibo;
     private boolean eliminado;
     
     public enum FormaDePago {
@@ -53,7 +57,8 @@ public class Recibo implements Serializable {
     public String toString() {
         return "com.ntm.consorcio.domain.entity.Recibo[ id=" + id + " ]";
     }
-
+    
+    
     public boolean getEliminado() {
         return eliminado;
     }
@@ -95,13 +100,14 @@ public class Recibo implements Serializable {
         this.formaDePago = formaDePago;
     }
 
-    public DetalleRecibo getDetalleRecibo() {
+    public Collection<DetalleRecibo> getDetalleRecibo() {
         return detalleRecibo;
     }
 
-    public void setDetalleRecibo(DetalleRecibo detalleRecibo) {
+    public void setDetalleRecibo(Collection<DetalleRecibo> detalleRecibo) {
         this.detalleRecibo = detalleRecibo;
     }
+
     
     
     
