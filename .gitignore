@@ -1,1 +1,14 @@
+<<<<<<< HEAD
 /consorcio/consorcio-ejb/build/
+=======
+/consorcio/consorcio-ejb/build/
+/consorcio/build/
+/consorcio/consorcio-ejb/dist/
+/consorcio/consorcio-war/build/
+/consorcio/consorcio-war/dist/
+/consorcio/dist/
+/consorcio/nbproject/private/
+/consorcio/nbproject/build-impl.xml
+/consorcio/consorcio-ejb/nbproject/private/
+/consorcio/consorcio-war/nbproject/private/
+>>>>>>> f28100bdb2b71470c6c121be303794e7bf1c3f34
