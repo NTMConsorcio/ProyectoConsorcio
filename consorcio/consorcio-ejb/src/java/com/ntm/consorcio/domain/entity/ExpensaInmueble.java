@@ -57,5 +57,53 @@ public class ExpensaInmueble implements Serializable {
     public String toString() {
         return "com.ntm.consorcio.domain.entity.ExpensaInmueble[ id=" + id + " ]";
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(Date periodo) {
+        this.periodo = periodo;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public Expensa getExpensa() {
+        return expensa;
+    }
+
+    public void setExpensa(Expensa expensa) {
+        this.expensa = expensa;
+    }
+
+    public Inmueble getInmueble() {
+        return inmueble;
+    }
+
+    public void setInmueble(Inmueble inmueble) {
+        this.inmueble = inmueble;
+    }
     
 }
