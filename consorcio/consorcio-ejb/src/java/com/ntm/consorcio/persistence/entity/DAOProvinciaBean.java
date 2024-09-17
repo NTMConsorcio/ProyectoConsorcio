@@ -63,7 +63,7 @@ public class DAOProvinciaBean {
             }
             
             return (Provincia)  em.createQuery("SELECT pa "
-                                          + " FROM provincia pa"
+                                          + " FROM Provincia pa"
                                           + " WHERE pa.nombre = :nombre"
                                           + " AND pa.eliminado = FALSE").
                                           setParameter("nombre", nombre).

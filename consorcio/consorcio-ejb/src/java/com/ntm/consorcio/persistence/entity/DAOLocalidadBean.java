@@ -63,7 +63,7 @@ public class DAOLocalidadBean {
             }
             
             return (Localidad)  em.createQuery("SELECT pa "
-                                          + " FROM localidad pa"
+                                          + " FROM Localidad pa"
                                           + " WHERE pa.nombre = :nombre"
                                           + " AND pa.eliminado = FALSE").
                                           setParameter("nombre", nombre).

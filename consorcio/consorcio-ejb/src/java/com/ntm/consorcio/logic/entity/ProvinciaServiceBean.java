@@ -16,6 +16,7 @@ import javax.ejb.Stateless;
  * @author Tomas Rando
  * @version 1.0.0
  */
+
 @Stateless
 @LocalBean
 public class ProvinciaServiceBean {

@@ -63,7 +63,7 @@ public class DAODepartamentoBean {
             }
             
             return (Departamento)  em.createQuery("SELECT pa "
-                                          + " FROM departamento pa"
+                                          + " FROM Departamento pa"
                                           + " WHERE pa.nombre = :nombre"
                                           + " AND pa.eliminado = FALSE").
                                           setParameter("nombre", nombre).

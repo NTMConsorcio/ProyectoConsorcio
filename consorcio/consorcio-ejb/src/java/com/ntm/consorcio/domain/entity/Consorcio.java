@@ -25,6 +25,7 @@ public class Consorcio implements Serializable{
     public Consorcio(){
     this.eliminado = false;
 }
+    
     public Consorcio(String id, String nombre){
         this.id=id;
         this.nombre=nombre;

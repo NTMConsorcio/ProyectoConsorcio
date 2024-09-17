@@ -67,7 +67,7 @@ public class DAODireccionBean {
             }
             
             return (Direccion)  em.createQuery("SELECT pa "
-                                          + " FROM direccion pa"
+                                          + " FROM Direccion pa"
                                           + " WHERE pa.numeracion = :numeracion"
                                           + " AND pa.calle = :calle"
                                           + " AND pa.eliminado = FALSE").
