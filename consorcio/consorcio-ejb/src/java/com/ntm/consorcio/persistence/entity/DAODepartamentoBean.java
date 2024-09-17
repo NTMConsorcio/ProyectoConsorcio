@@ -86,7 +86,7 @@ public class DAODepartamentoBean {
     public Collection<Departamento> listarDepartamentoActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM departamento p"
+                                    + " FROM Departamento p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {

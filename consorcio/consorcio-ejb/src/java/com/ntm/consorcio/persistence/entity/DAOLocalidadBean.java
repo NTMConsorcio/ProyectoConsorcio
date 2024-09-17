@@ -86,7 +86,7 @@ public class DAOLocalidadBean {
     public Collection<Localidad> listarLocalidadActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM localidad p"
+                                    + " FROM Localidad p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
