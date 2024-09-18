@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -20,17 +21,19 @@ public class Consorcio implements Serializable{
     @Id
     private String id;
     private String nombre;
-    //private Direccion direccion;
+    @ManyToOne
+    private Direccion direccion;
     private boolean eliminado;
     
     public Consorcio(){
     this.eliminado = false;
 }
     
-    public Consorcio(String id, String nombre){
+    public Consorcio(String id, String nombre, Direccion direccion){
         this.id=id;
         this.nombre=nombre;
         this.eliminado=Boolean.FALSE;
+        this.direccion=direccion;
         
     }
     @Override
@@ -56,11 +59,7 @@ public class Consorcio implements Serializable{
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
-            return false;
-        }
-        
-        return true;
+        return Objects.equals(this.nombre, other.nombre);
     }
     
     
@@ -88,11 +87,11 @@ public class Consorcio implements Serializable{
         this.eliminado = eliminado;
     }
   
-    //    public Direccion getDireccion() {
-    //    return direccion;
-    //}
+        public Direccion getDireccion() {
+       return direccion;
+    }
 
-    //public void setDireccion(Direccion direccion) {
-    //    this.direccion = direccion;
-    //}
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
 }

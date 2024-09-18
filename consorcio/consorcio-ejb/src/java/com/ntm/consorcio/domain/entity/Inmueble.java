@@ -17,7 +17,65 @@ import javax.persistence.Id;
 public class Inmueble implements Serializable {
     @Id
     private String id;
+    private String piso;
+    private String dpto;
+    private EstadoInmueble estadoInmueble;
+    private Boolean eliminado;
+    
+    public enum EstadoInmueble{
+        
+    }
 
+    public Inmueble(String id, String piso, String dpto, EstadoInmueble estadoInmueble) {
+        this.id = id;
+        this.piso = piso;
+        this.dpto = dpto;
+        this.estadoInmueble = estadoInmueble;
+        this.eliminado=false;
+    }
+    
+
+    public Inmueble() {
+        this.eliminado=false;
+    }
+
+    public Boolean getEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(Boolean eliminado) {
+        this.eliminado = eliminado;
+    }
+    
+    
+    
+    
+    public EstadoInmueble geEstadoInmueble(){
+        return estadoInmueble;
+    }
+    
+    public String getPiso() {
+        return piso;
+    }
+    
+    public String getdpto(){
+        return dpto;
+    }
+
+    public void setDpto(String dpto) {
+        this.dpto = dpto;
+    }
+
+    public void setEstadoInmueble(EstadoInmueble estadoInmueble) {
+        this.estadoInmueble = estadoInmueble;
+    }
+
+    public void setPiso(String piso) {
+        this.piso = piso;
+    }
+            
+    
+            
     public String getId() {
         return id;
     }
