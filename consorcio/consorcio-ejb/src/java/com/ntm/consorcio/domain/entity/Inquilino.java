@@ -2,8 +2,9 @@ package com.ntm.consorcio.domain.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 /**
  * Clase que representa al inquilino
@@ -17,7 +18,7 @@ public class Inquilino extends Persona implements Serializable {
     private TipoDocumentoEnum tipoDocumento;
     private SexoEnum sexo;
     private Date fechaNacimiento;
-    @OneToMany
+    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Nacionalidad nacionalidad;
     
     /**

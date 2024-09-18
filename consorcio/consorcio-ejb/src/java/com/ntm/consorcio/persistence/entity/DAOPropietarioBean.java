@@ -1,6 +1,6 @@
 package com.ntm.consorcio.persistence.entity;
 
-import com.ntm.consorcio.domain.entity.Inquilino;
+import com.ntm.consorcio.domain.entity.Propietario;
 import com.ntm.consorcio.persistence.ErrorDAOException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import java.util.Collection;
@@ -12,61 +12,67 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 /**
- * Acceso a datos de inquilino
+ * Acceso a datos de propietario
  * @version 1.0.0
  * @author Tomas Rando
  */
 @Stateless
 @LocalBean
-public class DAOInquilinoBean {
+public class DAOPropietarioBean {
     @PersistenceContext private EntityManager em;
     
     /**
      * Persiste el objeto en base de datos
-     * @param inquilino Inquilino
+     * @param propietario Propietario
      */
-    public void guardarInquilino(Inquilino inquilino) {
-        em.persist(inquilino);
+    public void guardarPropietario(Propietario propietario) {
+        em.persist(propietario);
     }
     
     /**
      * Actualiza el objeto actual en base de datos
-     * @param inquilino Inquilino
+     * @param propietario Propietario
      */
-    public void actualizarInquilino(Inquilino inquilino) {
+    public void actualizarPropietario(Propietario propietario) {
         em.setFlushMode(FlushModeType.COMMIT);
-        em.merge(inquilino);
+        em.merge(propietario);
         em.flush();
     }
     
     /**
      * Busca el objeto con el id ingresado
      * @param id String
-     * @return Inquilino
+     * @return Propietario
      * @throws NoResultException 
      */
-    public Inquilino buscarInquilino(String id) throws NoResultException {
-        return em.find(Inquilino.class, id);
+    public Propietario buscarPropietario(String id) throws NoResultException {
+        return em.find(Propietario.class, id);
     }
     
     /**
      * Busca el objeto con el documento especificado
-     * @param documento String
-     * @return Inquilino
+     * @param nombre String
+     * @param apellido String
+     * @return Propietario
      * @throws ErrorDAOException
      * @throws NoResultDAOException 
      */
-    public Inquilino buscarInquilinoPorDocumento(String documento) throws ErrorDAOException, NoResultDAOException {
+    public Propietario buscarPropietarioPorNombre(String nombre, String apellido) throws ErrorDAOException, NoResultDAOException {
         try {
-            if (documento.length() > 255) {
-                throw new ErrorDAOException("La longitud del documento es incorrecta. Debe tener menos de 255 caracteres");
+            if (nombre.length() > 255) {
+                throw new ErrorDAOException("La longitud del nombre es incorrecta. Debe tener menos de 255 caracteres");
+            }
+            if (apellido.length() > 255) {
+                throw new ErrorDAOException("La longitud del apellido es incorrecta. Debe tener menos de 255 caracteres");
             }
             
-            return (Inquilino)  em.createQuery("SELECT p "
-                                          + " FROM Inquilino p"
-                                          + " WHERE p.documento = :documento"
+            return (Propietario)  em.createQuery("SELECT p "
+                                          + " FROM Propietario p"
+                                          + " WHERE p.nombre = :nombre "
+                                          + " AND p.apellido = :apellido "
                                           + " AND p.eliminado = FALSE").
-                                          setParameter("documento", documento).
+                                          setParameter("nombre", nombre).
+                                          setParameter("apellido", apellido).
                                           getSingleResult();
         } catch (NoResultException ex) {
             throw new NoResultDAOException("No se encontró la información solicitada");
@@ -83,10 +89,10 @@ public class DAOInquilinoBean {
      * @return Collection
      * @throws ErrorDAOException 
      */
-    public Collection<Inquilino> listarInquilinoActivo() throws ErrorDAOException {
+    public Collection<Propietario> listarPropietarioActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM Inquilino p"
+                                    + " FROM Propietario p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
