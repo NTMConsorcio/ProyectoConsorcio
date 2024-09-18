@@ -63,7 +63,7 @@ public class Persona implements Serializable {
      * Getter de eliminado
      * @return boolean eliminado
      */
-    public boolean getEliminado() {
+    public boolean isEliminado() {
         return eliminado;
     }
     
