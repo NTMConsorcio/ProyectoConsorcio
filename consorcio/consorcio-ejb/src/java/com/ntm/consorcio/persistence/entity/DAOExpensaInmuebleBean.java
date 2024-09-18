@@ -65,7 +65,7 @@ public class DAOExpensaInmuebleBean {
     public Collection<ExpensaInmueble> listarExpensaInmueblePorInmueble(String idInmueble, Estado estado) throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT ei "
-                                    + " FROM expensaInmueble ei"
+                                    + " FROM ExpensaInmueble ei"
                                     + " JOIN ei.inmueble i"
                                     + " WHERE i.id = :idInmueble "
                                     + " AND ei.estado = :estado  ").

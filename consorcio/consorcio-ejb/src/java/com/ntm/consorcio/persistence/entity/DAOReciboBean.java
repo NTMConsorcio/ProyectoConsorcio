@@ -62,7 +62,7 @@ public class DAOReciboBean {
     public Collection<Recibo> listarReciboActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT r "
-                                    + " FROM recibo r"
+                                    + " FROM Recibo r"
                                     + " WHERE r.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class DAOReciboBean {
     public Collection<Recibo> listarReciboPorHabitante(String idHabitante) throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT r "
-                                    + " FROM recibo r"
+                                    + " FROM Recibo r"
                                     + " JOIN r.detallesRecibo d"
                                     + " JOIN d.expensaInmueble ei"
                                     + " JOIN ei.inmueble i"

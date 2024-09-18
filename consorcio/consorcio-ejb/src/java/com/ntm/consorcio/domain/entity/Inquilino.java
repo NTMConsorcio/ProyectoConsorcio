@@ -1,7 +1,10 @@
 package com.ntm.consorcio.domain.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Clase que representa al inquilino
@@ -12,9 +15,11 @@ import javax.persistence.Entity;
 public class Inquilino extends Persona implements Serializable {
     
     private String documento;
-    private String tipoDocumento;
+    private TipoDocumentoEnum tipoDocumento;
     private SexoEnum sexo;
-    private String fechaNacimiento;
+    private Date fechaNacimiento;
+    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Nacionalidad nacionalidad;
     
     /**
      * Constructor de Inquilino
@@ -33,9 +38,9 @@ public class Inquilino extends Persona implements Serializable {
 
     /**
      * Getter de tipoDocumento
-     * @return String tipoDocumento
+     * @return TipoDocumentoEnum tipoDocumento
      */
-    public String getTipoDocumento() {
+    public TipoDocumentoEnum getTipoDocumento() {
         return tipoDocumento;
     }
 
@@ -49,9 +54,9 @@ public class Inquilino extends Persona implements Serializable {
     
     /**
      * Getter de fechaNacimiento
-     * @return String fechaNacimiento
+     * @return Date fechaNacimiento
      */
-    public String getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
     
@@ -67,7 +72,7 @@ public class Inquilino extends Persona implements Serializable {
      * Setter de tipoDocumento
      * @param tipoDocumento String
      */
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(TipoDocumentoEnum tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -81,9 +86,9 @@ public class Inquilino extends Persona implements Serializable {
 
     /**
      * Setter de fechaNacimiento
-     * @param fechaNacimiento fechaNacimiento
+     * @param fechaNacimiento Date
      */
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
     

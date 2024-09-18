@@ -58,7 +58,7 @@ public class DAOExpensaBean {
     public Collection<Expensa> listarExpensaActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT e "
-                                    + " FROM expensa e"
+                                    + " FROM Expensa e"
                                     + " WHERE e.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
@@ -70,7 +70,7 @@ public class DAOExpensaBean {
     public Expensa buscarExpensaPorFecha(Date fecha) throws ErrorDAOException  {
         try {  
             return (Expensa) em.createQuery("SELECT e "
-                                    + " FROM expensa e"
+                                    + " FROM Expensa e"
                                     + " WHERE e.fechaDesde <= :fecha"
                                     + " AND e.fechaHasta >=: fecha").
                                     getSingleResult();
