@@ -1,5 +1,6 @@
 package com.ntm.consorcio.logic.entity;
 
+import com.ntm.consorcio.domain.entity.Perfil;
 import com.ntm.consorcio.domain.entity.Usuario;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
