@@ -87,7 +87,10 @@ public class DAOReciboBean {
                                     + " JOIN d.expensaInmueble ei"
                                     + " JOIN ei.inmueble i"
                                     + " JOIN i.propietario p"
-                                    + " WHERE p.id = :idPropietario ").
+                                    + " JOIN i.inquilino in"
+                                    + " WHERE p.id = :idHabitante "
+                                    + " OR in.id = :idHabitante ").
+                                    setParameter("idHabitante", idHabitante).
                                     getResultList();
         } catch (Exception e) {
             e.printStackTrace();

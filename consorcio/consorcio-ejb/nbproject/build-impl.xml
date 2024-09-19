@@ -793,25 +793,25 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile,-library-inclusion-in-archive-weblogic,-library-inclusion-in-archive-by-user" name="library-inclusion-in-archive"/>
     <target if="is.jars.in.ejbjar" name="-library-inclusion-in-archive-by-user">
-        <copyfiles files="${file.reference.lib-BD}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.lib-Modelo}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.hibernate4-persistence.classpath}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.Librerias-2._Librerias_Modelo}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.Librerias-3._Librerias_BD}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
-        <basename file="${file.reference.lib-BD}" property="manifest.file.reference.lib-BD"/>
-        <basename file="${file.reference.lib-Modelo}" property="manifest.file.reference.lib-Modelo"/>
         <basename file="${libs.hibernate4-persistence.classpath}" property="manifest.libs.hibernate4-persistence.classpath"/>
+        <basename file="${file.reference.Librerias-2._Librerias_Modelo}" property="manifest.file.reference.Librerias-2._Librerias_Modelo"/>
+        <basename file="${file.reference.Librerias-3._Librerias_BD}" property="manifest.file.reference.Librerias-3._Librerias_BD"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Extension-List" value="jar-1 jar-2 jar-3 "/>
-            <attribute name="jar-1-Extension-Name" value="${manifest.file.reference.lib-BD}"/>
-            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.lib-Modelo}"/>
-            <attribute name="jar-3-Extension-Name" value="${manifest.libs.hibernate4-persistence.classpath}"/>
+            <attribute name="jar-1-Extension-Name" value="${manifest.libs.hibernate4-persistence.classpath}"/>
+            <attribute name="jar-2-Extension-Name" value="${manifest.file.reference.Librerias-2._Librerias_Modelo}"/>
+            <attribute name="jar-3-Extension-Name" value="${manifest.file.reference.Librerias-3._Librerias_BD}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
-        <copyfiles files="${file.reference.lib-BD}" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.lib-Modelo}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.hibernate4-persistence.classpath}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.Librerias-2._Librerias_Modelo}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.Librerias-3._Librerias_BD}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

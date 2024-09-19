@@ -21,6 +21,7 @@ public class SubMenu implements Serializable {
     private String id;
     private String nombre;
     private int orden;
+    private String url;
     private boolean eliminado;
 
     @Override
@@ -48,6 +49,16 @@ public class SubMenu implements Serializable {
         return "com.ntm.consorcio.domain.entity.SubMenu[ id=" + id + " ]";
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    
+    
     public String getId() {
         return id;
     }

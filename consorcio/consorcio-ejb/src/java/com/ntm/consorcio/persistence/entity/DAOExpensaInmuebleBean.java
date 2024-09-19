@@ -69,6 +69,8 @@ public class DAOExpensaInmuebleBean {
                                     + " JOIN ei.inmueble i"
                                     + " WHERE i.id = :idInmueble "
                                     + " AND ei.estado = :estado  ").
+                                    setParameter("idInmueble", idInmueble).
+                                    setParameter("estado", estado).
                                     getResultList();
         } catch (Exception e) {
             e.printStackTrace();

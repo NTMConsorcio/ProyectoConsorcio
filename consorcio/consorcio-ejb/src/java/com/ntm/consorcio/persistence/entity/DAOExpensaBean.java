@@ -73,6 +73,7 @@ public class DAOExpensaBean {
                                     + " FROM expensa e"
                                     + " WHERE e.fechaDesde <= :fecha"
                                     + " AND e.fechaHasta >=: fecha").
+                                    setParameter("fecha", fecha).
                                     getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
