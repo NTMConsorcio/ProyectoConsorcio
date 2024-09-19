@@ -205,4 +205,20 @@ public class MenuServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+        /**
+     * Devuelve una lista con los objetos de la clase activos
+     * @return Collection<Menu>
+     * @throws ErrorServiceException 
+     */
+    public Collection<SubMenu> listarMenuActivo() throws ErrorServiceException {
+        try {
+            
+            return dao.listarMenuActivo();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
 }
