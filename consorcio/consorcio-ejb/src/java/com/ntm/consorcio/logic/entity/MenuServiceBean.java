@@ -211,7 +211,7 @@ public class MenuServiceBean {
      * @return Collection<Menu>
      * @throws ErrorServiceException 
      */
-    public Collection<SubMenu> listarMenuActivo() throws ErrorServiceException {
+    public Collection<Menu> listarMenuActivo() throws ErrorServiceException {
         try {
             
             return dao.listarMenuActivo();
