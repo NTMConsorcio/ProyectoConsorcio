@@ -5,6 +5,7 @@
  */
 package com.ntm.consorcio.persistence.entity;
 
+import com.ntm.consorcio.domain.entity.Perfil;
 import com.ntm.consorcio.persistence.ErrorDAOException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import java.util.Collection;
