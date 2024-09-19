@@ -5,12 +5,12 @@
  */
 package com.ntm.consorcio.logic.entity;
 
-import com.ntm.consorcio.domain.entity.Pais;
+import com.ntm.consorcio.domain.entity.Menu;
 import com.ntm.consorcio.domain.entity.SubMenu;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
+import com.ntm.consorcio.persistence.entity.DAOMenuBean;
 import com.ntm.consorcio.persistence.entity.DAOSubMenuBean;
-import java.awt.Menu;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
@@ -33,7 +33,7 @@ public class SubMenuServiceBean {
     private DAOSubMenuBean dao;
     
     @EJB
-    private DAOMenu daoMenu;
+    private DAOMenuBean daoMenu;
     
     /**
      * Crea un objeto de la clase SubMenu
@@ -62,7 +62,7 @@ public class SubMenuServiceBean {
             }
 
             // Verificar si ya existe un submenú con ese nombre
-            if (daoMenu.buscarSubMenuPorNombre(nombre) != null) {
+            if (dao.buscarSubMenuPorNombre(nombre) != null) {
                 throw new ErrorServiceException("Existe un submenú con el nombre indicado");
             }
 
@@ -84,12 +84,12 @@ public class SubMenuServiceBean {
             subMenu.setOrden(orden);
 
             Collection<SubMenu> subMenus = new ArrayList<SubMenu>();
-            if (Menu.getSubMenu() != null) {
-                subMenus.addAll(menu.getSubMenu());
+            if (menu.getSubmenu() != null) {
+                subMenus.addAll(menu.getSubmenu());
             }
             subMenus.add(subMenu);
             
-            menu.setSubMenu(subMenus);
+            menu.setSubmenu(subMenus);
             dao.guardarSubMenu(subMenu);
             daoMenu.guardarMenu(menu);
 
@@ -103,7 +103,7 @@ public class SubMenuServiceBean {
     
     /**
      * Modifica los atributos del objeto
-     * @param idPais String con el id
+     * @param idMenu String con el id
      * @param nombre String con el nombre
      * @throws ErrorServiceException 
      */
@@ -132,7 +132,7 @@ public class SubMenuServiceBean {
             }
 
             // Verificar si ya existe un submenú con ese nombre
-            if (daoMenu.buscarSubMenuPorNombre(nombre) != null) {
+            if (dao.buscarSubMenuPorNombre(nombre) != null) {
                 throw new ErrorServiceException("Existe un submenú con el nombre indicado");
             }
 
@@ -171,21 +171,21 @@ public class SubMenuServiceBean {
      * @return Objeto país
      * @throws ErrorServiceException 
      */
-    public Pais buscarPais(String id) throws ErrorServiceException {
+    public SubMenu buscarSubMenu(String id) throws ErrorServiceException {
 
         try {
             
             if (id == null) {
-                throw new ErrorServiceException("Debe indicar el país");
+                throw new ErrorServiceException("Debe indicar el sub menu");
             }
 
-            Pais pais = dao.buscarPais(id);
+            SubMenu subMenu = dao.buscarSubMenu(id);
             
-            if (pais.getEliminado()){
-                throw new ErrorServiceException("No se encuentra en país indicado");
+            if (subMenu.getEliminado()){
+                throw new ErrorServiceException("No se encuentra en subMenu indicado");
             }
 
-            return pais;
+            return subMenu;
             
         } catch (ErrorServiceException ex) {  
             throw ex;
@@ -200,14 +200,14 @@ public class SubMenuServiceBean {
      * @param id String que representa el id
      * @throws ErrorServiceException 
      */
-    public void eliminarPais(String id) throws ErrorServiceException {
+    public void eliminarSubMenu(String id) throws ErrorServiceException {
 
         try {
 
-            Pais pais = buscarPais(id);
-            pais.setEliminado(true);
+            SubMenu sub = buscarSubMenu(id);
+            sub.setEliminado(true);
             
-            dao.actualizarPais(pais);
+            dao.actualizarSubMenu(sub);
 
         } catch (ErrorServiceException ex) {
             throw ex;
@@ -215,18 +215,80 @@ public class SubMenuServiceBean {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");
         }
-
     }
 
+     /**
+     * Busca el objeto y lo devuelve si lo encuentra
+     * @param nombre String con el nombre
+     * @return Objeto SubMenu
+     * @throws ErrorServiceException 
+     */
+    public SubMenu buscarSubMenuPorNombre(String nombre) throws ErrorServiceException{
+        try {
+            if (nombre == null || nombre.trim().isEmpty()){
+                throw new ErrorServiceException("Debe indicar el nombre");
+            }
+            
+            return dao.buscarSubMenuPorNombre(nombre);
+        } catch(ErrorServiceException e){
+            throw e;
+        } catch (Exception ex){
+            ex.printStackTrace();
+            throw new ErrorServiceException(ex.getMessage());
+        }
+    }
+    
+    public SubMenu buscarSubMenuPorMenuYOrden(String idMenu,int orden) throws ErrorServiceException{
+        try {
+            if (idMenu == null || idMenu.trim().isEmpty()){
+                throw new ErrorServiceException("Debe indicar el menu");
+            }
+            // Buscar el menú por idMenu
+            Menu menu = menuService.buscarMenu(idMenu);
+            if (menu == null) {
+                throw new ErrorServiceException("No se encontró el menú con el ID indicado");
+            }
+            // Validar el orden
+            if (orden <= 0) {
+                throw new ErrorServiceException("Debe indicar un orden positivo");
+            }
+            
+            return dao.buscarSubMenuPorMenuYOrden(idMenu, orden);
+        } catch(ErrorServiceException e){
+            throw e;
+        } catch (Exception ex){
+            ex.printStackTrace();
+            throw new ErrorServiceException(ex.getMessage());
+        }
+    }
+    
     /**
+     * Devuelve una lista con los objetos de la clase activos
+     * @return Collection<SubMenu>
+     * @throws ErrorServiceException 
+     */
+    public Collection<SubMenu> listarSubMenuActivo() throws ErrorServiceException {
+        try {
+            
+            return dao.listarSubMenuActivo();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
+    
+        /**
      * Devuelve una lista con los objetos de la clase activos
      * @return Collection<Pais>
      * @throws ErrorServiceException 
      */
-    public Collection<Pais> listarPaisActivo() throws ErrorServiceException {
+    public Collection<SubMenu> listarSubMenuPorMenu(String idMenu) throws ErrorServiceException {
         try {
-            
-            return dao.listarPaisActivo();
+            if (idMenu == null || idMenu.trim().isEmpty()){
+                throw new ErrorServiceException("Debe indicar el menu");
+            }
+            return dao.listarSubMenuPorMenu(idMenu);
 
         } catch (Exception ex) {
             ex.printStackTrace();

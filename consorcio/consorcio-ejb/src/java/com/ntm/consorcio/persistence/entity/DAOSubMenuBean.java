@@ -105,4 +105,17 @@ public class DAOSubMenuBean {
             throw new ErrorDAOException("Error del sistema.");
         }
     }  
+        public Collection<SubMenu> listarSubMenuPorMenu(String idMenu) throws ErrorDAOException {
+        try {  
+            return em.createQuery("SELECT sub "
+                                    + " FROM Menu m, IN (m.submenu) sub "
+                                    + " WHERE m.id = :idMenu "
+                                    + " ORDER BY sub.orden DESC").
+                                    setParameter("idMenu", idMenu).
+                                    getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
+    }  
 }
