@@ -35,7 +35,7 @@ public class CuentaCorreoServiceBean {
     public void crearCuentaCorreo(String correo, String clave, String puerto, String smtp, boolean tls, String idConsorcio) throws ErrorServiceException {
                 
         try {
-            Consorcio consorcio = consorcioService.find(idConsorcio);
+            Consorcio consorcio = consorcioService.buscarConsorcio(idConsorcio);
             if (!verificar(correo)) {
                 throw new ErrorServiceException("Debe indicar el correo");
             }
@@ -98,7 +98,7 @@ public class CuentaCorreoServiceBean {
         try {
 
             CuentaCorreo cuentaCorreo = buscarCuentaCorreo(idCuentaCorreo);
-            Consorcio consorcio = consorcioService.find(idConsorcio);
+            Consorcio consorcio = consorcioService.buscarConsorcio(idConsorcio);
             if (!verificar(correo)) {
                 throw new ErrorServiceException("Debe indicar el correo");
             }
