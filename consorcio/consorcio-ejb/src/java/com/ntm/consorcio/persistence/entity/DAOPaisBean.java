@@ -86,7 +86,7 @@ public class DAOPaisBean {
     public Collection<Pais> listarPaisActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM pais p"
+                                    + " FROM Pais p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {

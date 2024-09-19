@@ -4,6 +4,7 @@ import com.ntm.consorcio.domain.entity.Provincia;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 /**
  * Representa la información esencial y las características de un departamento.
  * @version 1.0.0
@@ -16,6 +17,7 @@ public class Departamento implements Serializable {
     private String id;
     private String nombre;
     private boolean eliminado;
+    @ManyToOne
     private Provincia provincia;
    
     /**

@@ -1,71 +1,76 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.ntm.consorcio.persistence.entity;
 
-import com.ntm.consorcio.domain.entity.Departamento;
 import com.ntm.consorcio.persistence.ErrorDAOException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
+import java.util.Collection;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import java.util.Collection;
 
 /**
- * Acceso a datos
- * @author Tomas Rando
+ * Acceso a datos de perfil
  * @version 1.0.0
+ * @author Tomas Rando
  */
 @Stateless
 @LocalBean
-public class DAODepartamentoBean {
+public class DAOPerfilBean {
+
     @PersistenceContext private EntityManager em;
     
     /**
      * Persiste el objeto en base de datos
-     * @param departamento Departamento
+     * @param perfil Perfil
      */
-    public void guardarDepartamento(Departamento departamento) {
-        em.persist(departamento);
+    public void guardarPerfil(Perfil perfil) {
+        em.persist(perfil);
     }
     
     /**
      * Actualiza el objeto actual en base de datos
-     * @param departamento Departamento
+     * @param perfil Perfil
      */
-    public void actualizarDepartamento(Departamento departamento) {
+    public void actualizarPerfil(Perfil perfil) {
         em.setFlushMode(FlushModeType.COMMIT);
-        em.merge(departamento);
+        em.merge(perfil);
         em.flush();
     }
     
     /**
      * Busca el objeto con el id ingresado
      * @param id String
-     * @return Departamento
+     * @return Perfil
      * @throws NoResultException 
      */
-    public Departamento buscarDepartamento(String id) throws NoResultException {
-        return em.find(Departamento.class, id);
+    public Perfil buscarPerfil(String id) throws NoResultException {
+        return em.find(Perfil.class, id);
     }
     
     /**
-     * Busca el objeto con el nombre especificado
+     * Busca el objeto con el documento especificado
      * @param nombre String
-     * @return Departamento
+     * @return Perfil
      * @throws ErrorDAOException
      * @throws NoResultDAOException 
      */
-    public Departamento buscarDepartamentoPorNombre(String nombre) throws ErrorDAOException, NoResultDAOException {
+    public Perfil buscarPerfilPorNombre(String nombre) throws ErrorDAOException, NoResultDAOException {
         try {
             if (nombre.length() > 255) {
                 throw new ErrorDAOException("La longitud del nombre es incorrecta. Debe tener menos de 255 caracteres");
             }
             
-            return (Departamento)  em.createQuery("SELECT pa "
-                                          + " FROM Departamento pa"
-                                          + " WHERE pa.nombre = :nombre"
-                                          + " AND pa.eliminado = FALSE").
+            return (Perfil)  em.createQuery("SELECT p "
+                                          + " FROM Perfil p"
+                                          + " WHERE p.nombre = :nombre "
+                                          + " AND p.eliminado = FALSE").
                                           setParameter("nombre", nombre).
                                           getSingleResult();
         } catch (NoResultException ex) {
@@ -80,18 +85,18 @@ public class DAODepartamentoBean {
     
     /**
      * Busca la lista de objetos de la clase actualmente activos
-     * @return Collection<Departamento>
+     * @return Collection
      * @throws ErrorDAOException 
      */
-    public Collection<Departamento> listarDepartamentoActivo() throws ErrorDAOException {
+    public Collection<Perfil> listarPerfilActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM Departamento p"
+                                    + " FROM Perfil p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }
-    }  
+    }
 }

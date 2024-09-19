@@ -7,7 +7,9 @@ package com.ntm.consorcio.domain.entity;
 
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -19,19 +21,48 @@ public class Consorcio implements Serializable{
     @Id
     private String id;
     private String nombre;
-    //private Direccion direccion;
+    @ManyToOne
+    private Direccion direccion;
     private boolean eliminado;
     
     public Consorcio(){
     this.eliminado = false;
 }
     
-    public Consorcio(String id, String nombre){
+    public Consorcio(String id, String nombre, Direccion direccion){
         this.id=id;
         this.nombre=nombre;
         this.eliminado=Boolean.FALSE;
+        this.direccion=direccion;
         
     }
+    @Override
+    public String toString() {
+        return "com.ospelsym.dominio.especialidad.Especialidad[ id=" + id + " ]";
+    }
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Consorcio other = (Consorcio) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return Objects.equals(this.nombre, other.nombre);
+    }
+    
+    
     public String getId(){
         return this.id;
     }
@@ -55,19 +86,12 @@ public class Consorcio implements Serializable{
     public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
     }
-    @Override
-    public String toString() {
-        return "Consorcio{" +
-                "id='" + id + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", eliminado=" + eliminado +
-                '}';
+  
+        public Direccion getDireccion() {
+       return direccion;
     }
-    //    public Direccion getDireccion() {
-    //    return direccion;
-    //}
 
-    //public void setDireccion(Direccion direccion) {
-    //    this.direccion = direccion;
-    //}
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
 }

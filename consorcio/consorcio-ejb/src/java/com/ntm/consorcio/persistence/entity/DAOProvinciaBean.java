@@ -86,7 +86,7 @@ public class DAOProvinciaBean {
     public Collection<Provincia> listarProvinciaActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM provincia p"
+                                    + " FROM Provincia p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
