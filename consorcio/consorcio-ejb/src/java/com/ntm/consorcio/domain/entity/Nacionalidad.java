@@ -5,76 +5,49 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Clase que representa a persona con los atributos básicos
+ * Clase que representa la nacionalidad
  * @version 1.0.0
  * @author Tomas Rando
  */
 @Entity
-public class Persona implements Serializable {
+public class Nacionalidad implements Serializable {
     @Id
-    protected String id;
-    protected String nombre;
-    protected String apellido;
-    protected String telefono;
-    protected String correoElectronico;
-    protected boolean eliminado;
-    
+    private String id;
+    private String nombre;
+    private boolean eliminado;
+
     /**
      * Getter de Id
-     * @return String id
+     * @return String
      */
     public String getId() {
         return id;
     }
-    
+
     /**
-     * Getter de Nombre
-     * @return String Nombre
+     * Getter de nombre
+     * @return String
      */
     public String getNombre() {
         return nombre;
     }
-    
-    /**
-     * Getter de Apellido
-     * @return String Apellido
-     */
-    public String getApellido() {
-        return apellido;
-    }
-    
-    /**
-     * Getter de Telefono
-     * @return String Telefono
-     */
-    public String getTelefono() {
-        return telefono;
-    }
-    
-    /**
-     * Getter de CorreoElectronico
-     * @return String CorreoElectronico
-     */
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-    
+
     /**
      * Getter de eliminado
-     * @return boolean eliminado
+     * @return boolean
      */
     public boolean isEliminado() {
         return eliminado;
     }
-    
+
     /**
-     * Setter de Id
+     * Setter de id
      * @param id String
      */
     public void setId(String id) {
         this.id = id;
     }
-    
+
     /**
      * Setter de nombre
      * @param nombre String
@@ -82,31 +55,7 @@ public class Persona implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    /**
-     * Setter de apellido
-     * @param apellido String
-     */
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-    
-    /**
-     * Setter de telefono
-     * @param telefono String
-     */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-    
-    /**
-     * Setter de correoElectronico
-     * @param correoElectronico String
-     */
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
-    }
-    
+
     /**
      * Setter de eliminado
      * @param eliminado boolean
@@ -116,8 +65,8 @@ public class Persona implements Serializable {
     }
     
     /**
-     * Devuelve un hash que representa el objeto
-     * @return int hash 
+     * Crea un código hash para un objeto. Si id no es null se llama a su método hashCode, caso contrario se utiliza 0.
+     * @return Int que representa el hash
      */
     @Override
     public int hashCode() {
@@ -134,10 +83,10 @@ public class Persona implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Persona)) {
+        if (!(object instanceof Nacionalidad)) {
             return false;
         }
-        Persona other = (Persona) object;
+        Nacionalidad other = (Nacionalidad) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -150,7 +99,7 @@ public class Persona implements Serializable {
      */
     @Override
     public String toString() {
-        return "com.ntm.consorcio.domain.entity.Persona[ id=" + id + " ]";
+        return "com.ntm.consorcio.domain.entity.Nacionalidad[ id=" + id + " ]";
     }
     
 }

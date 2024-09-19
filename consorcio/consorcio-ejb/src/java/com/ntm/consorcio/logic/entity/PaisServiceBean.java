@@ -73,8 +73,8 @@ public class PaisServiceBean {
             }
 
             try{
-                Pais paisExsitente = dao.buscarPaisPorNombre(nombre);
-                if (!paisExsitente.getId().equals(idPais)){
+                Pais paisExistente = dao.buscarPaisPorNombre(nombre);
+                if (!paisExistente.getId().equals(idPais)){
                   throw new ErrorServiceException("Existe un país con el nombre indicado");  
                 }
             } catch (NoResultDAOException ex) {}
