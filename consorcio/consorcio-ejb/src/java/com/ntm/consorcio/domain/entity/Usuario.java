@@ -2,6 +2,7 @@ package com.ntm.consorcio.domain.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Clase que representa el usuario
@@ -13,7 +14,9 @@ public class Usuario extends Persona implements Serializable {
     
     private String usuario;
     private String clave;
-
+    @ManyToOne
+    private Perfil perfil;
+    
     /**
      * Constructor de Usuario
      */
@@ -38,6 +41,14 @@ public class Usuario extends Persona implements Serializable {
     }
     
     /**
+     * Getter de perfil
+     * @return Perfil perfil
+     */
+    public Perfil getPerfil() {
+        return perfil;
+    }
+    
+    /**
      * Setter de usuario
      * @param usuario String
      */
@@ -52,7 +63,15 @@ public class Usuario extends Persona implements Serializable {
     public void setClave(String clave) {
         this.clave = clave;
     }
-      
+    
+    /**
+     * Setter de perfil
+     * @param perfil Perfil
+     */
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+    
     /**
      * Devuelve un hash que representa el objeto
      * @return int hash 
