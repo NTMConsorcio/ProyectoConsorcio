@@ -8,7 +8,7 @@ package com.ntm.consorcio.logic.entity;
 import com.ntm.consorcio.domain.entity.Expensa;
 import com.ntm.consorcio.persistence.entity.DAOExpensaInmuebleBean;
 import com.ntm.consorcio.domain.entity.ExpensaInmueble;
-import com.ntm.consorcio.domain.entity.ExpensaInmueble.Estado;
+import com.ntm.consorcio.domain.entity.EstadoExpensaInmueble;
 import com.ntm.consorcio.domain.entity.Inmueble;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import java.util.Collection;
@@ -28,7 +28,7 @@ public class ExpensaInmuebleServiceBean {
     private @EJB InmuebleServiceBean inmuebleService;
     private @EJB ExpensaServiceBean expensaService;
     
-    public void crearExpensaInmueble(Date periodo, Estado estado,String IdInmueble, String idExpensa) throws ErrorServiceException {
+    public void crearExpensaInmueble(Date periodo, EstadoExpensaInmueble estado,String IdInmueble, String idExpensa) throws ErrorServiceException {
         try {
             // Verificaciones
             /*
@@ -82,7 +82,7 @@ public class ExpensaInmuebleServiceBean {
      * @param estado Estado con la fecha hasta
      * @throws ErrorServiceException 
      */
-    public void modificarExpensaInmueble(String idExpensaInmueble, Date periodo, Estado estado) throws ErrorServiceException {
+    public void modificarExpensaInmueble(String idExpensaInmueble, Date periodo, EstadoExpensaInmueble estado) throws ErrorServiceException {
 
         try {
 
@@ -120,7 +120,7 @@ public class ExpensaInmuebleServiceBean {
             throw new ErrorServiceException("Error de Sistemas");
         }
     }
-    public Collection<ExpensaInmueble> listarExpensaInmueblePorInmueble(String id, Estado estado) throws ErrorServiceException {
+    public Collection<ExpensaInmueble> listarExpensaInmueblePorInmueble(String id, EstadoExpensaInmueble estado) throws ErrorServiceException {
         try {
             
             return dao.listarExpensaInmueblePorInmueble(id, estado);

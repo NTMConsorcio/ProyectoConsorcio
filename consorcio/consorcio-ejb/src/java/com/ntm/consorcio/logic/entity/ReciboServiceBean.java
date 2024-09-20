@@ -6,6 +6,7 @@
 package com.ntm.consorcio.logic.entity;
 
 import com.ntm.consorcio.domain.entity.DetalleRecibo;
+import com.ntm.consorcio.domain.entity.FormaDePago;
 import com.ntm.consorcio.domain.entity.Recibo;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.entity.DAOReciboBean;
@@ -30,7 +31,7 @@ public class ReciboServiceBean {
      * @param id String con el id
      * @throws ErrorServiceException 
      */
-    public void crearRecibo(Date fechaPago, Recibo.FormaDePago formaDePago) throws ErrorServiceException {
+    public void crearRecibo(Date fechaPago, FormaDePago formaDePago) throws ErrorServiceException {
         try {
             // Verificamos si la fecha de pago es null
             if (fechaPago == null) {

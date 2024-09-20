@@ -6,7 +6,7 @@
 package com.ntm.consorcio.persistence.entity;
 
 import com.ntm.consorcio.domain.entity.ExpensaInmueble;
-import com.ntm.consorcio.domain.entity.ExpensaInmueble.Estado;
+import com.ntm.consorcio.domain.entity.EstadoExpensaInmueble;
 import com.ntm.consorcio.persistence.ErrorDAOException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import javax.persistence.EntityManager;
@@ -62,7 +62,7 @@ public class DAOExpensaInmuebleBean {
      * @throws NoResultDAOException 
      */
     
-    public Collection<ExpensaInmueble> listarExpensaInmueblePorInmueble(String idInmueble, Estado estado) throws ErrorDAOException {
+    public Collection<ExpensaInmueble> listarExpensaInmueblePorInmueble(String idInmueble, EstadoExpensaInmueble estado) throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT ei "
                                     + " FROM ExpensaInmueble ei"
