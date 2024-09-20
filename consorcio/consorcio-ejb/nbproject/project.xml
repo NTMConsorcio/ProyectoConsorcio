@@ -6,8 +6,8 @@
             <name>Consorcio-ejb</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library dirs="200">libs.hibernate4-persistence.classpath</included-library>
-            <included-library dirs="200">file.reference.Librerias-2._Librerias_Modelo</included-library>
-            <included-library dirs="200">file.reference.Librerias-3._Librerias_BD</included-library>
+            <included-library dirs="200">file.reference.lib-BD</included-library>
+            <included-library dirs="200">file.reference.lib-Modelo</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
