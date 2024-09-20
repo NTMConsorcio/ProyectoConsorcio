@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -22,17 +23,13 @@ import javax.persistence.OneToMany;
 public class Recibo implements Serializable {
     @Id
     private String id;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaPago;
     private double total;
     private FormaDePago formaDePago;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Collection<DetalleRecibo> detalleRecibo;
     private boolean eliminado;
-    
-    public enum FormaDePago {
-        
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;

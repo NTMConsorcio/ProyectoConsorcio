@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  * Clase que representa al inquilino
@@ -17,6 +18,7 @@ public class Inquilino extends Persona implements Serializable {
     private String documento;
     private TipoDocumentoEnum tipoDocumento;
     private SexoEnum sexo;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNacimiento;
     @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Nacionalidad nacionalidad;
