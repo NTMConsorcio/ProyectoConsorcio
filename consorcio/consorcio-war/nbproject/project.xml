@@ -10,7 +10,7 @@
                     <file>${reference.Consorcio-ejb.dist}</file>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.lib-Vista}</file>
+                    <file>${file.reference.Librerias-1._Librerias_Vista}</file>
                     <path-in-war>WEB-INF/classes</path-in-war>
                 </library>
                 <library dirs="200">

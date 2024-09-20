@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
  *
  * @author tomas
  */
+/*
 @ManagedBean
 @ViewScoped
 public class ControllerEditPais implements Serializable {
@@ -50,3 +51,4 @@ public class ControllerEditPais implements Serializable {
     }
     
 }
+*/
