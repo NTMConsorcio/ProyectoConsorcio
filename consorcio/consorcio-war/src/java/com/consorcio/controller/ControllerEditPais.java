@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
  *
  * @author tomas
  */
-/*
+
 @ManagedBean
 @ViewScoped
 public class ControllerEditPais implements Serializable {
@@ -39,7 +39,7 @@ public class ControllerEditPais implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR , "", "Error"));
             return null;
         }
-        return "index";
+        return "listPais";
     }
     
     public void setNombre(String nombre) {
@@ -51,4 +51,3 @@ public class ControllerEditPais implements Serializable {
     }
     
 }
-*/
