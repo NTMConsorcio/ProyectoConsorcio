@@ -53,16 +53,20 @@ public class InmuebleServiceBean {
             } catch (ErrorServiceException ex) {
                 throw new ErrorServiceException("No se encontró el propietario seleccionado");
             }
-            
+
             if (propietario.getHabitaConsorcio()) {
                 inquilino = null;
             } else {
                 try {
+                    if (idInquilino == null || idInquilino.isEmpty()) {
+                        throw new ErrorServiceException("No se encontró el inquilino");
+                    }
                     inquilino = inquilinoService.buscarInquilino(idInquilino);
                 } catch (ErrorServiceException ex) {
                     throw new ErrorServiceException("No se encontró el inquilino seleccionado");
                 }
             }
+          
             Inmueble inmueble = new Inmueble();
             inmueble.setId(UUID.randomUUID().toString());
             inmueble.setPiso(piso);

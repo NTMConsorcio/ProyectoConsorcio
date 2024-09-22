@@ -21,7 +21,7 @@ public class Inmueble implements Serializable {
     private String piso;
     private String dpto;
     private EstadoInmueble estadoInmueble;
-    private Boolean eliminado;
+    private boolean eliminado;
     @ManyToOne
     private Propietario propietario;
     @ManyToOne
@@ -48,11 +48,11 @@ public class Inmueble implements Serializable {
         this.eliminado=false;
     }
 
-    public Boolean getEliminado() {
+    public boolean getEliminado() {
         return eliminado;
     }
 
-    public void setEliminado(Boolean eliminado) {
+    public void setEliminado(boolean eliminado) {
         this.eliminado = eliminado;
     }
    
