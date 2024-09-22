@@ -8,6 +8,7 @@ package com.ntm.consorcio.domain.entity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -21,20 +22,28 @@ public class Inmueble implements Serializable {
     private String dpto;
     private EstadoInmueble estadoInmueble;
     private Boolean eliminado;
-    
-    public enum EstadoInmueble{
-        
+    @ManyToOne
+    private Propietario propietario;
+    @ManyToOne
+    private Inquilino inquilino;
+
+    public Propietario getPropietario() {
+        return propietario;
     }
 
-    public Inmueble(String id, String piso, String dpto, EstadoInmueble estadoInmueble) {
-        this.id = id;
-        this.piso = piso;
-        this.dpto = dpto;
-        this.estadoInmueble = estadoInmueble;
-        this.eliminado=false;
+    public void setPropietario(Propietario propietario) {
+        this.propietario = propietario;
     }
-    
 
+    public Inquilino getInquilino() {
+        return inquilino;
+    }
+
+    public void setInquilino(Inquilino inquilino) {
+        this.inquilino = inquilino;
+    }
+
+    
     public Inmueble() {
         this.eliminado=false;
     }
@@ -46,11 +55,8 @@ public class Inmueble implements Serializable {
     public void setEliminado(Boolean eliminado) {
         this.eliminado = eliminado;
     }
-    
-    
-    
-    
-    public EstadoInmueble geEstadoInmueble(){
+   
+    public EstadoInmueble getEstadoInmueble(){
         return estadoInmueble;
     }
     
@@ -58,7 +64,7 @@ public class Inmueble implements Serializable {
         return piso;
     }
     
-    public String getdpto(){
+    public String getDpto(){
         return dpto;
     }
 
@@ -73,8 +79,6 @@ public class Inmueble implements Serializable {
     public void setPiso(String piso) {
         this.piso = piso;
     }
-            
-    
             
     public String getId() {
         return id;

@@ -27,6 +27,10 @@ public class Persona implements Serializable {
         return id;
     }
     
+    public String getNombreApellido() {
+        return this.nombre + " " + this.apellido;
+    }
+    
     /**
      * Getter de Nombre
      * @return String Nombre

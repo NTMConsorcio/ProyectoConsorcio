@@ -26,8 +26,8 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class MenuServiceBean {
-    @EJB
-    private DAOMenuBean dao;
+    private @EJB DAOMenuBean dao;
+    
     public void crearMenu(String nombre, String icon, int orden) throws ErrorServiceException {
         try {
             // Validar nombre del submenú

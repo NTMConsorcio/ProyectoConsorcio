@@ -1,10 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.ntm.consorcio.logic.entity;
+import com.ntm.consorcio.domain.entity.EstadoInmueble;
 import com.ntm.consorcio.domain.entity.Inmueble;
+import com.ntm.consorcio.domain.entity.Inquilino;
+import com.ntm.consorcio.domain.entity.Propietario;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import com.ntm.consorcio.persistence.entity.DAOInmuebleBean;
@@ -18,10 +17,13 @@ import javax.ejb.Stateless;
  *
  * @author Martinotebook
  */
+@Stateless
+@LocalBean
 public class InmuebleServiceBean {
     
-    @EJB
-    private DAOInmuebleBean dao;
+    private @EJB DAOInmuebleBean dao;
+    private @EJB PropietarioServiceBean propietarioService;
+    private @EJB InquilinoServiceBean inquilinoService;
     
     /**
      * Crea un objeto Inmueble.
@@ -30,8 +32,10 @@ public class InmuebleServiceBean {
      * @param estadoInmueble Estado del inmueble.
      * @throws ErrorServiceException
      */
-    public void crearInmueble(String piso, String dpto, Inmueble.EstadoInmueble estadoInmueble) throws ErrorServiceException {
+    public void crearInmueble(String piso, String dpto, EstadoInmueble estadoInmueble, String idPropietario, String idInquilino) throws ErrorServiceException {
         try {
+            Propietario propietario;
+            Inquilino inquilino;
             if (piso == null || piso.isEmpty() || dpto == null || dpto.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el piso y el departamento.");
             }
@@ -43,10 +47,27 @@ public class InmuebleServiceBean {
             } catch (NoResultDAOException ex) {
                 // No existe, lo creamos.
             }
-
+            
+            try {
+                propietario = propietarioService.buscarPropietario(idPropietario);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró el propietario seleccionado");
+            }
+            
+            if (propietario.getHabitaConsorcio()) {
+                inquilino = null;
+            } else {
+                try {
+                    inquilino = inquilinoService.buscarInquilino(idInquilino);
+                } catch (ErrorServiceException ex) {
+                    throw new ErrorServiceException("No se encontró el inquilino seleccionado");
+                }
+            }
             Inmueble inmueble = new Inmueble();
             inmueble.setId(UUID.randomUUID().toString());
             inmueble.setPiso(piso);
+            inmueble.setPropietario(propietario);
+            inmueble.setInquilino(inquilino);
             inmueble.setDpto(dpto);
             inmueble.setEstadoInmueble(estadoInmueble);
             inmueble.setEliminado(false);
@@ -69,9 +90,11 @@ public class InmuebleServiceBean {
      * @param estadoInmueble Nuevo estado del inmueble.
      * @throws ErrorServiceException
      */
-    public void modificarInmueble(String idInmueble, String piso, String dpto, Inmueble.EstadoInmueble estadoInmueble) throws ErrorServiceException {
+    public void modificarInmueble(String idInmueble, String piso, String dpto, EstadoInmueble estadoInmueble, String idPropietario, String idInquilino) throws ErrorServiceException {
         try {
             Inmueble inmueble = buscarInmueble(idInmueble);
+            Propietario propietario;
+            Inquilino inquilino;
 
             if (piso == null || piso.isEmpty() || dpto == null || dpto.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el piso y el departamento.");
@@ -86,7 +109,23 @@ public class InmuebleServiceBean {
             } catch (NoResultDAOException ex) {
                 // No existe conflicto, podemos modificar.
             }
-
+            try {
+                propietario = propietarioService.buscarPropietario(idPropietario);
+            } catch (ErrorServiceException ex) {
+                throw new ErrorServiceException("No se encontró el propietario seleccionado");
+            }
+            
+            if (propietario.getHabitaConsorcio()) {
+                inquilino = null;
+            } else {
+                try {
+                    inquilino = inquilinoService.buscarInquilino(idInquilino);
+                } catch (ErrorServiceException ex) {
+                    throw new ErrorServiceException("No se encontró el inquilino seleccionado");
+                }
+            }
+            inmueble.setPropietario(propietario);
+            inmueble.setInquilino(inquilino);
             inmueble.setPiso(piso);
             inmueble.setDpto(dpto);
             inmueble.setEstadoInmueble(estadoInmueble);

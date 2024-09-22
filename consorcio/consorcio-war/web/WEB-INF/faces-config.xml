@@ -11,7 +11,23 @@
     <navigation-rule> 
         <navigation-case>
             <from-outcome>editPais</from-outcome>
-            <to-view-id>/admin/pais/editPais.xhtml</to-view-id>
+            <to-view-id>/admin/pais/editPais.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listPais</from-outcome>
+            <to-view-id>/admin/pais/listPais.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listInmueble</from-outcome>
+            <to-view-id>/admin/inmueble/listInmueble.jsf</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
