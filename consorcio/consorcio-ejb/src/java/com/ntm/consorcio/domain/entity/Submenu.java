@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author Mauro Sorbello
  */
 @Entity
-public class SubMenu implements Serializable {
+public class Submenu implements Serializable {
     @Id
     private String id;
     private String nombre;
@@ -34,10 +34,10 @@ public class SubMenu implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SubMenu)) {
+        if (!(object instanceof Submenu)) {
             return false;
         }
-        SubMenu other = (SubMenu) object;
+        Submenu other = (Submenu) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -57,7 +57,9 @@ public class SubMenu implements Serializable {
         this.url = url;
     }
 
-    
+    public boolean isEliminado() {
+        return eliminado;
+    }
     
     public String getId() {
         return id;

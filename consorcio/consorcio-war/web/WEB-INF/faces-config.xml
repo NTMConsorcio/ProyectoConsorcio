@@ -39,4 +39,52 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editProvincia</from-outcome>
+            <to-view-id>/admin/provincia/editProvincia.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listProvincia</from-outcome>
+            <to-view-id>/admin/provincia/listProvincia.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/listDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/editDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editLocalidad</from-outcome>
+            <to-view-id>/admin/localidad/editLocalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listLocalidad</from-outcome>
+            <to-view-id>/admin/localidad/listLocalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

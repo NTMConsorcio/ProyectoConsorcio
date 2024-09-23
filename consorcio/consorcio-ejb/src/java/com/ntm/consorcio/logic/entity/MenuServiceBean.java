@@ -6,7 +6,7 @@
 package com.ntm.consorcio.logic.entity;
 
 import com.ntm.consorcio.domain.entity.Menu;
-import com.ntm.consorcio.domain.entity.SubMenu;
+import com.ntm.consorcio.domain.entity.Submenu;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import com.ntm.consorcio.persistence.entity.DAOMenuBean;

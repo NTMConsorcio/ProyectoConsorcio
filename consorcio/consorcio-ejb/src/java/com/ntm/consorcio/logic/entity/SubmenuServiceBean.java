@@ -6,7 +6,7 @@
 package com.ntm.consorcio.logic.entity;
 
 import com.ntm.consorcio.domain.entity.Menu;
-import com.ntm.consorcio.domain.entity.SubMenu;
+import com.ntm.consorcio.domain.entity.Submenu;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import com.ntm.consorcio.persistence.entity.DAOMenuBean;
@@ -25,7 +25,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class SubMenuServiceBean {
+public class SubmenuServiceBean {
     @EJB
     private MenuServiceBean menuService;
     
@@ -77,13 +77,13 @@ public class SubMenuServiceBean {
             }
 
             // Crear el nuevo submenú
-            SubMenu subMenu = new SubMenu();
+            Submenu subMenu = new Submenu();
             subMenu.setId(UUID.randomUUID().toString());
             subMenu.setNombre(nombre);
             subMenu.setUrl(url); 
             subMenu.setOrden(orden);
 
-            Collection<SubMenu> subMenus = new ArrayList<SubMenu>();
+            Collection<Submenu> subMenus = new ArrayList<Submenu>();
             if (menu.getSubmenu() != null) {
                 subMenus.addAll(menu.getSubmenu());
             }
@@ -120,7 +120,7 @@ public class SubMenuServiceBean {
                 throw new ErrorServiceException("No se encontró el menú con el ID indicado");
             }
             
-            SubMenu subMenu = dao.buscarSubMenu(idSubMenu);
+            Submenu subMenu = dao.buscarSubMenu(idSubMenu);
             if (subMenu == null || subMenu.getEliminado() == true) {
                 throw new ErrorServiceException("No se encontró el sub menú con el ID indicado");
             }
@@ -145,7 +145,7 @@ public class SubMenuServiceBean {
                 throw new ErrorServiceException("Debe indicar la url del submenú");
             }
 
-            SubMenu subMenuAux = dao.buscarSubMenuPorMenuYOrden(menu.getId(), orden);
+            Submenu subMenuAux = dao.buscarSubMenuPorMenuYOrden(menu.getId(), orden);
             if (!subMenuAux.getId().equals(subMenu.getId())) {
                 throw new ErrorServiceException("Existe un submenú para el menú con el orden indicado y con diferente ID");
             }
@@ -171,7 +171,7 @@ public class SubMenuServiceBean {
      * @return Objeto país
      * @throws ErrorServiceException 
      */
-    public SubMenu buscarSubMenu(String id) throws ErrorServiceException {
+    public Submenu buscarSubMenu(String id) throws ErrorServiceException {
 
         try {
             
@@ -179,7 +179,7 @@ public class SubMenuServiceBean {
                 throw new ErrorServiceException("Debe indicar el sub menu");
             }
 
-            SubMenu subMenu = dao.buscarSubMenu(id);
+            Submenu subMenu = dao.buscarSubMenu(id);
             
             if (subMenu.getEliminado()){
                 throw new ErrorServiceException("No se encuentra en subMenu indicado");
@@ -204,7 +204,7 @@ public class SubMenuServiceBean {
 
         try {
 
-            SubMenu sub = buscarSubMenu(id);
+            Submenu sub = buscarSubMenu(id);
             sub.setEliminado(true);
             
             dao.actualizarSubMenu(sub);
@@ -223,7 +223,7 @@ public class SubMenuServiceBean {
      * @return Objeto SubMenu
      * @throws ErrorServiceException 
      */
-    public SubMenu buscarSubMenuPorNombre(String nombre) throws ErrorServiceException{
+    public Submenu buscarSubMenuPorNombre(String nombre) throws ErrorServiceException{
         try {
             if (nombre == null || nombre.trim().isEmpty()){
                 throw new ErrorServiceException("Debe indicar el nombre");
@@ -238,7 +238,7 @@ public class SubMenuServiceBean {
         }
     }
     
-    public SubMenu buscarSubMenuPorMenuYOrden(String idMenu,int orden) throws ErrorServiceException{
+    public Submenu buscarSubMenuPorMenuYOrden(String idMenu,int orden) throws ErrorServiceException{
         try {
             if (idMenu == null || idMenu.trim().isEmpty()){
                 throw new ErrorServiceException("Debe indicar el menu");
@@ -267,7 +267,7 @@ public class SubMenuServiceBean {
      * @return Collection<SubMenu>
      * @throws ErrorServiceException 
      */
-    public Collection<SubMenu> listarSubMenuActivo() throws ErrorServiceException {
+    public Collection<Submenu> listarSubMenuActivo() throws ErrorServiceException {
         try {
             
             return dao.listarSubMenuActivo();
@@ -283,7 +283,7 @@ public class SubMenuServiceBean {
      * @return Collection<Pais>
      * @throws ErrorServiceException 
      */
-    public Collection<SubMenu> listarSubMenuPorMenu(String idMenu) throws ErrorServiceException {
+    public Collection<Submenu> listarSubMenuPorMenu(String idMenu) throws ErrorServiceException {
         try {
             if (idMenu == null || idMenu.trim().isEmpty()){
                 throw new ErrorServiceException("Debe indicar el menu");

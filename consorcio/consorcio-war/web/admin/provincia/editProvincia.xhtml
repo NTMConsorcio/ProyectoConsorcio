@@ -4,6 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
                 template="/WEB-INF/template.xhtml">
       
   
@@ -11,13 +12,13 @@
         <div class="botonera ShowOnDesktop Responsive">
             <p:breadCrumb styleClass="navegacion">
                 <p:menuitem value="" url="/admin/ini.jsf" />
-                <p:menuitem value="Lista País" url="/admin/pais/listPais.jsf" />
-                <p:menuitem value="#{controllerEditPais.casoDeUso} País" url="#" />
+                <p:menuitem value="Lista Provincia" url="/admin/provincia/listProvincia.jsf" />
+                <p:menuitem value="#{controllerEditProvincia.casoDeUso} Provincia" url="#" />
             </p:breadCrumb>
             <div class="EmptyBox10"> </div>
             <div class="botones">
-                <p:commandButton value="Aceptar"  action="#{controllerEditPais.aceptar()}"  update="msj" style="background-color: #27ae60; border-color: #27ae60"/>
-                <p:commandButton value="Cancelar" action="#{controllerEditPais.cancelar()}" style="background-color: #ff6666; border-color: #ff6666;"/>            
+                <p:commandButton value="Aceptar"  action="#{controllerEditProvincia.aceptar()}"  update="msj" style="background-color: #27ae60; border-color: #27ae60"/>
+                <p:commandButton value="Cancelar" action="#{controllerEditProvincia.cancelar()}" style="background-color: #ff6666; border-color: #ff6666;"/>            
             </div>
         </div>
         
@@ -32,8 +33,13 @@
                     <div class="EmptyBox10"></div>
                     <p:outputLabel value="Nombre:"/>
                     <div class="EmptyBox1"></div>
-                    <p:inputText id="idNombre"  value="#{controllerEditPais.nombre}" type="text" styleClass="Wid90" disabled="#{controllerEditPais.desactivado}"/>
-                    
+                    <p:inputText id="idNombre"  value="#{controllerEditProvincia.nombre}" type="text" styleClass="Wid90" disabled="#{controllerEditProvincia.desactivado}"/>
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="País:"/>
+                    <div class="EmptyBox1"></div> 
+                    <p:selectOneMenu id="pais" value="#{controllerEditProvincia.idPais}" styleClass="Wid80" disabled="#{controllerEditProvincia.desactivado}">
+                        <f:selectItems  value="#{controllerEditProvincia.paises}" />
+                    </p:selectOneMenu>
                 </div>
             </div>
         </div>
@@ -44,8 +50,8 @@
             <div class="ContainerIndent ">
                 <div class="Card Wid90 HeiAutoOnMobile">
                     <div class="Fright">
-                        <p:commandButton value="Aceptar"  action="#{controllerEditPais.aceptar()}"  update="msj" /> 
-                        <p:commandButton value="Cancelar" action="#{controllerEditPais.cancelar()}" />                                
+                        <p:commandButton value="Aceptar"  action="#{controllerEditProvincia.aceptar()}"  update="msj" /> 
+                        <p:commandButton value="Cancelar" action="#{controllerEditProvincia.cancelar()}" />                                
                     </div>
                 </div>
             </div>        
