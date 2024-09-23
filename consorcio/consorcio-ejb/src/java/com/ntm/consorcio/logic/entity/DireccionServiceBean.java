@@ -173,4 +173,19 @@ public class DireccionServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+    /**
+     * Retorna una Collection de las direcciones activas
+     * @return Collection
+     * @throws ErrorServiceException 
+     */
+    public Collection<Direccion> listarDireccionActivo() throws ErrorServiceException {
+        try {
+            return dao.listarDireccionActivo();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
 }

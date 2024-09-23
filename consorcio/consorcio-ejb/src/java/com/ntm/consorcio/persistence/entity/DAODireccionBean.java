@@ -90,11 +90,10 @@ public class DAODireccionBean {
      * @return Collection<Direccion>
      * @throws ErrorDAOException 
      */
-    /*
     public Collection<Direccion> listarDireccionActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT p "
-                                    + " FROM direccion p"
+                                    + " FROM Direccion p"
                                     + " WHERE p.eliminado = FALSE").
                                     getResultList();
         } catch (Exception e) {
@@ -102,5 +101,4 @@ public class DAODireccionBean {
             throw new ErrorDAOException("Error del sistema.");
         }
     }  
-    */
 }
