@@ -12,13 +12,13 @@
         <div class="botonera ShowOnDesktop Responsive">
             <p:breadCrumb styleClass="navegacion">
                 <p:menuitem value="" url="/admin/ini.jsf" />
-                <p:menuitem value="Lista Departamento" url="/admin/departamento/listDepartamento.jsf" />
-                <p:menuitem value="#{controllerEditDepartamento.casoDeUso} Departamento" url="#" />
+                <p:menuitem value="Lista Localidad" url="/admin/localidad/listLocalidad.jsf" />
+                <p:menuitem value="#{controllerEditLocalidad.casoDeUso} Localidad" url="#" />
             </p:breadCrumb>
             <div class="EmptyBox10"> </div>
             <div class="botones">
-                <p:commandButton value="Aceptar"  action="#{controllerEditDepartamento.aceptar()}"  update="msj" style="background-color: #27ae60; border-color: #27ae60"/>
-                <p:commandButton value="Cancelar" action="#{controllerEditDepartamento.cancelar()}" style="background-color: #ff6666; border-color: #ff6666;"/>            
+                <p:commandButton value="Aceptar"  action="#{controllerEditLocalidad.aceptar()}"  update="msj" style="background-color: #27ae60; border-color: #27ae60"/>
+                <p:commandButton value="Cancelar" action="#{controllerEditLocalidad.cancelar()}" style="background-color: #ff6666; border-color: #ff6666;"/>            
             </div>
         </div>
         
@@ -33,12 +33,16 @@
                     <div class="EmptyBox10"></div>
                     <p:outputLabel value="Nombre:"/>
                     <div class="EmptyBox1"></div>
-                    <p:inputText id="idNombre"  value="#{controllerEditDepartamento.nombre}" type="text" styleClass="Wid90" disabled="#{controllerEditDepartamento.desactivado}"/>
+                    <p:inputText id="idNombre"  value="#{controllerEditLocalidad.nombre}" type="text" styleClass="Wid90" disabled="#{controllerEditLocalidad.desactivado}"/>
                     <div class="EmptyBox10"></div>
-                    <p:outputLabel value="Provincia:"/>
+                    <p:outputLabel value="Código Postal:"/>
+                    <div class="EmptyBox1"></div>
+                    <p:inputText id="idCodigoPostal"  value="#{controllerEditLocalidad.codigoPostal}" type="text" styleClass="Wid90" disabled="#{controllerEditLocalidad.desactivado}"/>
+                    <div class="EmptyBox10"></div>
+                    <p:outputLabel value="Departamento:"/>
                     <div class="EmptyBox1"></div> 
-                    <p:selectOneMenu id="provincia" value="#{controllerEditDepartamento.idProvincia}" styleClass="Wid80" disabled="#{controllerEditDepartamento.desactivado}">
-                        <f:selectItems  value="#{controllerEditDepartamento.provincias}" />
+                    <p:selectOneMenu id="provincia" value="#{controllerEditLocalidad.idDepartamento}" styleClass="Wid80" disabled="#{controllerEditLocalidad.desactivado}">
+                        <f:selectItems  value="#{controllerEditLocalidad.departamentos}" />
                     </p:selectOneMenu>
                 </div>
             </div>
@@ -50,8 +54,8 @@
             <div class="ContainerIndent ">
                 <div class="Card Wid90 HeiAutoOnMobile">
                     <div class="Fright">
-                        <p:commandButton value="Aceptar"  action="#{controllerEditDepartamento.aceptar()}"  update="msj" /> 
-                        <p:commandButton value="Cancelar" action="#{controllerEditDepartamento.cancelar()}" />                                
+                        <p:commandButton value="Aceptar"  action="#{controllerEditLocalidad.aceptar()}"  update="msj" /> 
+                        <p:commandButton value="Cancelar" action="#{controllerEditLocalidad.cancelar()}" />                                
                     </div>
                 </div>
             </div>        
@@ -59,3 +63,5 @@
         
     </ui:define>
 </ui:composition>
+    
+

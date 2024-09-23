@@ -1,8 +1,8 @@
 package com.consorcio.controller;
 
-import com.ntm.consorcio.domain.entity.Departamento;
+import com.ntm.consorcio.domain.entity.Localidad;
 import com.ntm.consorcio.logic.ErrorServiceException;
-import com.ntm.consorcio.logic.entity.DepartamentoServiceBean;
+import com.ntm.consorcio.logic.entity.LocalidadServiceBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,55 +16,55 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
- * Controlador para listDepartamento
+ * Controlador para listLocalidad
  * @version 1.0.0
  * @author Tomas Rando
  */
 @ManagedBean
 @ViewScoped
-public class ControllerListDepartamento implements Serializable {
+public class ControllerListLocalidad implements Serializable {
     
-    private @EJB DepartamentoServiceBean serviceBean;
-    private Collection<Departamento> departamentoList = new ArrayList();
+    private @EJB LocalidadServiceBean serviceBean;
+    private Collection<Localidad> localidadList = new ArrayList();
     
     @PostConstruct
     public void init() {
         try {
-            listarDepartamentos();
+            listarLocalidad();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     /**
-     * Agrega todos los departamentoes activos a departamentoList
+     * Agrega todos los localidades activos a localidadList
      * @throws ErrorServiceException 
      */
-    public void listarDepartamentos() throws ErrorServiceException {
+    public void listarLocalidad() throws ErrorServiceException {
         try {
-            departamentoList.clear();
-            departamentoList.addAll(serviceBean.listarDepartamentoActivo());
+            localidadList.clear();
+            localidadList.addAll(serviceBean.listarLocalidadActivo());
             
-            RequestContext.getCurrentInstance().update("formPpal:departamentoTabla");   
+            RequestContext.getCurrentInstance().update("formPpal:localidadTabla");   
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     /**
-     * Getter de departamentoList
+     * Getter de localidadList
      * @return Collection
      */
-    public Collection<Departamento> getDepartamentoList() {
-        return this.departamentoList;
+    public Collection<Localidad> getLocalidadList() {
+        return this.localidadList;
     }
     
     /**
-     * Setter de departamentoList
-     * @param departamentoList Collection
+     * Setter de localidadList
+     * @param localidadList Collection
      */
-    public void setListDepartamento(Collection<Departamento> departamentoList) {
-        this.departamentoList = departamentoList;
+    public void setListLocalidad(Collection<Localidad> localidadList) {
+        this.localidadList = localidadList;
     }
     
     /**
@@ -74,7 +74,7 @@ public class ControllerListDepartamento implements Serializable {
     public String alta() {
         try{
             guardarSession("ALTA", null);
-            return "editDepartamento";
+            return "editLocalidad";
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,13 +85,13 @@ public class ControllerListDepartamento implements Serializable {
     
     /**
      * Método para manejar la opción de consulta
-     * @param departamento Departamento
+     * @param localidad Localidad
      * @return String
      */
-    public String consultar(Departamento departamento) {
+    public String consultar(Localidad localidad) {
         try{
-            guardarSession("CONSULTAR", departamento);
-            return "editDepartamento";
+            guardarSession("CONSULTAR", localidad);
+            return "editLocalidad";
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -102,13 +102,13 @@ public class ControllerListDepartamento implements Serializable {
     
     /**
      * Método para manejar la opción de modificación
-     * @param departamento Departamento
+     * @param localidad Localidad
      * @return String
      */
-    public String modificar(Departamento departamento) {
+    public String modificar(Localidad localidad) {
         try{
-            guardarSession("MODIFICAR", departamento);
-            return "editDepartamento";
+            guardarSession("MODIFICAR", localidad);
+            return "editLocalidad";
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,12 +119,12 @@ public class ControllerListDepartamento implements Serializable {
     
     /**
      * Método para manejar la opción de baja 
-     * @param departamento 
+     * @param localidad 
      */
-    public void baja(Departamento departamento) {
+    public void baja(Localidad localidad) {
         try{
-            serviceBean.eliminarDepartamento(departamento.getId());
-            listarDepartamentos();
+            serviceBean.eliminarLocalidad(localidad.getId());
+            listarLocalidad();
             Messages.show("Baja realizada exitosamente", TypeMessages.MENSAJE);
             RequestContext.getCurrentInstance().update("formPpal:msj");
         } catch (Exception e) {
@@ -136,15 +136,15 @@ public class ControllerListDepartamento implements Serializable {
     /**
      * Guarda el caso de uso y el país en la sesión
      * @param casoDeUso String
-     * @param departamento Departamento
+     * @param localidad Localidad
      */
-    private void guardarSession(String casoDeUso, Departamento departamento){
+    private void guardarSession(String casoDeUso, Localidad localidad){
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) context.getSession(true);
         //Guarda el caso de uso en el atributo CASO_DE_USO
         session.setAttribute("CASO_DE_USO", casoDeUso.toUpperCase()); 
-        //Guarda el país en el atributo DEPARTAMENTO
-        session.setAttribute("DEPARTAMENTO", departamento);  
+        //Guarda el país en el atributo LOCALIDAD
+        session.setAttribute("LOCALIDAD", localidad);  
     }
     
 }
