@@ -93,5 +93,24 @@ public class DAOProvinciaBean {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }
-    }  
+    }
+    
+    /**
+     * Busca la lista de objetos de la clase actualmente activos por país
+     * @return Collection<Provincia>
+     * @throws ErrorDAOException 
+     */
+    public Collection<Provincia> listarProvinciaActivoPorPais(String id) throws ErrorDAOException {
+        try {  
+            return em.createQuery("SELECT p "
+                                    + " FROM Provincia p"
+                                    + " WHERE p.eliminado = FALSE"
+                                    + " AND p.pais.id = :id").
+                                    setParameter("id", id).
+                                    getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
+    }
 }

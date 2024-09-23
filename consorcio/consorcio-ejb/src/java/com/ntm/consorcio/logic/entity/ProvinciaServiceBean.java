@@ -180,4 +180,22 @@ public class ProvinciaServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+    /**
+     * Devuelve una lista con los objetos de la clase activos
+     * @return Collection<Provincia>
+     * @throws ErrorServiceException 
+     */
+    public Collection<Provincia> listarProvinciaActivoPorPais(String idPais) throws ErrorServiceException {
+        try {            
+            if (idPais == null || idPais.isEmpty()) {
+                throw new ErrorServiceException("No se encuentra el país indicado");
+            }
+            return dao.listarProvinciaActivoPorPais(idPais);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
 }

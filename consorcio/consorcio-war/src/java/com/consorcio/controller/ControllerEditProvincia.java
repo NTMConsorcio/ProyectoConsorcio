@@ -48,6 +48,7 @@ public class ControllerEditProvincia implements Serializable {
             //Verifica el caso de uso. Si es consultar o modificar recibe el nombre
             if (casoDeUso.equals("CONSULTAR") || casoDeUso.equals("MODIFICAR")) {
                 nombre = provincia.getNombre();
+                idPais = provincia.getPais().getId();
                 //Si es consultar desactiva el campo
                 if (casoDeUso.equals("CONSULTAR")) {
                     desactivado = true;
