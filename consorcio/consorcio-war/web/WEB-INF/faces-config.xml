@@ -39,4 +39,20 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editProvincia</from-outcome>
+            <to-view-id>/admin/provincia/editProvincia.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listProvincia</from-outcome>
+            <to-view-id>/admin/provincia/listProvincia.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
