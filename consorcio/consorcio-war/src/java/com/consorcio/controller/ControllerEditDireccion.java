@@ -32,7 +32,7 @@ public class ControllerEditDireccion {
     
     private String casoDeUso;
     private boolean desactivado;
-    Collection<SelectItem> localidades = new ArrayList();
+    private Collection<SelectItem> localidades = new ArrayList();
 
     @PostConstruct
     public void init() {

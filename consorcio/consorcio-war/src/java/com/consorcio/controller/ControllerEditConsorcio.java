@@ -1,63 +1,57 @@
-
 package com.consorcio.controller;
 
+import com.ntm.consorcio.domain.entity.Consorcio;
 import com.ntm.consorcio.domain.entity.Direccion;
-import com.ntm.consorcio.domain.entity.Propietario;
+import com.ntm.consorcio.logic.entity.ConsorcioServiceBean;
 import com.ntm.consorcio.logic.entity.DireccionServiceBean;
-import com.ntm.consorcio.logic.entity.PropietarioServiceBean;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
 /**
- * Controlador para editPropietario
+ * Controlador de editConsorcio
  * @version 1.0.0
  * @author Tomas Rando
  */
+
 @ManagedBean
 @ViewScoped
-public class ControllerEditPropietario {
-    
-    private @EJB PropietarioServiceBean propietarioServiceBean;
+public class ControllerEditConsorcio implements Serializable {
+
+    private @EJB ConsorcioServiceBean consorcioServiceBean;
     private @EJB DireccionServiceBean direccionService;
     
-    private Propietario propietario;
+    private Consorcio consorcio;
     private String nombre;
-    private String apellido;
-    private String telefono;
-    private String correoElectronico;
-    private boolean esHabitante;
     private String idDireccion;
 
+    private Collection<SelectItem> direcciones = new ArrayList();
     private String casoDeUso;
     private boolean desactivado;
-    private Collection<SelectItem> direcciones = new ArrayList();
 
     @PostConstruct
     public void init() {
         try {
             //Recibe el caso de uso de la sesión
             casoDeUso = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("CASO_DE_USO");
-            //Recibe el propietario de la sesión
-            propietario = (Propietario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("PROPIETARIO");
+            //Recibe el país de la sesión
+            consorcio = (Consorcio) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("CONSORCIO");
             //Setea el campo desactivado en falso
             desactivado = false;
             cargar();
-
+            
             //Verifica el caso de uso. Si es consultar o modificar recibe el nombre
             if (casoDeUso.equals("CONSULTAR") || casoDeUso.equals("MODIFICAR")) {
-                nombre = propietario.getNombre();
-                apellido = propietario.getApellido();
-                telefono = propietario.getTelefono();
-                correoElectronico = propietario.getCorreoElectronico();
-                esHabitante = propietario.getHabitaConsorcio();
-                idDireccion = propietario.getDireccion().getId();
-                cargarPorLocalidad(propietario.getDireccion().getLocalidad().getId());
+                nombre = consorcio.getNombre();
+                idDireccion = consorcio.getDireccion().getId();
+                cargarPorLocalidad(consorcio.getDireccion().getLocalidad().getId());
                 //Si es consultar desactiva el campo
                 if (casoDeUso.equals("CONSULTAR")) {
                     desactivado = true;
@@ -75,13 +69,13 @@ public class ControllerEditPropietario {
      */
     public String aceptar() {
         try{
-            //Si el caso de uso es alta, crea el propietario
+            //Si el caso de uso es alta, crea el país
             if (casoDeUso.equals("ALTA")) {
-                propietarioServiceBean.crearPropietario(nombre, apellido, telefono, correoElectronico, esHabitante, idDireccion);
+                consorcioServiceBean.crearConsorcio(nombre, idDireccion);
                 Messages.show("Alta exitosa", TypeMessages.MENSAJE);
             // Si el caso de uso es modificar, lo modifica
             } else if (casoDeUso.equals("MODIFICAR")) {
-                propietarioServiceBean.modificarPropietario(propietario.getId(), nombre, apellido, telefono, correoElectronico, esHabitante, idDireccion);
+                consorcioServiceBean.modificarConsorcio(consorcio.getId(), nombre, idDireccion);
                 Messages.show("Modificación exitosa", TypeMessages.MENSAJE);
             }
             
@@ -90,7 +84,7 @@ public class ControllerEditPropietario {
             Messages.show(e.getMessage(), TypeMessages.ERROR);
             return null;
         }
-        return "listPropietario";
+        return "listConsorcio";
     }
     
     /**
@@ -98,11 +92,11 @@ public class ControllerEditPropietario {
      * @return String
     */
     public String cancelar() {
-        return "listPropietario";
+        return "listConsorcio";
     }
 
     /**
-     * Carga los direcciones para el menú desplegable
+     * Función para cargar las direcciones
      */
     public void cargar() {
         try {  
@@ -117,7 +111,7 @@ public class ControllerEditPropietario {
     }
     
     /**
-     * Carga los direcciones para el menú desplegable por departamento
+     * Carga los direcciones para el menú desplegable por localidad
      */
     public void cargarPorLocalidad(String id) {
         try {  
@@ -131,12 +125,12 @@ public class ControllerEditPropietario {
         }
     }
 
-    public PropietarioServiceBean getPropietarioServiceBean() {
-        return propietarioServiceBean;
+    public ConsorcioServiceBean getConsorcioServiceBean() {
+        return consorcioServiceBean;
     }
 
-    public void setPropietarioServiceBean(PropietarioServiceBean propietarioServiceBean) {
-        this.propietarioServiceBean = propietarioServiceBean;
+    public void setConsorcioServiceBean(ConsorcioServiceBean consorcioServiceBean) {
+        this.consorcioServiceBean = consorcioServiceBean;
     }
 
     public DireccionServiceBean getDireccionService() {
@@ -147,12 +141,12 @@ public class ControllerEditPropietario {
         this.direccionService = direccionService;
     }
 
-    public Propietario getPropietario() {
-        return propietario;
+    public Consorcio getConsorcio() {
+        return consorcio;
     }
 
-    public void setPropietario(Propietario propietario) {
-        this.propietario = propietario;
+    public void setConsorcio(Consorcio consorcio) {
+        this.consorcio = consorcio;
     }
 
     public String getNombre() {
@@ -163,44 +157,20 @@ public class ControllerEditPropietario {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
-
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
-    }
-
-    public boolean isEsHabitante() {
-        return esHabitante;
-    }
-
-    public void setEsHabitante(boolean esHabitante) {
-        this.esHabitante = esHabitante;
-    }
-
     public String getIdDireccion() {
         return idDireccion;
     }
 
     public void setIdDireccion(String idDireccion) {
         this.idDireccion = idDireccion;
+    }
+
+    public Collection<SelectItem> getDirecciones() {
+        return direcciones;
+    }
+
+    public void setDirecciones(Collection<SelectItem> direcciones) {
+        this.direcciones = direcciones;
     }
 
     public String getCasoDeUso() {
@@ -219,13 +189,5 @@ public class ControllerEditPropietario {
         this.desactivado = desactivado;
     }
 
-    public Collection<SelectItem> getDirecciones() {
-        return direcciones;
-    }
-
-    public void setDirecciones(Collection<SelectItem> direcciones) {
-        this.direcciones = direcciones;
-    }
-    
     
 }

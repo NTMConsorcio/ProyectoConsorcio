@@ -31,7 +31,7 @@ public class ControllerEditDepartamento {
     
     private String casoDeUso;
     private boolean desactivado;
-    Collection<SelectItem> provincias = new ArrayList();
+    private Collection<SelectItem> provincias = new ArrayList();
 
     @PostConstruct
     public void init() {

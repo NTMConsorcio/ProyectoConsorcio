@@ -33,7 +33,7 @@ public class ControllerEditLocalidad {
     
     
     private boolean desactivado;
-    Collection<SelectItem> departamentos = new ArrayList();
+    private Collection<SelectItem> departamentos = new ArrayList();
 
     @PostConstruct
     public void init() {

@@ -32,7 +32,7 @@ public class ControllerEditProvincia implements Serializable {
     
     private String casoDeUso;
     private boolean desactivado;
-    Collection<SelectItem> paises = new ArrayList();
+    private Collection<SelectItem> paises = new ArrayList();
 
     @PostConstruct
     public void init() {
