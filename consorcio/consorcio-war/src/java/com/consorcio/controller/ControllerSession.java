@@ -1,7 +1,7 @@
 package com.consorcio.controller;
 
 import com.ntm.consorcio.domain.entity.Menu;
-import com.ntm.consorcio.domain.entity.SubMenu;
+import com.ntm.consorcio.domain.entity.Submenu;
 import com.ntm.consorcio.domain.entity.Usuario;
 import com.ntm.consorcio.logic.entity.MenuServiceBean;
 import java.io.Serializable;
@@ -74,14 +74,14 @@ public class ControllerSession implements Serializable {
             });
             
             for (Menu men : menusAMostrar) {
-                ArrayList<SubMenu> subMenuList = new ArrayList<>();
+                ArrayList<Submenu> subMenuList = new ArrayList<>();
                 //Agrega a la lista los subMenues del menú actual
                 subMenuList.addAll(men.getSubmenu());
                 
                 //Ordena los menús teniendo en cuenta el atributo orden que poseen
-                Collections.sort(subMenuList, new Comparator<SubMenu>() {
+                Collections.sort(subMenuList, new Comparator<Submenu>() {
                     @Override
-                    public int compare(SubMenu o1, SubMenu o2) {
+                    public int compare(Submenu o1, Submenu o2) {
                         return new Integer(o1.getOrden()).compareTo(o2.getOrden());
                     }
                 });
@@ -94,7 +94,7 @@ public class ControllerSession implements Serializable {
                 } else {
                     //Si el menú tiene submenús se crea un objeto DefaultSubMenu con el nombre del menú
                     DefaultSubMenu subMenu = new DefaultSubMenu(men.getNombre());
-                    for (SubMenu sbMenu: subMenuList) {
+                    for (Submenu sbMenu: subMenuList) {
                         //Se crea un elemento de menú para cada submenú
                         DefaultMenuItem item = new DefaultMenuItem(sbMenu.getNombre());
                         //Se configura la URL y el ícono
