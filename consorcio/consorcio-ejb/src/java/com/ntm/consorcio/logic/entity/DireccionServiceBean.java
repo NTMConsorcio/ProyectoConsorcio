@@ -188,4 +188,20 @@ public class DireccionServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+    /**
+     * Retorna una Collection con las direcciones activas de la localidad especificada
+     * @param id String
+     * @return Collection
+     * @throws ErrorServiceException 
+     */
+    public Collection<Direccion> listarDireccionActivoPorLocalidad(String id) throws ErrorServiceException {
+        try {
+            return dao.listarDireccionActivoPorLocalidad(id);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
 }

@@ -100,5 +100,25 @@ public class DAODireccionBean {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }
-    }  
+    }
+    
+    /**
+     * Busca la lista de objetos de la clase actualmente activos con la localidad especificada
+     * @param id String
+     * @return Collection
+     * @throws ErrorDAOException 
+     */
+    public Collection<Direccion> listarDireccionActivoPorLocalidad(String id) throws ErrorDAOException {
+        try {  
+            return em.createQuery("SELECT p "
+                                    + " FROM Direccion p"
+                                    + " WHERE p.eliminado = FALSE"
+                                    + " AND p.localidad.id = :id").
+                                    setParameter("id", id).
+                                    getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
+    }
 }
