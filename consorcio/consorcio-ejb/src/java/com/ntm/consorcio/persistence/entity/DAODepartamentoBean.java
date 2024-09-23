@@ -93,5 +93,24 @@ public class DAODepartamentoBean {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }
+    }
+    
+    /**
+     * Busca la lista de objetos de la clase actualmente activos por provincia
+     * @return Collection<Departamento>
+     * @throws ErrorDAOException 
+     */
+    public Collection<Departamento> listarDepartamentoActivoPorProvincia(String id) throws ErrorDAOException {
+        try {  
+            return em.createQuery("SELECT p "
+                                    + " FROM Departamento p"
+                                    + " WHERE p.eliminado = FALSE"
+                                    + " AND p.provincia.id = :id").
+                                    setParameter("id", id).
+                                    getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
     }  
 }

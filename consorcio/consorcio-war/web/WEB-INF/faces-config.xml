@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <lifecycle>
+        <phase-listener>com.consorcio.controller.ControllerAutenticacion</phase-listener>
+    </lifecycle>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editPais</from-outcome>
+            <to-view-id>/admin/pais/editPais.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listPais</from-outcome>
+            <to-view-id>/admin/pais/listPais.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listInmueble</from-outcome>
+            <to-view-id>/admin/inmueble/listInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editInmueble</from-outcome>
+            <to-view-id>/admin/inmueble/editInmueble.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editProvincia</from-outcome>
+            <to-view-id>/admin/provincia/editProvincia.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listProvincia</from-outcome>
+            <to-view-id>/admin/provincia/listProvincia.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/listDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editDepartamento</from-outcome>
+            <to-view-id>/admin/departamento/editDepartamento.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editLocalidad</from-outcome>
+            <to-view-id>/admin/localidad/editLocalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listLocalidad</from-outcome>
+            <to-view-id>/admin/localidad/listLocalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

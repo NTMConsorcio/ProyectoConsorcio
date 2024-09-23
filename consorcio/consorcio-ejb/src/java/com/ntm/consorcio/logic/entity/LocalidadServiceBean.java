@@ -176,4 +176,22 @@ public class LocalidadServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+    /**
+     * Devuelve una lista con los objetos de la clase activos
+     * @return Collection
+     * @throws ErrorServiceException 
+     */
+    public Collection<Localidad> listarLocalidadActivoPorDepartamento(String id) throws ErrorServiceException {
+        try {            
+            if (id == null || id.isEmpty()) {
+                throw new ErrorServiceException("No se encuentra el departamento indicado");
+            }
+            return dao.listarLocalidadActivoPorDepartamento(id);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
 }

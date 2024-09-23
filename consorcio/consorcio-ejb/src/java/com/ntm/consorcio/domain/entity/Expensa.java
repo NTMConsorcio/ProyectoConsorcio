@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -18,7 +19,9 @@ import javax.persistence.Id;
 public class Expensa implements Serializable {
     @Id
     private String id;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaDesde;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaHasta;
     private double importe;
     private boolean eliminado;

@@ -136,4 +136,12 @@ public class Direccion implements Serializable {
     public void setLocalidad(Localidad localidad) {
         this.localidad = localidad;
     }
+    
+    /**
+     * Getter de calle + numeración
+     * @return String
+     */
+    public String getCalleNumeracion() {
+        return this.calle + " " + this.numeracion;
+    }
 }

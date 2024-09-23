@@ -1,0 +1,31 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pr="http://primefaces.org/rio">
+
+    <div class="Animated05" id="layout-menu-cover">
+        <ul class="layout-menu">
+            <li>
+                <a class="menulink ripplelink">
+                    <i class="icon-round58 Fs40"></i>
+                    <span class="Fs18">#{controllerSession.usuario.usuario}<i class="icon-downwards Fright Fs20"></i><br /></span>
+                </a>
+                <ul>
+                    <li> 
+                        <p:commandLink  value="Salir" action="#{controllerSession.logout()}" class="menulink ripplelink">
+                            <a href="#" class="menulink ripplelink">
+                                <i class="icon-thermostat1 Fs16"></i>
+                            </a>
+                        </p:commandLink>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="Separator"></div>
+        <pr:menu id="menuPpal" widgetVar="menuPpal" model="#{controllerSession.model}"/>
+    </div>
+
+</ui:composition>

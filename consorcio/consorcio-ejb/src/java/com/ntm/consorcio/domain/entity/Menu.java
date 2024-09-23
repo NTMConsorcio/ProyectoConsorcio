@@ -6,21 +6,26 @@
 package com.ntm.consorcio.domain.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Mauro Sorbello
  */
 @Entity
-public class SubMenu implements Serializable {
+public class Menu implements Serializable {
     @Id
     private String id;
     private String nombre;
+    private String icon;
     private int orden;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Collection<Submenu> submenu;
     private boolean eliminado;
 
     @Override
@@ -33,10 +38,10 @@ public class SubMenu implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SubMenu)) {
+        if (!(object instanceof Menu)) {
             return false;
         }
-        SubMenu other = (SubMenu) object;
+        Menu other = (Menu) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -45,7 +50,7 @@ public class SubMenu implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ntm.consorcio.domain.entity.SubMenu[ id=" + id + " ]";
+        return "com.ntm.consorcio.domain.entity.Menu[ id=" + id + " ]";
     }
 
     public String getId() {
@@ -64,12 +69,28 @@ public class SubMenu implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     public int getOrden() {
         return orden;
     }
 
     public void setOrden(int orden) {
         this.orden = orden;
+    }
+
+    public Collection<Submenu> getSubmenu() {
+        return submenu;
+    }
+
+    public void setSubmenu(Collection<Submenu> submenu) {
+        this.submenu = submenu;
     }
 
     public boolean getEliminado() {
@@ -80,5 +101,5 @@ public class SubMenu implements Serializable {
         this.eliminado = eliminado;
     }
     
-    
+
 }

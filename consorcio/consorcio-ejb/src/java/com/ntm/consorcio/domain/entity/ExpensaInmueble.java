@@ -22,15 +22,13 @@ public class ExpensaInmueble implements Serializable {
     private String id;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date periodo;
-    private Estado estado;
+    private EstadoExpensaInmueble estado;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaVencimiento;
     @ManyToOne
     private Expensa expensa;
     @ManyToOne
     private Inmueble inmueble;
-    
-    public enum Estado {}
     
     
     @Override
@@ -74,11 +72,11 @@ public class ExpensaInmueble implements Serializable {
         this.periodo = periodo;
     }
 
-    public Estado getEstado() {
+    public EstadoExpensaInmueble getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(EstadoExpensaInmueble estado) {
         this.estado = estado;
     }
 
