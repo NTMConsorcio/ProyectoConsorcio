@@ -64,6 +64,10 @@ public class Inmueble implements Serializable {
         return piso;
     }
     
+    public String getPisoDpto() {
+        return "Piso: " + piso + ", Dpto: " + dpto; 
+    }
+    
     public String getDpto(){
         return dpto;
     }

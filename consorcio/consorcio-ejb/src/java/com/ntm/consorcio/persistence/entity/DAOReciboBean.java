@@ -96,7 +96,7 @@ public class DAOReciboBean {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }
-    } 
+    }
     
     //Consultar con el profe
     public void agregarDetalle() {
