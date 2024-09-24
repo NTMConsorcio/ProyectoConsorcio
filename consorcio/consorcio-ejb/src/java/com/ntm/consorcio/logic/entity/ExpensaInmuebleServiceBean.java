@@ -130,4 +130,15 @@ public class ExpensaInmuebleServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+    public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorServiceException {
+        try {
+            
+            return dao.listarExpensaInmuebleActivo();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
 }
