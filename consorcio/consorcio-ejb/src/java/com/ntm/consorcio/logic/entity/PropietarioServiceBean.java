@@ -21,6 +21,7 @@ import javax.ejb.Stateless;
 @LocalBean
 public class PropietarioServiceBean {
     private @EJB DAOPropietarioBean dao;
+    private @EJB DireccionServiceBean serviceBean;
     
     /**
      * Crea un propietario y llama al dao para persistirlo en la base de datos
@@ -29,13 +30,21 @@ public class PropietarioServiceBean {
      * @param telefono String
      * @param correoElectronico String
      * @param habitaConsorcio boolean
-     * @param direccion Direccion
+     * @param idDireccion String
      * @throws ErrorServiceException 
      */
-    public void crearPropietario(String nombre, String apellido, String telefono, String correoElectronico, boolean habitaConsorcio, Direccion direccion) throws ErrorServiceException {
+    public void crearPropietario(String nombre, String apellido, String telefono, String correoElectronico, boolean habitaConsorcio, String idDireccion) throws ErrorServiceException {
                 
         try {
             
+            Direccion direccion;
+            
+            if (idDireccion == null) {
+                direccion = null;
+            } else {
+                direccion = serviceBean.buscarDireccion(idDireccion);
+            }
+ 
             if (!verificar(nombre)) {
                 throw new ErrorServiceException("Debe indicar el nombre");
             }
@@ -90,14 +99,22 @@ public class PropietarioServiceBean {
      * @param telefono String
      * @param correoElectronico String
      * @param habitaConsorcio boolean
-     * @param direccion Direccion
+     * @param idDireccion String
      * @throws ErrorServiceException 
      */
-    public void modificarPropietario(String idPropietario, String nombre, String apellido, String telefono, String correoElectronico, boolean habitaConsorcio, Direccion direccion) throws ErrorServiceException {
+    public void modificarPropietario(String idPropietario, String nombre, String apellido, String telefono, String correoElectronico, boolean habitaConsorcio, String idDireccion) throws ErrorServiceException {
 
         try {
 
             Propietario propietario = buscarPropietario(idPropietario);
+            
+            Direccion direccion;
+            
+            if (idDireccion == null) {
+                direccion = null;
+            } else {
+                direccion = serviceBean.buscarDireccion(idDireccion);
+            }
 
             if (!verificar(nombre)) {
                 throw new ErrorServiceException("Debe indicar el nombre");
@@ -154,7 +171,7 @@ public class PropietarioServiceBean {
 
         try {
             
-            if (verificar(id)) {
+            if (!verificar(id)) {
                 throw new ErrorServiceException("Debe indicar el propietario");
             }
 

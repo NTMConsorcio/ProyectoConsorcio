@@ -131,5 +131,22 @@ public class Inquilino extends Persona implements Serializable {
     public String toString() {
         return "com.ntm.consorcio.domain.entity.Inquilino[ id=" + id + " ]";
     }
+
+    /**
+     * Getter de nacionalidad
+     * @return Nacionalidad
+     */
+    public Nacionalidad getNacionalidad() {
+        return nacionalidad;
+    }
+
+    /**
+     * Setter de nacionalidad
+     * @param nacionalidad Nacionalidad
+     */
+    public void setNacionalidad(Nacionalidad nacionalidad) {
+        this.nacionalidad = nacionalidad;
+    }
+    
     
 }

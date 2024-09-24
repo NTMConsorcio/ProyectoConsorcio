@@ -173,4 +173,24 @@ public class DepartamentoServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+    
+    /**
+     * Listar departamentos activos asociados a cierta provincia
+     * @param id String
+     * @return Collection
+     * @throws ErrorServiceException 
+     */
+    public Collection<Departamento> listarDepartamentoActivoPorProvincia(String id) throws ErrorServiceException {
+        try {
+            if (id == null || id.isEmpty()) {
+                throw new ErrorServiceException("Debe indicar la provincia");
+            }
+            
+            return dao.listarDepartamentoActivoPorProvincia(id);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
 }

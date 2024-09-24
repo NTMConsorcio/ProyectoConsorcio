@@ -25,7 +25,7 @@ public class Menu implements Serializable {
     private String icon;
     private int orden;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Collection<SubMenu> submenu;
+    private Collection<Submenu> submenu;
     private boolean eliminado;
 
     @Override
@@ -85,11 +85,11 @@ public class Menu implements Serializable {
         this.orden = orden;
     }
 
-    public Collection<SubMenu> getSubmenu() {
+    public Collection<Submenu> getSubmenu() {
         return submenu;
     }
 
-    public void setSubmenu(Collection<SubMenu> submenu) {
+    public void setSubmenu(Collection<Submenu> submenu) {
         this.submenu = submenu;
     }
 
@@ -101,5 +101,18 @@ public class Menu implements Serializable {
         this.eliminado = eliminado;
     }
     
+    public String getSubmenus() {
+        String solution = "";
+        int count = 0;
+        for (Submenu sm : submenu) {
+            if (count == 0) {
+                solution = sm.getNombre();
+            } else {
+                solution = solution + ", " + sm.getNombre();   
+            }
+            count = count + 1;
+        }
+        return solution;
+    }
 
 }
