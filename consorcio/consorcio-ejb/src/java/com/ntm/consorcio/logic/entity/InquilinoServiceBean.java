@@ -88,6 +88,7 @@ public class InquilinoServiceBean {
             inquilino.setApellido(apellido);
             inquilino.setDocumento(documento);
             inquilino.setSexo(sexo);
+            inquilino.setNacionalidad(nacionalidad);
             inquilino.setCorreoElectronico(correoElectronico);
             inquilino.setTelefono(telefono);
             inquilino.setTipoDocumento(tipoDocumento);
@@ -172,6 +173,7 @@ public class InquilinoServiceBean {
             inquilino.setDocumento(documento);
             inquilino.setSexo(sexo);
             inquilino.setCorreoElectronico(correoElectronico);
+            inquilino.setNacionalidad(nacionalidad);
             inquilino.setTelefono(telefono);
             inquilino.setTipoDocumento(tipoDocumento);
             inquilino.setEliminado(false);
