@@ -87,4 +87,100 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editMenu</from-outcome>
+            <to-view-id>/admin/menu/editMenu.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listMenu</from-outcome>
+            <to-view-id>/admin/menu/listMenu.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editSubmenu</from-outcome>
+            <to-view-id>/admin/submenu/editSubmenu.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listSubmenu</from-outcome>
+            <to-view-id>/admin/submenu/listSubmenu.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/editInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listInquilino</from-outcome>
+            <to-view-id>/admin/inquilino/listInquilino.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editPropietario</from-outcome>
+            <to-view-id>/admin/propietario/editPropietario.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listPropietario</from-outcome>
+            <to-view-id>/admin/propietario/listPropietario.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editConsorcio</from-outcome>
+            <to-view-id>/admin/consorcio/editConsorcio.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listConsorcio</from-outcome>
+            <to-view-id>/admin/consorcio/listConsorcio.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/editNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listNacionalidad</from-outcome>
+            <to-view-id>/admin/nacionalidad/listNacionalidad.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
