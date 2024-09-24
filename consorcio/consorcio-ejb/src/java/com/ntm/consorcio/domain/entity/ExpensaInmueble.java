@@ -6,6 +6,7 @@
 package com.ntm.consorcio.domain.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -49,12 +50,7 @@ public class ExpensaInmueble implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.ntm.consorcio.domain.entity.ExpensaInmueble[ id=" + id + " ]";
-    }
+    }    
 
     public String getId() {
         return id;
@@ -104,4 +100,12 @@ public class ExpensaInmueble implements Serializable {
         this.inmueble = inmueble;
     }
     
+    public String getData() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+
+        // Transformar la fecha a String
+        String fechaPeriodo = formato.format(periodo);
+        String fechaVenc = formato.format(fechaVencimiento);
+        return "Periodo: " + fechaPeriodo + ", Fecha de Vencimiento: " + fechaVenc + ", " + inmueble.getPisoDpto();
+    }
 }

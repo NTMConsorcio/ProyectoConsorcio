@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.ntm.consorcio.domain.entity;
 
 /**
@@ -12,5 +8,7 @@ package com.ntm.consorcio.domain.entity;
 public enum FormaDePago {
     EFECTIVO,
     TRANSFERENCIA,
-    BILLETERA_VIRTUAL
+    BILLETERA_VIRTUAL,
+    TARJETA_DE_CREDITO,
+    TARJETA_DE_DEBITO
 }

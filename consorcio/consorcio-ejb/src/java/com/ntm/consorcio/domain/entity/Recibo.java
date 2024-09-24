@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.ntm.consorcio.domain.entity;
 
 import java.io.Serializable;
@@ -30,6 +26,7 @@ public class Recibo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Collection<DetalleRecibo> detalleRecibo;
     private boolean eliminado;
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -85,7 +82,7 @@ public class Recibo implements Serializable {
         return total;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
@@ -103,9 +100,6 @@ public class Recibo implements Serializable {
 
     public void setDetalleRecibo(Collection<DetalleRecibo> detalleRecibo) {
         this.detalleRecibo = detalleRecibo;
-    }
-
-    
-    
+    }   
     
 }
