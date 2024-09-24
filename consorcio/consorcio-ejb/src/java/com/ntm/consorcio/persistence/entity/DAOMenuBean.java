@@ -33,7 +33,7 @@ public class DAOMenuBean {
     
      /**
      * Actualiza el objeto actual en base de datos
-     * @param subMenu SubMenu
+     * @param Menu menu
      */
     public void actualizarMenu(Menu menu) {
         em.setFlushMode(FlushModeType.COMMIT);
@@ -70,7 +70,8 @@ public class DAOMenuBean {
     public Menu buscarMenuPorOrden(int orden) throws ErrorDAOException, NoResultException, NoResultDAOException{
         try {
             return (Menu)  em.createQuery("SELECT m "
-                                          + " FROM menu m"
+                                          + " FROM Menu m"
+                                          + " WHERE m.eliminado = FALSE"
                                           + " AND m.orden = :orden").
                                           setParameter("orden", orden).
                                           getSingleResult();
@@ -85,7 +86,7 @@ public class DAOMenuBean {
     public Menu buscarMenuPorSubMenu(String idSubMenu) throws ErrorDAOException, NoResultException, NoResultDAOException{
         try {
             return (Menu)  em.createQuery("SELECT m "
-                                          + " FROM menu m, IN (m.submenu) sub"
+                                          + " FROM Menu m, IN (m.submenu) sub"
                                           + " WHERE sub.id = :idSubMenu").
                                           setParameter("idSubMenu", idSubMenu).
                                           getSingleResult();
@@ -100,9 +101,9 @@ public class DAOMenuBean {
     public Collection<Menu> listarMenuActivo() throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT m "
-                                    + " FROM menu m"
+                                    + " FROM Menu m"
                                     + " WHERE m.eliminado = FALSE"
-                                    + " ORDER BY m.order DESC").
+                                    + " ORDER BY m.orden DESC").
                                     getResultList();
         } catch (Exception e) {
             e.printStackTrace();

@@ -36,9 +36,12 @@ public class MenuServiceBean {
             }
 
             // Verificar si ya existe un submenú con ese nombre
-            if (dao.buscarMenuPorNombre(nombre) != null) {
-                throw new ErrorServiceException("Existe un menú con el nombre indicado");
-            }
+            try {
+                Menu menuEx = dao.buscarMenuPorNombre(nombre);
+                if (menuEx != null) {
+                    throw new ErrorServiceException("Existe un menú con el nombre indicado");
+                }
+            } catch (NoResultDAOException ex) { }
 
             // Validar el orden
             if (orden <= 0) {
@@ -46,10 +49,13 @@ public class MenuServiceBean {
             }
 
             // Verificar si ya existe un submenú con ese orden en el mismo menú
-            if (dao.buscarMenuPorOrden(orden) != null) {
-                throw new ErrorServiceException("Existe un menú con el orden indicado");
-            }
-
+            try {
+                Menu menuEx2 = dao.buscarMenuPorOrden(orden);
+                if (menuEx2 != null) {
+                    throw new ErrorServiceException("Existe un menú con el orden indicado");
+                }
+            } catch (NoResultDAOException ex) { }
+            
             // Crear el nuevo submenú
             Menu menu = new Menu();
             menu.setId(UUID.randomUUID().toString());
