@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+
 /**
  *
  * @author Mauro Sorbello
@@ -30,6 +31,7 @@ public class ExpensaServiceBean {
             if (fechaDesde == null) {
                 throw new ErrorServiceException("Debe indicar fecha de pago");
             }
+
             Expensa expensa = new Expensa();
             expensa.setId(UUID.randomUUID().toString()); // Genera un UUID único para el recibo
             expensa.setFechaDesde(fechaDesde);             
@@ -89,6 +91,7 @@ public class ExpensaServiceBean {
             if (expensaExistente.getImporte() == (importe)){
                 throw new ErrorServiceException("Existe una expensa con el importe indicado");
             }
+
             /*
             El método compareTo() devuelve:
 
@@ -96,6 +99,7 @@ public class ExpensaServiceBean {
             Un valor negativo si la fecha que invoca el método es anterior,
             Un valor positivo si la fecha que invoca el método es posterior.
             */
+            /*
             if (fechaHasta.compareTo(expensaExistente.getFechaDesde()) < 0) {
                 // La fechaHasta es anterior o igual a la fecha de la expensa existente
                 throw new ErrorServiceException("La expensa posee una fecha de incio mayor a la fecha de fin indicada");
@@ -104,7 +108,7 @@ public class ExpensaServiceBean {
             if (fechaDesde.compareTo(expensaExistente.getFechaHasta()) > 0){
                 throw new ErrorServiceException("La expensa posee una fecha de fin menor a la fecha de comienzo indicada");
             }
-            
+            */
             expensa.setFechaDesde(fechaDesde);
             expensa.setFechaHasta(fechaHasta);
             expensa.setImporte(importe);
