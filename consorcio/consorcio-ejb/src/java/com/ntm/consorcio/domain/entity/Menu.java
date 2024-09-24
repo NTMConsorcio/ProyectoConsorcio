@@ -101,5 +101,18 @@ public class Menu implements Serializable {
         this.eliminado = eliminado;
     }
     
+    public String getSubmenus() {
+        String solution = "";
+        int count = 0;
+        for (Submenu sm : submenu) {
+            if (count == 0) {
+                solution = sm.getNombre();
+            } else {
+                solution = solution + ", " + sm.getNombre();   
+            }
+            count = count + 1;
+        }
+        return solution;
+    }
 
 }
