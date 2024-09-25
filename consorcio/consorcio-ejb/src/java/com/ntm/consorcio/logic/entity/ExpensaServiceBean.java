@@ -29,9 +29,31 @@ public class ExpensaServiceBean {
         try {
             // Verificamos si la fecha de pago es null
             if (fechaDesde == null) {
-                throw new ErrorServiceException("Debe indicar fecha de pago");
+                throw new ErrorServiceException("Debe indicar la fecha de inicio");
+            } 
+            Expensa expensaActual = buscarExpensaActual();
+            if (expensaActual != null){
+                System.out.println(expensaActual.getFechaDesde());
+                if (fechaDesde.compareTo(expensaActual.getFechaDesde()) <= 0){
+                    throw new ErrorServiceException("La fecha de inicio debe ser mayor a la fecha de inicio de la expensa anterior.");
+                } else {
+                    expensaActual.setFechaHasta(fechaDesde);
+                    dao.guardarExpensa(expensaActual);
+                }      
             }
-
+                
+            
+            /* 
+            El método compareTo() devuelve:
+            0 si las dos fechas son iguales,
+            Un valor negativo si la fecha que invoca el método es anterior,
+            Un valor positivo si la fecha que invoca el método es posterior.
+            */   
+            if (importe <= 0.0){
+                throw new ErrorServiceException("El importe de la expensa debe ser mayor a cero");
+            }
+            
+          
             Expensa expensa = new Expensa();
             expensa.setId(UUID.randomUUID().toString()); // Genera un UUID único para el recibo
             expensa.setFechaDesde(fechaDesde);             
@@ -50,15 +72,15 @@ public class ExpensaServiceBean {
     public Expensa buscarExpensa(String id) throws ErrorServiceException {
         try {
             if (id == null) {
-                throw new ErrorServiceException("Debe indicar el recibo");
+                throw new ErrorServiceException("Debe indicar la expensa");
             }
 
             Expensa expensa = dao.buscarExpensa(id);
             
             if (expensa.getEliminado()){
-                throw new ErrorServiceException("No se encuentra en recibo indicado");
+                throw new ErrorServiceException("No se encuentra la expensa indicada");
             }
-
+            
             return expensa;
             
         } catch (ErrorServiceException ex) {  
@@ -83,13 +105,21 @@ public class ExpensaServiceBean {
 
             Expensa expensa = buscarExpensa(idExpensa);
 
+            if (fechaDesde == null) {
+                throw new ErrorServiceException("Debe indicar la fecha de inicio");
+            }
+            
+            if (fechaHasta == null) {
+                throw new ErrorServiceException("Debe indicar la fecha de fin");
+            }
+            
             if (idExpensa== null || idExpensa.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el id");
             }
 
-            Expensa expensaExistente = dao.buscarExpensa(idExpensa);
-            if (expensaExistente.getImporte() == (importe)){
-                throw new ErrorServiceException("Existe una expensa con el importe indicado");
+
+            if (importe <= 0.0){
+                throw new ErrorServiceException("El importe de la expensa debe ser mayor a cero");
             }
 
             /*
@@ -160,15 +190,14 @@ public class ExpensaServiceBean {
     
     public Expensa buscarExpensaActual() throws ErrorServiceException  {
         try {  
-            Date fechaActual = new Date();
-            return dao.buscarExpensaPorFecha(fechaActual);
+            return dao.buscarExpensaActual();
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");
         } 
     }
     
-        public Expensa buscarExpensa(Date fecha) throws ErrorServiceException  {
+    public Expensa buscarExpensa(Date fecha) throws ErrorServiceException  {
         try {  
             return dao.buscarExpensaPorFecha(fecha);
         } catch (Exception ex) {

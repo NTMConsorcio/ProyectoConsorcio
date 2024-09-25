@@ -52,7 +52,7 @@ public class DAOExpensaInmuebleBean {
     public ExpensaInmueble buscarExpensaInmueble(String id) throws NoResultException {
         return em.find(ExpensaInmueble.class, id);
     }
-    
+   
         /**
      * Busca la lista de objetos por inmueble
      * @param idInmueble String 
@@ -77,4 +77,22 @@ public class DAOExpensaInmuebleBean {
             throw new ErrorDAOException("Error del sistema.");
         }
     } 
+    
+        /**
+     * Lista todos los ExpensaInmueble activos (no eliminados).
+     * @return Colección de ExpensaInmueble activos.
+     * @throws ErrorDAOException En caso de error del sistema.
+     */
+    public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorDAOException {
+        try {
+            return em.createQuery("SELECT e "
+                                    + " FROM ExpensaInmueble e"
+                                    + " WHERE e.eliminado = FALSE"
+                                    + " ORDER BY e.periodo DESC")
+                                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
+    }
 }

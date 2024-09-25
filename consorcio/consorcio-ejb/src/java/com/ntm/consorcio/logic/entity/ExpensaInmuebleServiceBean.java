@@ -28,20 +28,36 @@ public class ExpensaInmuebleServiceBean {
     private @EJB InmuebleServiceBean inmuebleService;
     private @EJB ExpensaServiceBean expensaService;
     
-    public void crearExpensaInmueble(Date periodo, EstadoExpensaInmueble estado,String IdInmueble, String idExpensa) throws ErrorServiceException {
+    public void crearExpensaInmueble(Date periodo, EstadoExpensaInmueble estado,String idInmueble, String idExpensa) throws ErrorServiceException {
         try {
             // Verificaciones
-            /*
-            if (fechaDesde == null) {
-                throw new ErrorServiceException("Debe indicar fecha de pago");
+            
+            if (periodo == null) {
+                throw new ErrorServiceException("Debe indicar el periodo");
             }
-            */
+            
+            if (estado == null) {
+                throw new ErrorServiceException("Debe indicar el estado");
+            }
+              
+            if (idInmueble == null) {
+                throw new ErrorServiceException("Debe indicar el inmueble");
+            }
+            
+            if (idExpensa == null) {
+                throw new ErrorServiceException("Debe indicar la expensa");
+            }
+            
             ExpensaInmueble expensaInmueble = new ExpensaInmueble();
             expensaInmueble.setId(UUID.randomUUID().toString()); // Genera un UUID único para el recibo
             expensaInmueble.setPeriodo(periodo);             
-            expensaInmueble.setEstado(estado);   
-            Inmueble inmueble = inmuebleService.buscarInmueble(IdInmueble);
+            expensaInmueble.setEstado(estado);
+            expensaInmueble.setEliminado(false);
+            
+            Inmueble inmueble = inmuebleService.buscarInmueble(idInmueble);
             Expensa expensa = expensaService.buscarExpensa(idExpensa);
+            expensaInmueble.setExpensa(expensa);
+            expensaInmueble.setInmueble(inmueble);
             dao.guardarExpensaInmueble(expensaInmueble);                 
 
         } catch (ErrorServiceException e) {
@@ -125,6 +141,30 @@ public class ExpensaInmuebleServiceBean {
             
             return dao.listarExpensaInmueblePorInmueble(id, estado);
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
+    public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorServiceException {
+        try {
+            return dao.listarExpensaInmuebleActivo();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
+    public void eliminarExpensaInmueble(String id) throws ErrorServiceException {
+
+        try {
+
+            ExpensaInmueble expensaInmueble = buscarExpensaInmueble(id);
+            expensaInmueble.setEliminado(true);
+            
+            dao.actualizarExpensaInmueble(expensaInmueble);
+
+        } catch (ErrorServiceException ex) {
+            throw ex;
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");
