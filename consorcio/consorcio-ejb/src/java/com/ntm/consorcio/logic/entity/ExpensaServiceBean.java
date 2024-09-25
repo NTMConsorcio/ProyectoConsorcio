@@ -8,6 +8,7 @@ package com.ntm.consorcio.logic.entity;
 import com.ntm.consorcio.persistence.entity.DAOExpensaBean;
 import com.ntm.consorcio.domain.entity.Expensa;
 import com.ntm.consorcio.logic.ErrorServiceException;
+import com.ntm.consorcio.persistence.NoResultDAOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
@@ -27,12 +28,16 @@ public class ExpensaServiceBean {
     
     public void crearExpensa(Date fechaDesde, double importe) throws ErrorServiceException {
         try {
+            Expensa expensaActual = null;
             // Verificamos si la fecha de pago es null
             if (fechaDesde == null) {
                 throw new ErrorServiceException("Debe indicar la fecha de inicio");
             } 
-
-            Expensa expensaActual = dao.buscarExpensaActual();
+            
+            try {
+                expensaActual = dao.buscarExpensaActual();
+            } catch (NoResultDAOException ex) {}
+            
             if (expensaActual != null){
                 System.out.println(expensaActual.getFechaDesde());
                 if (fechaDesde.compareTo(expensaActual.getFechaDesde()) <= 0){

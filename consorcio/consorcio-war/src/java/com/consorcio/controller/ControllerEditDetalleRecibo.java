@@ -12,8 +12,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 /**
  * Controlador para editDetalleRecibo
@@ -75,14 +77,15 @@ public class ControllerEditDetalleRecibo {
         try{
             //Si el caso de uso es alta, crea el detalleRecibo
             if (casoDeUso.equals("ALTA")) {
-                reciboServiceBean.crearDetalleRecibo(recibo.getId(), cantidad, subtotal, idExpensaInmueble);
+                reciboServiceBean.crearDetalleRecibo(recibo.getId(), cantidad, idExpensaInmueble);
                 Messages.show("Alta exitosa", TypeMessages.MENSAJE);
             // Si el caso de uso es modificar, lo modifica
             } else if (casoDeUso.equals("MODIFICAR")) {
-                reciboServiceBean.modificarDetalleRecibo(recibo.getId(), detalleRecibo.getId(), cantidad, subtotal, idExpensaInmueble);
+                reciboServiceBean.modificarDetalleRecibo(recibo.getId(), detalleRecibo.getId(), cantidad, idExpensaInmueble);
                 Messages.show("Modificación exitosa", TypeMessages.MENSAJE);
             }
-            
+            recibo = reciboServiceBean.buscarRecibo(recibo.getId());
+            guardarSession(recibo);
         } catch (Exception e) {
             e.printStackTrace();
             Messages.show(e.getMessage(), TypeMessages.ERROR);
@@ -114,7 +117,19 @@ public class ControllerEditDetalleRecibo {
         }
             
     }
-
+    
+    /**
+     * Guarda el Recibo en la sesión
+     * @param casoDeUso String
+     * @param detalleRecibo DetalleRecibo
+     */
+    private void guardarSession(Recibo rec){
+        ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+        HttpSession session = (HttpSession) context.getSession(true);
+        //Guarda el Recibo en el atributo RECIBO
+        session.setAttribute("RECIBO", rec);  
+    }
+    
     public ReciboServiceBean getReciboServiceBean() {
         return reciboServiceBean;
     }

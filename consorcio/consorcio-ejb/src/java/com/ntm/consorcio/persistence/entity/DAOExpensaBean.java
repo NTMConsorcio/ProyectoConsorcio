@@ -7,6 +7,7 @@ package com.ntm.consorcio.persistence.entity;
 
 import com.ntm.consorcio.domain.entity.Expensa;
 import com.ntm.consorcio.persistence.ErrorDAOException;
+import com.ntm.consorcio.persistence.NoResultDAOException;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
 import javax.persistence.NoResultException;
@@ -67,23 +68,26 @@ public class DAOExpensaBean {
             throw new ErrorDAOException("Error del sistema.");
         }
     }  
-    public Expensa buscarExpensaActual() throws ErrorDAOException {
+    public Expensa buscarExpensaActual() throws ErrorDAOException, NoResultDAOException {
         try {  
             Collection<Expensa> expensas = em.createQuery("SELECT e "
                                         + " FROM Expensa e"
                                         + " WHERE e.eliminado = FALSE", Expensa.class)
                                         .getResultList();
-            if (expensas.isEmpty()) {
-                throw new ErrorDAOException("No se encontró ninguna expensa activa.");
-            }
             // Si esperas solo una expensa actual, toma la primera
-            return expensas.iterator().next();   
+            if (!expensas.isEmpty()) {
+                return expensas.iterator().next();
+            } else {
+                throw new NoResultException("No se encontró expensa");
+            }
+        } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró expensa actual");
         } catch (Exception e) {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }
     }
-    public Expensa buscarExpensaPorFecha(Date fecha) throws ErrorDAOException  {
+    public Expensa buscarExpensaPorFecha(Date fecha) throws ErrorDAOException, NoResultDAOException  {
         try {  
             Collection<Expensa> expensas =  em.createQuery("SELECT e "
                                             + " FROM Expensa e"
@@ -91,11 +95,14 @@ public class DAOExpensaBean {
                                             + " AND (e.fechaHasta > :fecha OR e.fechaHasta IS NULL)").
                                             setParameter("fecha", fecha).
                                             getResultList();
-            if (expensas.isEmpty()) {
-                throw new ErrorDAOException("No se encontró ninguna expensa activa.");
-            }
             // Si esperas solo una expensa actual, toma la primera
-            return expensas.iterator().next();   
+            if (!expensas.isEmpty()) {
+                return expensas.iterator().next();
+            } else {
+                throw new NoResultException("No se encontró expensa");
+            }
+        } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encontró expensa");
         } catch (Exception e) {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");

@@ -29,11 +29,11 @@ public class PDFServiceBean {
      * @param inmuebles
      * @throws ErrorServiceException 
      */
-    public void generarRecibo(String path, double total, String cliente, Date fecha, String inmuebles) throws ErrorServiceException {
+    public void generarRecibo(String path, double total, String cliente, Date fecha, String inmuebles, String path2) throws ErrorServiceException {
         try {
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
         String fechaString = f.format(fecha);
-        dao.generarRecibo(path, String.valueOf(total), cliente, fechaString, inmuebles);
+        dao.generarRecibo(path, String.valueOf(total), cliente, fechaString, inmuebles, path2);
         } catch (ErrorDAOException ex) {
             throw new ErrorServiceException("Error generando el pdf");
         } catch (Exception ex) {

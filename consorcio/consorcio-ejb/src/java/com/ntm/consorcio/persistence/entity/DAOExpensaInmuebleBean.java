@@ -54,24 +54,28 @@ public class DAOExpensaInmuebleBean {
         return em.find(ExpensaInmueble.class, id);
     }
    
-    public ExpensaInmueble buscarExpensaInmueblePorInmExp(String idExpensa, String idInmueble, Date periodo) throws ErrorDAOException{
+    public ExpensaInmueble buscarExpensaInmueblePorInmExp(String idExpensa, String idInmueble, Date periodo) throws ErrorDAOException, NoResultDAOException{
         try {
                 Collection<ExpensaInmueble> expensaInms = em.createQuery("SELECT e "
                                 + " FROM ExpensaInmueble e"
                                 + " WHERE e.eliminado = FALSE"
-                                + " AND e.idExpensa = :idExpensa "
-                                + " AND e.idInmueble = :idInmueble"
-                                + " AND periodo = :periodo").
+                                + " AND e.expensa.id = :idExpensa "
+                                + " AND e.inmueble.id = :idInmueble"
+                                + " AND e.periodo = :periodo").
                                 setParameter("idExpensa", idExpensa).
                                 setParameter("idInmueble", idInmueble).
                                 setParameter("periodo", periodo)
                                 .getResultList();    
-            if (expensaInms.isEmpty()) {
-                throw new ErrorDAOException("No se encontró ninguna expensa activa.");
-            }
             // Si esperas solo una expensa actual, toma la primera
-            return expensaInms.iterator().next();  
-        }catch (Exception e) {
+            if (!expensaInms.isEmpty()) {
+                return expensaInms.iterator().next(); 
+            } else {
+                throw new NoResultException();
+            }
+             
+        } catch (NoResultException ex) {
+            throw new NoResultDAOException("No se encuentran resultados");
+        } catch (Exception e) {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }

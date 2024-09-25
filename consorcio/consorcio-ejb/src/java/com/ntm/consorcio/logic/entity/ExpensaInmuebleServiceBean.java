@@ -48,15 +48,16 @@ public class ExpensaInmuebleServiceBean {
             if (idExpensa == null) {
                 throw new ErrorServiceException("Debe indicar la expensa");
             }
-            /*
+          
             try {
                 // Intentar buscar la expensa
                 dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
                 
                 // Si llega aquí, significa que se encontró la expensa, así que lanza la excepción
                 throw new ErrorServiceException("Existe una expensa generada para el inmueble y el periodo indicado.");
-            } catch (NoResultDAOException e) {}
-            */
+            } catch (NoResultDAOException e) {
+                
+            }
             
             
             ExpensaInmueble expensaInmueble = new ExpensaInmueble();
@@ -121,7 +122,7 @@ public class ExpensaInmuebleServiceBean {
                 throw new ErrorServiceException("Debe indicar el id");
             }
 
-            /*
+           
             try {
                 // Intentar buscar la expensa
                 dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
@@ -129,7 +130,6 @@ public class ExpensaInmuebleServiceBean {
                 // Si llega aquí, significa que se encontró la expensa, así que lanza la excepción
                 throw new ErrorServiceException("Existe una expensa generada para el inmueble y el periodo indicado.");
             } catch (NoResultDAOException e) {}
-            */
             /*
             El método compareTo() devuelve:
 

@@ -168,13 +168,15 @@ public class ControllerListRecibo implements Serializable {
      * Muestra los departamentos del recibo
      * @param rec Recibo
      */
-    public void getInmuebleInfo(Recibo rec) {
+    public String getInmuebleInfo(Recibo rec) {
+        String info = null;
         try {
-            serviceBean.getInfoDpto(rec);
+            info = serviceBean.getInfoDpto(rec);
         } catch (Exception e) {
             e.printStackTrace();
             Messages.show(e.getMessage(), TypeMessages.ERROR);
         }
+        return info;
     }
     
     /**

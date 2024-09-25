@@ -5,6 +5,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.ntm.consorcio.persistence.ErrorDAOException;
+import java.io.File;
 import java.io.FileOutputStream;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -27,8 +28,12 @@ public class PDFExport {
      * @param inmuebles String
      * @throws ErrorDAOException 
      */
-    public void generarRecibo(String path, String total, String cliente, String fecha, String inmuebles) throws ErrorDAOException {
-         String archivo = path; 
+    public void generarRecibo(String path, String total, String cliente, String fecha, String inmuebles, String path2) throws ErrorDAOException {
+        File dir = new File(path);
+        if (!dir.exists()) {
+            dir.mkdirs(); // Crea el directorio si no existe
+        }
+         String archivo = path + path2; 
 
         try {
             // Creamos el documento
@@ -51,6 +56,7 @@ public class PDFExport {
             documento.close();
             
         } catch (Exception e) {
+            e.printStackTrace();
             throw new ErrorDAOException("Error al generar el recibo");
         }
     }

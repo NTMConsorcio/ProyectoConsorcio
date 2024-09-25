@@ -114,7 +114,7 @@ public class ExpensaInmueble implements Serializable {
 
         // Transformar la fecha a String
         String fechaPeriodo = formato.format(periodo);
-        String fechaVenc = formato.format(fechaVencimiento);
+        String fechaVenc = (fechaVencimiento != null) ? formato.format(fechaVencimiento) : "SIN INFORMACIÓN";
         return "Periodo: " + fechaPeriodo + ", Fecha de Vencimiento: " + fechaVenc + ", " + inmueble.getPisoDpto();
     }
 }
