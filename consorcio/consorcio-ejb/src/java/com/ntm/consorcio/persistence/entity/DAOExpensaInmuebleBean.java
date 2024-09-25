@@ -14,6 +14,7 @@ import javax.persistence.FlushModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
@@ -53,6 +54,29 @@ public class DAOExpensaInmuebleBean {
         return em.find(ExpensaInmueble.class, id);
     }
    
+    public ExpensaInmueble buscarExpensaInmueblePorInmExp(String idExpensa, String idInmueble, Date periodo) throws ErrorDAOException{
+        try {
+                Collection<ExpensaInmueble> expensaInms = em.createQuery("SELECT e "
+                                + " FROM ExpensaInmueble e"
+                                + " WHERE e.eliminado = FALSE"
+                                + " AND e.idExpensa = :idExpensa "
+                                + " AND e.idInmueble = :idInmueble"
+                                + " AND periodo = :periodo").
+                                setParameter("idExpensa", idExpensa).
+                                setParameter("idInmueble", idInmueble).
+                                setParameter("periodo", periodo)
+                                .getResultList();    
+            if (expensaInms.isEmpty()) {
+                throw new ErrorDAOException("No se encontró ninguna expensa activa.");
+            }
+            // Si esperas solo una expensa actual, toma la primera
+            return expensaInms.iterator().next();  
+        }catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
+    }
+    
         /**
      * Busca la lista de objetos por inmueble
      * @param idInmueble String 
@@ -77,6 +101,7 @@ public class DAOExpensaInmuebleBean {
         }
     }
     
+    
         /**
      * Lista todos los ExpensaInmueble activos (no eliminados).
      * @return Colección de ExpensaInmueble activos.
@@ -85,8 +110,8 @@ public class DAOExpensaInmuebleBean {
     public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorDAOException {
         try {
             return em.createQuery("SELECT e "
-                                    + " FROM ExpensaInmueble ei"
-                                    + " WHERE ei.eliminado = FALSE"
+                                    + " FROM ExpensaInmueble e"
+                                    + " WHERE e.eliminado = FALSE"
                                     + " ORDER BY e.periodo DESC")
                                     .getResultList();
         } catch (Exception e) {
@@ -94,4 +119,5 @@ public class DAOExpensaInmuebleBean {
             throw new ErrorDAOException("Error del sistema.");
         }
     }
+    
 }

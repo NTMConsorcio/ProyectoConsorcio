@@ -35,21 +35,20 @@
                                             <p:menuitem value="Baja" icon="fa fa-trash Red" action="#{controllerListExpensaInmueble.baja(variable)}"/>
                                         </p:slideMenu>
                                     </p:column>
-                        <p:column width="40" >
+                        <p:column width="40" headerText="Whatsapp"> 
                         <p:commandButton id="whatsappButton" 
                                             styleClass="whatsapp-button" 
                                             icon="ui-icon-whatsapp"
-                                            
-                                            <f:facet name="content">
-                            <h:graphicImage value="#{resource['images/default/whatsapp-logo.png']}" alt="WhatsApp" />
-                        </f:facet>
+                                            onclick="window.open('#{controllerListExpensaInmueble.getWhatsAppUrl(controllerListExpensaInmueble.formatPeriodo(variable.periodo), variable.inmueble.piso, variable.inmueble.dpto, variable.expensa.importe, variable.inmueble.inquilino.telefono, variable.inmueble.propietario.telefono, variable.inmueble.inquilino.nombreApellido , variable.inmueble.propietario.nombreApellido)}')">
                         </p:commandButton>
                         </p:column>
                         <p:column headerText="Estado" width="70" >
                             #{variable.estado}
                         </p:column>
                         <p:column headerText="Año-Mes" width="70" >
-                            #{variable.periodo}
+                            <h:outputText value="#{variable.periodo}">
+                                <f:convertDateTime pattern="yyyy-MM" />
+                            </h:outputText>
                         </p:column>
                         <p:column headerText="Valor Expensa" width="70" >
                             #{variable.expensa == null ? 'SIN VALOR': variable.expensa.getImporte()}

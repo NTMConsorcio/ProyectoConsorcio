@@ -31,7 +31,8 @@ public class ExpensaServiceBean {
             if (fechaDesde == null) {
                 throw new ErrorServiceException("Debe indicar la fecha de inicio");
             } 
-            Expensa expensaActual = buscarExpensaActual();
+
+            Expensa expensaActual = dao.buscarExpensaActual();
             if (expensaActual != null){
                 System.out.println(expensaActual.getFechaDesde());
                 if (fechaDesde.compareTo(expensaActual.getFechaDesde()) <= 0){

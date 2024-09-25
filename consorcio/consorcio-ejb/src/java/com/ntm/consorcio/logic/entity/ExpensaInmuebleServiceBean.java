@@ -11,6 +11,7 @@ import com.ntm.consorcio.domain.entity.ExpensaInmueble;
 import com.ntm.consorcio.domain.entity.EstadoExpensaInmueble;
 import com.ntm.consorcio.domain.entity.Inmueble;
 import com.ntm.consorcio.logic.ErrorServiceException;
+import com.ntm.consorcio.persistence.NoResultDAOException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
@@ -47,6 +48,16 @@ public class ExpensaInmuebleServiceBean {
             if (idExpensa == null) {
                 throw new ErrorServiceException("Debe indicar la expensa");
             }
+            /*
+            try {
+                // Intentar buscar la expensa
+                dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
+                
+                // Si llega aquí, significa que se encontró la expensa, así que lanza la excepción
+                throw new ErrorServiceException("Existe una expensa generada para el inmueble y el periodo indicado.");
+            } catch (NoResultDAOException e) {}
+            */
+            
             
             ExpensaInmueble expensaInmueble = new ExpensaInmueble();
             expensaInmueble.setId(UUID.randomUUID().toString()); // Genera un UUID único para el recibo
@@ -141,6 +152,15 @@ public class ExpensaInmuebleServiceBean {
             
             return dao.listarExpensaInmueblePorInmueble(id, estado);
 
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
+    
+    public ExpensaInmueble buscarExpensaInmueblePorExpInm(String idExpensa, String idInmueble, Date periodo) throws ErrorServiceException{
+        try {
+            return dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");

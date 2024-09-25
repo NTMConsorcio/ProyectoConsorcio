@@ -3,9 +3,11 @@ package com.consorcio.controller;
 import com.ntm.consorcio.domain.entity.ExpensaInmueble;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.logic.entity.ExpensaInmuebleServiceBean;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -49,6 +51,11 @@ public class ControllerListExpensaInmueble {
         }
     }
 
+    public String formatPeriodo(Date periodo) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        return sdf.format(periodo);
+    }
+    
     public String getWhatsAppUrl(String periodo, String piso, String dpto, Double importe, String phoneInquilino, String phonePropietario,String nombreInquilino,String nombrePropietario){
         String phone;
         String nombre;
@@ -58,8 +65,8 @@ public class ControllerListExpensaInmueble {
         } else{
             phone = phonePropietario;
             nombre = nombrePropietario;
-        }
-        String message = String.format("Bueno dias %s\n, le informamos el monto %s\n de la expensa del periodo %s\n. Piso: %s\n dpto %s\n" ,
+        } 
+        String message = String.format("Bueno dias %s, le informamos el monto %s de la expensa del periodo %s. Piso: %s Departamento: %s" ,
                                         nombre, importe, periodo, piso, dpto);                                   
         return "https://api.whatsapp.com/send?phone=" + phone+ "&text=" + message.replace("\n", "%0A");
     }

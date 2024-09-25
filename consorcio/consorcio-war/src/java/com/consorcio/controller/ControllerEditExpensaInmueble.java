@@ -81,7 +81,7 @@ public class ControllerEditExpensaInmueble {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-            Messages.show(ex.getMessage(), TypeMessages.ERROR);
+            Messages.show(ex.getMessage(), TypeMessages.ERROR); 
         }
     }
     
