@@ -215,4 +215,36 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listDetalleRecibo</from-outcome>
+            <to-view-id>/admin/detalleRecibo/listDetalleRecibo.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editDetalleRecibo</from-outcome>
+            <to-view-id>/admin/detalleRecibo/editDetalleRecibo.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editRecibo</from-outcome>
+            <to-view-id>/admin/recibo/editRecibo.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listRecibo</from-outcome>
+            <to-view-id>/admin/recibo/listRecibo.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

@@ -61,7 +61,6 @@ public class DAOExpensaInmuebleBean {
      * @throws ErrorDAOException
      * @throws NoResultDAOException 
      */
-    
     public Collection<ExpensaInmueble> listarExpensaInmueblePorInmueble(String idInmueble, EstadoExpensaInmueble estado) throws ErrorDAOException {
         try {  
             return em.createQuery("SELECT ei "
@@ -71,6 +70,19 @@ public class DAOExpensaInmuebleBean {
                                     + " AND ei.estado = :estado  ").
                                     setParameter("idInmueble", idInmueble).
                                     setParameter("estado", estado).
+                                    getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
+    }
+    
+    
+    public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorDAOException {
+        try {  
+            return em.createQuery("SELECT ei "
+                                    + " FROM ExpensaInmueble ei"
+                                    + " WHERE ei.eliminado = FALSE ").
                                     getResultList();
         } catch (Exception e) {
             e.printStackTrace();

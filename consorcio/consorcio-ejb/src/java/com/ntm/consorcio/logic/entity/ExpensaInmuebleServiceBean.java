@@ -146,6 +146,7 @@ public class ExpensaInmuebleServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+<<<<<<< HEAD
     public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorServiceException {
         try {
             return dao.listarExpensaInmuebleActivo();
@@ -165,6 +166,14 @@ public class ExpensaInmuebleServiceBean {
 
         } catch (ErrorServiceException ex) {
             throw ex;
+=======
+    
+    public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorServiceException {
+        try {
+            
+            return dao.listarExpensaInmuebleActivo();
+
+>>>>>>> 00d5eaad02e895c4403477609fc07e893098c522
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");

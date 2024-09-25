@@ -254,6 +254,7 @@ public class MenuServiceBean {
         service.crearSubMenu(buscarMenuPorNombre("Inmueble").getId(), "ABM Inmueble", "/admin/inmueble/listInmueble.jsf", 1);
         service.crearSubMenu(buscarMenuPorNombre("Expensa").getId(), "ABM Expensa", "/admin/expensa/listExpensa.jsf", 1);
         service.crearSubMenu(buscarMenuPorNombre("Expensa").getId(), "ABM ExpensaInmueble", "/admin/expensaInmueble/listExpensaInmueble.jsf", 2);
+        service.crearSubMenu(buscarMenuPorNombre("Expensa").getId(), "ABM Recibo", "/admin/recibo/listRecibo.jsf", 3);
 
     }
 }
