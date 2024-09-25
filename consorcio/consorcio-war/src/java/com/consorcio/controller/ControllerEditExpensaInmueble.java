@@ -68,12 +68,13 @@ public class ControllerEditExpensaInmueble {
             
             //Verifica el caso de uso. Si es consultar o modificar recibe el nombre
             if (casoDeUso.equals("CONSULTAR") || casoDeUso.equals("MODIFICAR")) {
+                
                 estadoExpensaInmueble = expensaInmueble.getEstado();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
                 periodo= sdf.format(expensaInmueble.getPeriodo());
+                
                 idInmueble = expensaInmueble.getInmueble() == null ? null : expensaInmueble.getInmueble().getId();
                 idExpensa = expensaInmueble.getExpensa() == null ? null : expensaInmueble.getExpensa().getId();
-                
                 //Si es consultar desactiva el campo
                 if (casoDeUso.equals("CONSULTAR")) {
                     desactivado = true;
@@ -82,7 +83,7 @@ public class ControllerEditExpensaInmueble {
         } catch (Exception ex) {
             ex.printStackTrace();
             Messages.show(ex.getMessage(), TypeMessages.ERROR); 
-        }
+        } 
     }
     
     /**
@@ -103,9 +104,9 @@ public class ControllerEditExpensaInmueble {
                 Messages.show("Alta exitosa", TypeMessages.MENSAJE);
             // Si el caso de uso es modificar, lo modifica
             } else if (casoDeUso.equals("MODIFICAR")) {
-                expensaInmuebleService.modificarExpensaInmueble(expensaInmueble.getId(), periodoFecha, estadoExpensaInmueble);
+                expensaInmuebleService.modificarExpensaInmueble(expensaInmueble.getId(),periodoFecha,idInmueble,idExpensa, estadoExpensaInmueble);
                 Messages.show("Modificación exitosa", TypeMessages.MENSAJE);
-            }
+            } 
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,9 +139,8 @@ public class ControllerEditExpensaInmueble {
             expensas = new ArrayList<>();
             expensas.add(new SelectItem(null, "Seleccione..."));
             Expensa expensa = expensaService.buscarExpensa(periodoFecha);
-            System.out.println(expensa);
+            idExpensa = expensa.getId();
             expensas.add(new SelectItem(expensa.getId(), "Importe Actual $:" + String.valueOf(expensa.getImporte())));
-            System.out.println(expensas);
             RequestContext.getCurrentInstance().update("formPpal:idExpensa");
         }catch(Exception e){
             Messages.show(e.getMessage(), TypeMessages.ERROR);

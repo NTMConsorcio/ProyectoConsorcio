@@ -92,6 +92,8 @@ public class ExpensaInmuebleServiceBean {
                 throw new ErrorServiceException("No se encuentra la expensa indicada");
             }
             */
+            
+            
             return expensaInmueble;
             
         } catch (ErrorServiceException ex) {  
@@ -109,7 +111,7 @@ public class ExpensaInmuebleServiceBean {
      * @param estado Estado con la fecha hasta
      * @throws ErrorServiceException 
      */
-    public void modificarExpensaInmueble(String idExpensaInmueble, Date periodo, EstadoExpensaInmueble estado) throws ErrorServiceException {
+    public void modificarExpensaInmueble(String idExpensaInmueble, Date periodo, String idInmueble, String idExpensa, EstadoExpensaInmueble estado) throws ErrorServiceException {
 
         try {
 
@@ -119,14 +121,15 @@ public class ExpensaInmuebleServiceBean {
                 throw new ErrorServiceException("Debe indicar el id");
             }
 
-            ExpensaInmueble expensaInmuebleExistente = dao.buscarExpensaInmueble(idExpensaInmueble);
-            if (periodo.compareTo(expensaInmuebleExistente.getPeriodo()) == 0){
-                throw new ErrorServiceException("Existe una expensa con el periodo indicado");
-            }
-            if (expensaInmuebleExistente.getEstado() == estado){
-                throw new ErrorServiceException("Existe una expensa con el estado indicado");
-            }
-            
+            /*
+            try {
+                // Intentar buscar la expensa
+                dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
+                
+                // Si llega aquí, significa que se encontró la expensa, así que lanza la excepción
+                throw new ErrorServiceException("Existe una expensa generada para el inmueble y el periodo indicado.");
+            } catch (NoResultDAOException e) {}
+            */
             /*
             El método compareTo() devuelve:
 
@@ -135,8 +138,12 @@ public class ExpensaInmuebleServiceBean {
             Un valor positivo si la fecha que invoca el método es posterior.
             */
             
-            expensaInmueble.setPeriodo(periodo);
+            expensaInmueble.setPeriodo(periodo); 
             expensaInmueble.setEstado(estado);
+            Expensa expensa = expensaService.buscarExpensa(idExpensa);
+            Inmueble inmueble = inmuebleService.buscarInmueble(idInmueble);
+            expensaInmueble.setExpensa(expensa); 
+            expensaInmueble.setInmueble(inmueble);
             
             dao.actualizarExpensaInmueble(expensaInmueble);
 

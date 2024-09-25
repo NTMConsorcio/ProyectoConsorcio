@@ -44,7 +44,7 @@
                         placeholder="yyyy-MM"
                         required=""
                         disabled="#{controllerEditExpensaInmueble.desactivado}"/>
-                        <p:commandButton id="inputExpensa" value="Valor Expensa"  action="#{controllerEditExpensaInmueble.cargarExpensas()}"  update="msj"/> 
+                        <p:commandButton id="inputExpensa" value="Valor Expensa"  action="#{controllerEditExpensaInmueble.cargarExpensas()}"  update="msj" disabled="#{controllerEditExpensaInmueble.desactivado} "/> 
                     <div class="EmptyBox10"></div>
                     <p:outputLabel value="Inmueble:"/>
                     <div class="EmptyBox1"></div>
@@ -54,7 +54,7 @@
                     <div class="EmptyBox10"></div>
                     <p:outputLabel value="Expensa:"/>
                     <div class="EmptyBox1"></div>
-                    <p:selectOneMenu id="idExpensa" value="#{controllerEditExpensaInmueble.idExpensa}" styleClass="Wid80" disabled="#{controllerEditExpensaInmueble.desactivado}">
+                    <p:selectOneMenu id="idExpensa" value="#{controllerEditExpensaInmueble.idExpensa}"  styleClass="Wid80" disabled="#{controllerEditExpensaInmueble.desactivado}">
                         <f:selectItems value="#{controllerEditExpensaInmueble.expensas}" />
                     </p:selectOneMenu>
                 </div>

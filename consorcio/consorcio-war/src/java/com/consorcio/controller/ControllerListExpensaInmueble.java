@@ -66,7 +66,7 @@ public class ControllerListExpensaInmueble {
             phone = phonePropietario;
             nombre = nombrePropietario;
         } 
-        String message = String.format("Bueno dias %s, le informamos el monto %s de la expensa del periodo %s. Piso: %s Departamento: %s" ,
+        String message = String.format("Bueno dÍas %s, le informamos el monto $%s de la expensa del periodo %s. Piso: %s. Departamento: %s" ,
                                         nombre, importe, periodo, piso, dpto);                                   
         return "https://api.whatsapp.com/send?phone=" + phone+ "&text=" + message.replace("\n", "%0A");
     }

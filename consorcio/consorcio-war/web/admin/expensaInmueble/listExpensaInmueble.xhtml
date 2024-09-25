@@ -54,7 +54,7 @@
                             #{variable.expensa == null ? 'SIN VALOR': variable.expensa.getImporte()}
                         </p:column>
                         <p:column headerText="Inmueble (Piso / Puerta)" width="70" >
-                            #{variable.inmueble == null ? 'SIN INMUEBLE': (variable.inmueble.getPiso())} #{variable.inmueble.getDpto()}
+                            #{variable.inmueble == null ? 'SIN INMUEBLE': (variable.inmueble.getPiso())} / #{variable.inmueble.getDpto()}
                         </p:column>
                         <p:column headerText="Propietario" width="70" >
                             #{variable.inmueble == null ? 'SIN PROPIETARIO': variable.inmueble.propietario.getNombreApellido()}
