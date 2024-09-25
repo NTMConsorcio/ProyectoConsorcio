@@ -77,19 +77,6 @@ public class DAOExpensaInmuebleBean {
         }
     }
     
-    
-    public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorDAOException {
-        try {  
-            return em.createQuery("SELECT ei "
-                                    + " FROM ExpensaInmueble ei"
-                                    + " WHERE ei.eliminado = FALSE ").
-                                    getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ErrorDAOException("Error del sistema.");
-        }
-    } 
-    
         /**
      * Lista todos los ExpensaInmueble activos (no eliminados).
      * @return Colección de ExpensaInmueble activos.
@@ -98,8 +85,8 @@ public class DAOExpensaInmuebleBean {
     public Collection<ExpensaInmueble> listarExpensaInmuebleActivo() throws ErrorDAOException {
         try {
             return em.createQuery("SELECT e "
-                                    + " FROM ExpensaInmueble e"
-                                    + " WHERE e.eliminado = FALSE"
+                                    + " FROM ExpensaInmueble ei"
+                                    + " WHERE ei.eliminado = FALSE"
                                     + " ORDER BY e.periodo DESC")
                                     .getResultList();
         } catch (Exception e) {
