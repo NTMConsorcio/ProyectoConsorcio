@@ -30,6 +30,7 @@ public class ExpensaInmueble implements Serializable {
     private Expensa expensa;
     @ManyToOne
     private Inmueble inmueble;
+    private boolean eliminado;
     
     
     @Override
@@ -98,6 +99,14 @@ public class ExpensaInmueble implements Serializable {
 
     public void setInmueble(Inmueble inmueble) {
         this.inmueble = inmueble;
+    }
+
+    public boolean getEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
     
     public String getData() {

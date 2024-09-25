@@ -3,6 +3,7 @@ package com.consorcio.controller;
 import com.ntm.consorcio.domain.entity.Inmueble;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.logic.entity.InmuebleServiceBean;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.PostConstruct;

@@ -59,26 +59,48 @@ public class DAOExpensaBean {
         try {  
             return em.createQuery("SELECT e "
                                     + " FROM Expensa e"
-                                    + " WHERE e.eliminado = FALSE").
+                                    + " WHERE e.eliminado = FALSE"
+                                    + " ORDER BY e.fechaDesde DESC").
                                     getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         }
     }  
-    
+    public Expensa buscarExpensaActual() throws ErrorDAOException {
+        try {  
+            Collection<Expensa> expensas = em.createQuery("SELECT e "
+                                        + " FROM Expensa e"
+                                        + " WHERE e.eliminado = FALSE", Expensa.class)
+                                        .getResultList();
+            if (expensas.isEmpty()) {
+                throw new ErrorDAOException("No se encontró ninguna expensa activa.");
+            }
+            // Si esperas solo una expensa actual, toma la primera
+            return expensas.iterator().next();   
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ErrorDAOException("Error del sistema.");
+        }
+    }
     public Expensa buscarExpensaPorFecha(Date fecha) throws ErrorDAOException  {
         try {  
-            return (Expensa) em.createQuery("SELECT e "
-                                    + " FROM Expensa e"
-                                    + " WHERE e.fechaDesde <= :fecha"
-                                    + " AND e.fechaHasta >=: fecha").
-                                    setParameter("fecha", fecha).
-                                    getSingleResult();
+            Collection<Expensa> expensas =  em.createQuery("SELECT e "
+                                            + " FROM Expensa e"
+                                            + " WHERE e.fechaDesde <= :fecha"
+                                            + " AND (e.fechaHasta > :fecha OR e.fechaHasta IS NULL)").
+                                            setParameter("fecha", fecha).
+                                            getResultList();
+            if (expensas.isEmpty()) {
+                throw new ErrorDAOException("No se encontró ninguna expensa activa.");
+            }
+            // Si esperas solo una expensa actual, toma la primera
+            return expensas.iterator().next();   
         } catch (Exception e) {
             e.printStackTrace();
             throw new ErrorDAOException("Error del sistema.");
         } 
     }
+    
 }
 
