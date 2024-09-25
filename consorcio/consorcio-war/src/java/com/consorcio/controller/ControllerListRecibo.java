@@ -176,5 +176,19 @@ public class ControllerListRecibo implements Serializable {
             Messages.show(e.getMessage(), TypeMessages.ERROR);
         }
     }
+    
+    /**
+     * Genera recibo y lo envia por mail
+     * @param rec Recibo
+     */
+    public void enviarMail(Recibo rec) {
+        try {
+            serviceBean.generarYEnviarRecibo(rec.getId());
+            Messages.show("Recibo enviado correctamente", TypeMessages.MENSAJE);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Messages.show(e.getMessage(), TypeMessages.ERROR);
+        }
+    }
 }
 

@@ -247,7 +247,7 @@ public class MenuServiceBean {
         service.crearSubMenu(buscarMenuPorNombre("Configuración").getId(), "ABM Dirección", "/admin/direccion/listDireccion.jsf", 5);
         service.crearSubMenu(buscarMenuPorNombre("Configuración").getId(), "ABM Nacionalidad", "/admin/nacionalidad/listNacionalidad.jsf", 6);
         service.crearSubMenu(buscarMenuPorNombre("Configuración").getId(), "ABM Consorcio", "/admin/consorcio/listConsorcio.jsf", 7);
-        service.crearSubMenu(buscarMenuPorNombre("Configuración").getId(), "ABM CuentaCorreo", "/admin/cuentacorreo/listCuentaCorreo.jsf", 8);
+        service.crearSubMenu(buscarMenuPorNombre("Configuración").getId(), "ABM CuentaCorreo", "/admin/consorcio/listCuentaCorreo.jsf", 8);
         
         service.crearSubMenu(buscarMenuPorNombre("Propietario").getId(), "ABM Propietario", "/admin/propietario/listPropietario.jsf", 1);
         service.crearSubMenu(buscarMenuPorNombre("Inquilino").getId(), "ABM Inquilino", "/admin/inquilino/listInquilino.jsf", 1);

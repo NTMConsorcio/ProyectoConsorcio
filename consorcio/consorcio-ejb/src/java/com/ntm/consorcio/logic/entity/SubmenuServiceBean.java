@@ -156,7 +156,7 @@ public class SubmenuServiceBean {
             
             try {
             Submenu subMenuAux = dao.buscarSubMenuPorMenuYOrden(menu.getId(), orden);
-            if (!subMenuAux.getId().equals(subMenu.getId())) {
+            if (!subMenuAux.getId().equals(idSubMenu)) {
                 throw new ErrorServiceException("Existe un submenú para el menú con el orden indicado y con diferente ID");
             }
             } catch (NoResultDAOException ex) { }
