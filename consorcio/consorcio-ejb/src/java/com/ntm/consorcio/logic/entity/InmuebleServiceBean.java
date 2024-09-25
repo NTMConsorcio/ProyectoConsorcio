@@ -216,5 +216,36 @@ public class InmuebleServiceBean {
             throw new ErrorServiceException("Error de sistema.");
         }
     }
-
+    
+    /**
+     * Obtiene el nombre del responsable del inmueble
+     * @param inmueble Inmueble
+     * @return String
+     */
+    public String obtenerResponsable(Inmueble inmueble) {
+        Propietario propietario = inmueble.getPropietario();
+        Inquilino inquilino = inmueble.getInquilino();
+        
+        if (inquilino != null) {
+            return inquilino.getNombreApellido();
+        } else {
+            return propietario.getNombreApellido();
+        } 
+    }
+    
+    /**
+     * Obtiene el mail del responsable del inmueble
+     * @param inmueble Inmueble
+     * @return String
+     */
+    public String obtenerMailResponsable(Inmueble inmueble) {
+        Propietario propietario = inmueble.getPropietario();
+        Inquilino inquilino = inmueble.getInquilino();
+        
+        if (inquilino != null) {
+            return inquilino.getCorreoElectronico();
+        } else {
+            return propietario.getCorreoElectronico();
+        } 
+    }
 }

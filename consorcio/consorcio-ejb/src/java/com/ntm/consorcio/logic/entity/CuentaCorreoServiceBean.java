@@ -5,10 +5,25 @@ import com.ntm.consorcio.domain.entity.CuentaCorreo;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import com.ntm.consorcio.persistence.entity.DAOCuentaCorreoBean;
+import java.util.Properties;
 import java.util.UUID;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 /**
  * Clase que implementa los métodos de CuentaCorreo
@@ -59,6 +74,12 @@ public class CuentaCorreoServiceBean {
             try {
                 dao.buscarCuentaCorreoPorCorreo(correo);
                 throw new ErrorServiceException("Existe esa cuenta de correo");
+            } catch (NoResultDAOException e) {
+            }
+            
+            try {
+                dao.buscarCuentaCorreoActiva();
+                throw new ErrorServiceException("Existe una cuenta de correo");
             } catch (NoResultDAOException e) {
             }
             
@@ -154,7 +175,7 @@ public class CuentaCorreoServiceBean {
 
         try {
             
-            if (verificar(id)) {
+            if (!verificar(id)) {
                 throw new ErrorServiceException("Debe indicar la cuenta de correo");
             }
 
@@ -222,5 +243,82 @@ public class CuentaCorreoServiceBean {
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Envia el email con un archivo adjunto
+     * @param destino String
+     * @param asunto String
+     * @param cuerpo String
+     * @param path String
+     * @throws ErrorServiceException 
+     */
+    public void sendEmail(String destino, String asunto, String cuerpo, String path) throws ErrorServiceException {
+        //Comento todo ya que es una funcionalidad nueva
+        try {
+            //recupera la cuenta de correo del consorcio
+            CuentaCorreo cuentaCorreo = listarCuentaCorreoActiva();
+            //Recuperamos la direccion origen
+            final String direccionDesde = cuentaCorreo.getCorreo();
+            //Recuperamos la clave
+            final String contrasenia = cuentaCorreo.getClave();
+            
+            //Se crea un properties que almacena la configuracion (almacenada en cuentaCorreo)
+            Properties propiedades = new Properties();
+            propiedades.put("mail.smtp.host", cuentaCorreo.getSmtp());
+            propiedades.put("mail.smtp.port", cuentaCorreo.getPuerto());
+            propiedades.put("mail.smtp.auth", "true");
+            propiedades.put("mail.smtp.starttls.enable", cuentaCorreo.isTls());
+            
+            //Crea una sesión del correo con autenticación
+            Session session = Session.getInstance(propiedades, new Authenticator() {
+                //Obtener credenciales de autenticación
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(direccionDesde, contrasenia);
+                }
+            });
+
+            // Creamos el mensaje
+            Message mensaje = new MimeMessage(session);
+            // Seteamos la dirección de origen
+            mensaje.setFrom(new InternetAddress(direccionDesde));
+            // Seteamos la dirección de destino
+            mensaje.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destino));
+            // Seteamos el asunto
+            mensaje.setSubject(asunto);
+
+            // Creamos el cuerpo del mensaje o correo
+            MimeBodyPart cuerpoMensaje = new MimeBodyPart();
+            // Seteamos el cuerpo en el MimeBodyPart
+            cuerpoMensaje.setText(cuerpo);
+
+            // Creamos nueva parte del mensaje para el archivo que generamos
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            // Buscamos el archivo que necesitamos adjuntar
+            DataSource source = new FileDataSource(path);
+            // Asociamos el archivo al MimeBodyPart
+            attachmentPart.setDataHandler(new DataHandler(source));
+            //Nombre del archivo en el correo
+            attachmentPart.setFileName(path);
+
+            // Se combinan las partes en una
+            Multipart multipart = new MimeMultipart();
+            //Agregamos el cuerpo del mensaje
+            multipart.addBodyPart(cuerpoMensaje);
+            // Agregamos la parte que lleva el archivo
+            multipart.addBodyPart(attachmentPart);
+            
+            //Agregamos el multipart al mensaje
+            mensaje.setContent(multipart);
+            
+            // Enviamos el correo
+            Transport.send(mensaje);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            throw new ErrorServiceException("Error generando el mail");
+        } catch (ErrorServiceException e) {
+            throw e;
+        }
     }
 }
