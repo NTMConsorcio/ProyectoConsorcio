@@ -8,6 +8,7 @@ package com.ntm.consorcio.logic.entity;
 import com.ntm.consorcio.domain.entity.Perfil;
 import com.ntm.consorcio.domain.entity.Usuario;
 import com.ntm.consorcio.logic.ErrorServiceException;
+import com.ntm.consorcio.logic.ErrorServiceLoginException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -26,6 +27,7 @@ public class initAppServiceBean {
     public void iniciarAplicacion()throws ErrorServiceException {
         
         try{
+<<<<<<< HEAD
             
             try{ 
 
@@ -39,9 +41,20 @@ public class initAppServiceBean {
                  System.out.println(usuario.getId());
                  usuarioService.asignarPerfil(usuario.getId(), perfil.getId());
             }       
+=======
+           try{ 
+                Usuario usuario1 = usuarioService.login("administrador","admin123");
+             
+           } catch (ErrorServiceLoginException e) {
+                Usuario usuario = usuarioService.crearUsuario("ADMINISTRADOR","ADMINISTRADOR", "2615034140", "admin@consorcio.com", "administrador", "admin123", "admin123");
+                menuService.configuracionInicial();
+                Perfil perfil = perfilService.crearPerfil("ADMINISTRADOR", "Perfil creado para el usuario administrador", menuService.listarMenuActivo());
+                usuarioService.asignarPerfil(usuario.getId(), perfil.getId());
+           }
+>>>>>>> 3d436eb5f057983b0fdfd3a04e8e838809d8c6bf
             
         } catch (Exception ex){
-            ex.printStackTrace();
+            ex.getMessage();
             throw new ErrorServiceException("Error");
         }
     }

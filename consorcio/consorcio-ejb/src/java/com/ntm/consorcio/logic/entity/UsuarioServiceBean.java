@@ -3,6 +3,7 @@ package com.ntm.consorcio.logic.entity;
 import com.ntm.consorcio.domain.entity.Perfil;
 import com.ntm.consorcio.domain.entity.Usuario;
 import com.ntm.consorcio.logic.ErrorServiceException;
+import com.ntm.consorcio.logic.ErrorServiceLoginException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import com.ntm.consorcio.persistence.entity.DAOUsuarioBean;
 import java.util.Collection;
@@ -23,7 +24,6 @@ public class UsuarioServiceBean {
     private @EJB PerfilServiceBean perfilServiceBean;
     
     public Usuario crearUsuario(String nombre, String apellido, String telefono, String correoElectronico, String usuario2, String clave, String claveVerific) throws ErrorServiceException {
-                
         try {
             
             if (!verificar(nombre)) {
@@ -185,7 +185,11 @@ public class UsuarioServiceBean {
 
         try {
             
+<<<<<<< HEAD
             if (!verificar(id)) { 
+=======
+            if (!verificar(id)) {
+>>>>>>> 3d436eb5f057983b0fdfd3a04e8e838809d8c6bf
                 throw new ErrorServiceException("Debe indicar el usuario");
             }
 
@@ -272,7 +276,7 @@ public class UsuarioServiceBean {
      * @return Usuario
      * @throws ErrorServiceException 
      */
-    public Usuario login(String user, String clave) throws ErrorServiceException {
+    public Usuario login(String user, String clave) throws ErrorServiceException, ErrorServiceLoginException {
         try {
             Usuario usuario = null;
             if (!verificar(user)) {
@@ -286,7 +290,7 @@ public class UsuarioServiceBean {
             try {
                 usuario = dao.buscarUsuarioPorUsuarioClave(user, clave);
             } catch (NoResultDAOException e) {
-                throw new ErrorServiceException("Usuario o contraseña incorrectos");
+                throw new ErrorServiceLoginException("Usuario o contraseña incorrectos");
             }
             
             if (usuario.getPerfil() == null) {
@@ -294,6 +298,8 @@ public class UsuarioServiceBean {
             }
             return usuario;
         } catch (ErrorServiceException ex) {
+            throw ex;
+        } catch (ErrorServiceLoginException ex) {
             throw ex;
         } catch (Exception ex) {
             ex.printStackTrace();

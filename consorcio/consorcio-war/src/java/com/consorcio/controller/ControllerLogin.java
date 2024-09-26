@@ -31,8 +31,13 @@ public class ControllerLogin {
     public void init() {}
     public String aceptar(){
         try {
+<<<<<<< HEAD
             initService.iniciarAplicacion(); 
             usuarioService.login(cuenta, clave);
+=======
+            initService.iniciarAplicacion();
+            usuario = usuarioService.login(cuenta, clave);
+>>>>>>> 3d436eb5f057983b0fdfd3a04e8e838809d8c6bf
             guardarSession(usuario);
             Messages.show("Login exitoso", TypeMessages.MENSAJE);
         }catch (Exception e) {
