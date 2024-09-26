@@ -247,4 +247,20 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>listConsorcio</from-outcome>
+            <to-view-id>/admin/consorcio/listCuentaConsorcio.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>editCuentaCorreo</from-outcome>
+            <to-view-id>/admin/consorcio/editCuentaConsorcio.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

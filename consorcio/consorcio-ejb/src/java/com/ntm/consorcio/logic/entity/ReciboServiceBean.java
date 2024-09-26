@@ -424,6 +424,7 @@ public class ReciboServiceBean {
             } else {
                 throw new ErrorServiceException("El recibo no posee detalles");
             }
+            
             //Obtenemos cliente y mail en String
             String cliente = inmuebleService.obtenerResponsable(detalleR.getExpensaInmueble().getInmueble());
             String mail = inmuebleService.obtenerMailResponsable(detalleR.getExpensaInmueble().getInmueble());

@@ -51,7 +51,7 @@ public class ExpensaInmuebleServiceBean {
           
             try {
                 // Intentar buscar la expensa
-                dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
+                dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo,estado);
                 
                 // Si llega aquí, significa que se encontró la expensa, así que lanza la excepción
                 throw new ErrorServiceException("Existe una expensa generada para el inmueble y el periodo indicado.");
@@ -125,7 +125,7 @@ public class ExpensaInmuebleServiceBean {
            
             try {
                 // Intentar buscar la expensa
-                dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
+                dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo, estado);
                 
                 // Si llega aquí, significa que se encontró la expensa, así que lanza la excepción
                 throw new ErrorServiceException("Existe una expensa generada para el inmueble y el periodo indicado.");
@@ -165,9 +165,9 @@ public class ExpensaInmuebleServiceBean {
         }
     }
     
-    public ExpensaInmueble buscarExpensaInmueblePorExpInm(String idExpensa, String idInmueble, Date periodo) throws ErrorServiceException{
+    public ExpensaInmueble buscarExpensaInmueblePorExpInm(String idExpensa, String idInmueble, Date periodo, EstadoExpensaInmueble estado) throws ErrorServiceException{
         try {
-            return dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo);
+            return dao.buscarExpensaInmueblePorInmExp(idExpensa, idInmueble, periodo, estado);
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");

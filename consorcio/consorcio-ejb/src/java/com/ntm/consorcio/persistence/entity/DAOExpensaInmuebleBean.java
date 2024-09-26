@@ -54,17 +54,19 @@ public class DAOExpensaInmuebleBean {
         return em.find(ExpensaInmueble.class, id);
     }
    
-    public ExpensaInmueble buscarExpensaInmueblePorInmExp(String idExpensa, String idInmueble, Date periodo) throws ErrorDAOException, NoResultDAOException{
+    public ExpensaInmueble buscarExpensaInmueblePorInmExp(String idExpensa, String idInmueble, Date periodo, EstadoExpensaInmueble estado) throws ErrorDAOException, NoResultDAOException{
         try {
                 Collection<ExpensaInmueble> expensaInms = em.createQuery("SELECT e "
                                 + " FROM ExpensaInmueble e"
                                 + " WHERE e.eliminado = FALSE"
                                 + " AND e.expensa.id = :idExpensa "
                                 + " AND e.inmueble.id = :idInmueble"
-                                + " AND e.periodo = :periodo").
+                                + " AND e.periodo = :periodo"
+                                + " AND e.estado = :estado").
                                 setParameter("idExpensa", idExpensa).
                                 setParameter("idInmueble", idInmueble).
-                                setParameter("periodo", periodo)
+                                setParameter("periodo", periodo).
+                                setParameter("estado", estado)
                                 .getResultList();    
             // Si esperas solo una expensa actual, toma la primera
             if (!expensaInms.isEmpty()) {

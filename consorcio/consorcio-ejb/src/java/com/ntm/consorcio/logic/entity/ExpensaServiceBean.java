@@ -36,17 +36,18 @@ public class ExpensaServiceBean {
             
             try {
                 expensaActual = dao.buscarExpensaActual();
+                if (expensaActual != null){
+                System.out.println(expensaActual.getFechaDesde());
+                    if (fechaDesde.compareTo(expensaActual.getFechaDesde()) <= 0){
+                        throw new ErrorServiceException("La fecha de inicio debe ser mayor a la fecha de inicio de la expensa anterior.");
+                    } else {
+                        expensaActual.setFechaHasta(fechaDesde);
+                        dao.guardarExpensa(expensaActual);
+                    }      
+                }
             } catch (NoResultDAOException ex) {}
             
-            if (expensaActual != null){
-                System.out.println(expensaActual.getFechaDesde());
-                if (fechaDesde.compareTo(expensaActual.getFechaDesde()) <= 0){
-                    throw new ErrorServiceException("La fecha de inicio debe ser mayor a la fecha de inicio de la expensa anterior.");
-                } else {
-                    expensaActual.setFechaHasta(fechaDesde);
-                    dao.guardarExpensa(expensaActual);
-                }      
-            }
+
                 
             
             /* 
