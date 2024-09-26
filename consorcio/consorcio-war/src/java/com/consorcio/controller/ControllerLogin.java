@@ -31,7 +31,7 @@ public class ControllerLogin {
     public void init() {}
     public String aceptar(){
         try {
-            initService.iniciarAplicacion();
+            initService.iniciarAplicacion(); 
             usuarioService.login(cuenta, clave);
             guardarSession(usuario);
             Messages.show("Login exitoso", TypeMessages.MENSAJE);
@@ -47,7 +47,6 @@ public class ControllerLogin {
     private void guardarSession(Usuario usuario){
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) context.getSession(true);
-        //Guarda el expense en el atributo EXPENSA
         session.setAttribute("usuarioLogin", usuario);  
     }
 

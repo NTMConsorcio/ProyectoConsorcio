@@ -15,7 +15,7 @@ import javax.ejb.LocalBean;
 /**
  *
  * @author Mauro Sorbello
- */
+ */ 
 @Stateless
 @LocalBean
 public class initAppServiceBean {
@@ -26,18 +26,19 @@ public class initAppServiceBean {
     public void iniciarAplicacion()throws ErrorServiceException {
         
         try{
-           try{ 
-               
-                Usuario usuario1 = usuarioService.login("administrador","admin123");
-             
-           }catch(ErrorServiceException e){
-               
-                Usuario usuario = usuarioService.crearUsuario("ADMINISTRADOR","ADMINISTRADOR", "2615034140", "admin@consorcio.com", "administrador", "admin123", "admin123");
-                menuService.configuracionInicial();
-                Perfil perfil = perfilService.crearPerfil("ADMINISTRADOR", "Perfil creado para el usuario administrador", menuService.listarMenuActivo());
-                usuarioService.asignarPerfil(usuario.getId(), perfil.getId());
-             
-           }
+            
+            try{ 
+
+                usuarioService.login("administrador", "admin123");
+
+            }catch(ErrorServiceException e){
+
+                 Usuario usuario = usuarioService.crearUsuario("ADMINISTRADOR","ADMINISTRADOR", "2615034140", "admin@consorcio.com", "administrador", "admin123", "admin123");
+                 menuService.configuracionInicial();
+                 Perfil perfil = perfilService.crearPerfil("ADMINISTRADOR", "Perfil creado para el usuario administrador", menuService.listarMenuActivo());
+                 System.out.println(usuario.getId());
+                 usuarioService.asignarPerfil(usuario.getId(), perfil.getId());
+            }       
             
         } catch (Exception ex){
             ex.printStackTrace();

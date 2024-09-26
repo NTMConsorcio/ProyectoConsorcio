@@ -185,7 +185,7 @@ public class UsuarioServiceBean {
 
         try {
             
-            if (verificar(id)) {
+            if (!verificar(id)) { 
                 throw new ErrorServiceException("Debe indicar el usuario");
             }
 
@@ -204,7 +204,29 @@ public class UsuarioServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }
     }
+        public Usuario buscarUsuarioPorUsuario(String user) throws ErrorServiceException {
 
+        try {
+            
+            if (user == null) {
+                throw new ErrorServiceException("Debe indicar el usuario");
+            }
+
+            Usuario usuario = dao.buscarUsuarioPorUsuario(user);
+            
+            if (usuario.isEliminado()){
+                throw new ErrorServiceException("No se encuentra el usuario indicado");
+            }
+
+            return usuario;
+            
+        } catch (ErrorServiceException ex) {  
+            throw ex;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
+        }
+    }
     /**
      * Elimina el objeto
      * @param id String que representa el id
@@ -306,6 +328,8 @@ public class UsuarioServiceBean {
             throw new ErrorServiceException("Error de sistema");
         }   
     }
+    
+    
     
     /**
      * Verifica que la String no sea vacía o nula.
