@@ -380,17 +380,19 @@ public class ReciboServiceBean {
     
     /**
      * Devuelve la lista de departamentos del recibo
-     * @param recibo Recibo
+     * @param detalle Collection Recibo
      * @return String
      */
-    public String getInfoDpto(Recibo recibo) {
+    public String getInfoDpto(Collection<DetalleRecibo> detalle) {
         String solution = "";
+        String aux;
         int count = 0;
-        for (DetalleRecibo dr : recibo.getDetalleRecibo()) {
+        for (DetalleRecibo dr : detalle) {
+            aux = dr.getExpensaInmueble().getInmueble().getPisoDpto();
             if (count == 0) {
-                solution = dr.getExpensaInmueble().getInmueble().getPisoDpto();
+                solution = aux;
             } else {
-                solution = solution + ", " + dr.getExpensaInmueble().getInmueble().getPisoDpto();  
+                solution = solution + ", " + aux;
             }
             count = count + 1;
         }
@@ -419,17 +421,25 @@ public class ReciboServiceBean {
             DetalleRecibo detalleR;
             Iterator<DetalleRecibo> iterator = detalle.iterator();
             
-            if (iterator.hasNext()) {
-                detalleR = iterator.next();
-            } else {
+            if (!iterator.hasNext()) {
                 throw new ErrorServiceException("El recibo no posee detalles");
             }
+<<<<<<< HEAD
             
             //Obtenemos cliente y mail en String
             String cliente = inmuebleService.obtenerResponsable(detalleR.getExpensaInmueble().getInmueble());
             String mail = inmuebleService.obtenerMailResponsable(detalleR.getExpensaInmueble().getInmueble());
+=======
+>>>>>>> e13f04bbdd412bb910f13859ae9c7916854102e6
             
-            String inmuebles = getInfoDpto(recibo);
+            detalleR = iterator.next();
+            //Obtenemos cliente y mail en String
+            String data = inmuebleService.obtenerResponsable(detalleR.getExpensaInmueble().getInmueble());
+            String[] parts = data.split(",");
+            String cliente = parts[1];
+            String mail = parts[0];
+            
+            String inmuebles = getInfoDpto(detalle);
             
             //Creamos el path donde se guardará el pdf
             String path = "/" + cliente.replace(" ", "") + "Recibo" + fechaSt + ".pdf";

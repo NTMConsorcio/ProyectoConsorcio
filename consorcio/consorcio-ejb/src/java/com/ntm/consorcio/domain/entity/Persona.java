@@ -157,4 +157,8 @@ public class Persona implements Serializable {
         return "com.ntm.consorcio.domain.entity.Persona[ id=" + id + " ]";
     }
     
+    public String getNombreApellidoMail() {
+        return this.correoElectronico + "," + this.nombre + " " + this.apellido;
+    }
+    
 }
