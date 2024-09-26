@@ -38,6 +38,6 @@
     </session-config>
     
     <welcome-file-list>
-        <welcome-file>admin/menu/listMenu.jsf</welcome-file>
+        <welcome-file>admin/login.jsf</welcome-file>
     </welcome-file-list>
 </web-app>

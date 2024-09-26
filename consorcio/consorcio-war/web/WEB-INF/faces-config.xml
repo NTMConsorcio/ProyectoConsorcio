@@ -7,8 +7,8 @@
     <lifecycle>
         <phase-listener>com.consorcio.controller.ControllerAutenticacion</phase-listener>
     </lifecycle>
-    
-    <navigation-rule> 
+
+    <navigation-rule>  
         <navigation-case>
             <from-outcome>editPais</from-outcome>
             <to-view-id>/admin/pais/editPais.jsf</to-view-id>
@@ -260,6 +260,13 @@
         <navigation-case>
             <from-outcome>editCuentaCorreo</from-outcome>
             <to-view-id>/admin/consorcio/editCuentaConsorcio.jsf</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule> 
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/admin/login.jsf</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

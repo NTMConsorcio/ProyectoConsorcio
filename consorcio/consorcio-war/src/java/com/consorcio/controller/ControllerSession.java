@@ -119,7 +119,7 @@ public class ControllerSession implements Serializable {
      */
     public String logout() {
         clearSession();
-        return "logout";
+        return "login"; 
     }
     
     /**

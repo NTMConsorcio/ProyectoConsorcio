@@ -11,6 +11,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core">
     <style>
         .centered-container {
+            z-index: 100;
             display: flex;
             justify-content: center; /* Centra horizontalmente */
             align-items: center; /* Centra verticalmente */
@@ -27,14 +28,16 @@ and open the template in the editor.
             margin-right: 50px;
         }
         
+        
     </style>
     <h:head>
-        <title>Login Form</title>
-        <h:outputStylesheet library="css" name="styles.css"/> <!-- Opcional: tu CSS -->
+        <title>Login</title>
+
     </h:head>
     <h:body>
         <h:form>
-            <div class="login-container">
+            <p:messages id="msj" autoUpdate="true" showSummary="false" showDetail="true" closable="true" style = "z-index: 1000;"/>
+            <div class="login-container" style="z-index: 100;">
                 <div class="card">
                     <div class="centered-container">
                         <p:panel style= "custom-panel" >
@@ -45,21 +48,15 @@ and open the template in the editor.
                             <h:graphicImage name="/resources/images/logo.png" library="default" alt="" width="1000"/>
                         </div>
                         <div class="login-body" style="custom-margin">
-                            <div class="username" style="text-align: center ;margin-bottom: 20px; margin-left: 50px; margin-right: 50px; margin-top: 10px; ">
-                                <p:inputText id="username" value="#{loginBean.username}" placeholder="Username" required="true" styleClass="input-field"/>
+                            <div class="cuenta" style="text-align: center ;margin-bottom: 20px; margin-left: 50px; margin-right: 50px; margin-top: 10px; ">
+                                <p:inputText id="idCuenta" value="#{controllerLogin.cuenta}" placeholder="Usuario" required="" styleClass="input-field"/>
                             </div>
-                            <div class="password" style="text-align: center;margin-bottom: 10px;">
-                                <p:password id="password" value="#{loginBean.password}" placeholder="Password" required="true" styleClass="input-field"/>
+                            <div class="clave" style="text-align: center;margin-bottom: 10px;">
+                                <p:password id="idClave" value="#{controllerLogin.clave}" placeholder="Clave" required="" styleClass="input-field"/>
                             </div>
-                            <div class="p-field-checkbox" style= "justify-content: center; display: flex; margin-bottom: 5px;">
-                                <p:selectBooleanCheckbox id="rememberMe" value="#{loginBean.rememberMe}" />
-                                <label for="rememberMe" style="margin-left: 1px;">Remember me</label>
-                            </div>
-                            <div class="forgot-password" style="text-align: center; margin-bottom: 15px">
-                                <a style="font-size: 12px;">Forgot your password?</a>
-                            </div>
+
                             <div class="button-sign-in" style="text-align: center;margin-bottom: 10px;">
-                                <p:commandButton value="Sign In" action="#{loginBean.login}" styleClass="p-button-primary"/>
+                                <p:commandButton value="Sign In" action="#{controllerLogin.aceptar()}" styleClass="p-button-primary" update="msj"/>
                             </div>  
                             
                         </div>

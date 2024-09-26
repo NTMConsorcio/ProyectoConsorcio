@@ -28,7 +28,7 @@ public class PerfilServiceBean {
      * @param menu Collection
      * @throws ErrorServiceException 
      */
-    public void crearPerfil(String nombre, String detalle, Collection<Menu> menu) throws ErrorServiceException {
+    public Perfil crearPerfil(String nombre, String detalle, Collection<Menu> menu) throws ErrorServiceException {
         try {
             if (!verificar(nombre)) {
                 throw new ErrorServiceException("Debe ingresar un nombre");
@@ -51,7 +51,7 @@ public class PerfilServiceBean {
             perfil.setDetalle(detalle);
             perfil.setMenu(menu);
             dao.guardarPerfil(perfil);
-            
+            return perfil;
         } catch (ErrorServiceException ex) {
             throw ex;
         } catch (Exception ex) {

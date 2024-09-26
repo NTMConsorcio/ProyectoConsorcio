@@ -150,6 +150,7 @@ public class ControllerListMenu implements Serializable {
     /**
      * Llama a la clase de servicio para crear los menús iniciales
      */
+    /*
     public void configInicial() {
         try {
             serviceBean.configuracionInicial();
@@ -159,4 +160,5 @@ public class ControllerListMenu implements Serializable {
             Messages.show(e.getMessage(), TypeMessages.ERROR);
         }
     }
+    */
 }

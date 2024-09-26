@@ -22,7 +22,7 @@ public class UsuarioServiceBean {
     private @EJB DAOUsuarioBean dao;
     private @EJB PerfilServiceBean perfilServiceBean;
     
-    public void crearUsuario(String nombre, String apellido, String telefono, String correoElectronico, String usuario2, String clave, String claveVerific) throws ErrorServiceException {
+    public Usuario crearUsuario(String nombre, String apellido, String telefono, String correoElectronico, String usuario2, String clave, String claveVerific) throws ErrorServiceException {
                 
         try {
             
@@ -71,7 +71,9 @@ public class UsuarioServiceBean {
             usuario.setId(UUID.randomUUID().toString());
             
             dao.guardarUsuario(usuario);
-            
+            System.out.println("-------------------------------------------------------------------");
+            System.out.println(usuario);
+            return usuario;
         } catch (ErrorServiceException e) {
             throw e;
         } catch (Exception e) {
