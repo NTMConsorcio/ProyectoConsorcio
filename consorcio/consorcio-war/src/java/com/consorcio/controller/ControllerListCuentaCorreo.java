@@ -1,10 +1,8 @@
-
 package com.consorcio.controller;
 
-
-import com.ntm.consorcio.domain.entity.Pais;
+import com.ntm.consorcio.domain.entity.CuentaCorreo;
 import com.ntm.consorcio.logic.ErrorServiceException;
-import com.ntm.consorcio.logic.entity.PaisServiceBean;
+import com.ntm.consorcio.logic.entity.CuentaCorreoServiceBean;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
@@ -17,55 +15,55 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
- * Controlador de vista de listPais
+ * Controlador de vista de listCuentaCorreo
  * @version 1.0.0
  * @author Tomas Rando
  */
 @ManagedBean
 @ViewScoped
-public class ControllerListPais {
+public class ControllerListCuentaCorreo {
     
-    private @EJB PaisServiceBean serviceBean;
-    private Collection<Pais> paisList = new ArrayList();
+    private @EJB CuentaCorreoServiceBean serviceBean;
+    private Collection<CuentaCorreo> cuentaCorreoList = new ArrayList();
     
     @PostConstruct
     public void init() {
         try {
-            listarPaises();
+            listarCuentaCorreos();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     /**
-     * Agrega todos los paises activos a paisList
+     * Agrega todos los cuentaCorreoes activos a cuentaCorreoList
      * @throws ErrorServiceException 
      */
-    public void listarPaises() throws ErrorServiceException {
+    public void listarCuentaCorreos() throws ErrorServiceException {
         try {
-            paisList.clear();
-            paisList.addAll(serviceBean.listarPaisActivo());
+            cuentaCorreoList.clear();
+            cuentaCorreoList.add(serviceBean.listarCuentaCorreoActiva());
             
-            RequestContext.getCurrentInstance().update("formPpal:paisTabla");   
+            RequestContext.getCurrentInstance().update("formPpal:cuentaCorreoTabla");   
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
     /**
-     * Getter de paisList
+     * Getter de cuentaCorreoList
      * @return Collection
      */
-    public Collection<Pais> getPaisList() {
-        return this.paisList;
+    public Collection<CuentaCorreo> getCuentaCorreoList() {
+        return this.cuentaCorreoList;
     }
     
     /**
-     * Setter de paisList
-     * @param paisList Collection
+     * Setter de cuentaCorreoList
+     * @param cuentaCorreoList Collection
      */
-    public void setListPais(Collection<Pais> paisList) {
-        this.paisList = paisList;
+    public void setListCuentaCorreo(Collection<CuentaCorreo> cuentaCorreoList) {
+        this.cuentaCorreoList = cuentaCorreoList;
     }
     
     /**
@@ -75,7 +73,7 @@ public class ControllerListPais {
     public String alta() {
         try{
             guardarSession("ALTA", null);
-            return "editPais";
+            return "editCuentaCorreo";
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,13 +84,13 @@ public class ControllerListPais {
     
     /**
      * Método para manejar la opción de consulta
-     * @param pais Pais
+     * @param cuentaCorreo CuentaCorreo
      * @return String
      */
-    public String consultar(Pais pais) {
+    public String consultar(CuentaCorreo cuentaCorreo) {
         try{
-            guardarSession("CONSULTAR", pais);
-            return "editPais";
+            guardarSession("CONSULTAR", cuentaCorreo);
+            return "editCuentaCorreo";
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -103,13 +101,13 @@ public class ControllerListPais {
     
     /**
      * Método para manejar la opción de modificación
-     * @param pais Pais
+     * @param cuentaCorreo CuentaCorreo
      * @return String
      */
-    public String modificar(Pais pais) {
+    public String modificar(CuentaCorreo cuentaCorreo) {
         try{
-            guardarSession("MODIFICAR", pais);
-            return "editPais";
+            guardarSession("MODIFICAR", cuentaCorreo);
+            return "editCuentaCorreo";
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,12 +118,12 @@ public class ControllerListPais {
     
     /**
      * Método para manejar la opción de baja 
-     * @param pais 
+     * @param cuentaCorreo 
      */
-    public void baja(Pais pais) {
+    public void baja(CuentaCorreo cuentaCorreo) {
         try{
-            serviceBean.eliminarPais(pais.getId());
-            listarPaises();
+            serviceBean.eliminarCuentaCorreo(cuentaCorreo.getId());
+            listarCuentaCorreos();
             Messages.show("Baja realizada exitosamente", TypeMessages.MENSAJE);
             RequestContext.getCurrentInstance().update("formPpal:msj");
         } catch (Exception e) {
@@ -135,17 +133,17 @@ public class ControllerListPais {
     }
     
     /**
-     * Guarda el caso de uso y el país en la sesión
+     * Guarda el caso de uso y la cuentaCorreo en la sesión
      * @param casoDeUso String
-     * @param pais Pais
+     * @param cuentaCorreo CuentaCorreo
      */
-    private void guardarSession(String casoDeUso, Pais pais){
+    private void guardarSession(String casoDeUso, CuentaCorreo cuentaCorreo){
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) context.getSession(true);
         //Guarda el caso de uso en el atributo CASO_DE_USO
         session.setAttribute("CASO_DE_USO", casoDeUso.toUpperCase()); 
-        //Guarda el país en el atributo PAIS
-        session.setAttribute("PAIS", pais);  
+        //Guarda el país en el atributo CUENTA_CORREO
+        session.setAttribute("CUENTA_CORREO", cuentaCorreo);  
     }
     
 }

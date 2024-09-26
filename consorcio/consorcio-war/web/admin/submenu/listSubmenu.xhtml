@@ -15,7 +15,7 @@
         <div class="EmptyBox10"> </div>
         <h:panelGroup>
                 <div class="Container100 Responsive100">
-                    <p:dataTable var="variable" id="submenuTabla" value="#{controllerListSubmenu.submenuList}" rows="10">
+                    <p:dataTable var="variable" id="submenuTabla" value="#{controllerListSubmenu.submenuList}" rows="10" paginator="true">
                         <p:column width="50">
                                         <p:commandButton  icon="fa fa-ellipsis-v" styleClass="Fright GrayButton" id="opcionTabla"/>
                                         <p:slideMenu overlay="true" my="left top" at="left top" trigger="opcionTabla" style="height: 150px">

@@ -8,9 +8,11 @@ import com.ntm.consorcio.domain.entity.Recibo;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
 import com.ntm.consorcio.persistence.entity.DAOReciboBean;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -25,6 +27,9 @@ import javax.ejb.LocalBean;
 public class ReciboServiceBean {
     private @EJB DAOReciboBean dao;
     private @EJB ExpensaInmuebleServiceBean serviceExpensaInmueble;
+    private @EJB PDFServiceBean servicePDF;
+    private @EJB InmuebleServiceBean inmuebleService;
+    private @EJB CuentaCorreoServiceBean correoService;
       /**
      * Crea un objeto de la clase
      * @param fechaPago Date
@@ -95,7 +100,7 @@ public class ReciboServiceBean {
      * @param idExpensaInmueble String
      * @throws ErrorServiceException 
      */
-    public void crearDetalleRecibo(String idRecibo, int cantidad, double subtotal, String idExpensaInmueble) throws ErrorServiceException {
+    public void crearDetalleRecibo(String idRecibo, int cantidad, String idExpensaInmueble) throws ErrorServiceException {
         try {
             ExpensaInmueble expensaInmueble;
 
@@ -103,9 +108,6 @@ public class ReciboServiceBean {
                 throw new ErrorServiceException("Debe indicar la cantidad");
             }
             
-            if (subtotal < 0) {
-                throw new ErrorServiceException("Debe indicar el subtotal");
-            }
             
             if (idExpensaInmueble == null || idExpensaInmueble.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar un ExpensaInmueble");
@@ -120,11 +122,12 @@ public class ReciboServiceBean {
             }
             
             Recibo recibo = buscarRecibo(idRecibo);
-            
+            double subt = expensaInmueble.getExpensa().getImporte();
             DetalleRecibo detalleRecibo = new DetalleRecibo();
             detalleRecibo.setId(UUID.randomUUID().toString()); // Genera un UUID único para el recibo
             detalleRecibo.setCantidad(cantidad);
             detalleRecibo.setExpensaInmueble(expensaInmueble);
+            detalleRecibo.setSubtotal(subt);
             detalleRecibo.setEliminado(false);                 // Por defecto no eliminado
             
             Collection<DetalleRecibo> collection;
@@ -156,17 +159,13 @@ public class ReciboServiceBean {
      * @param idExpensaInmueble String
      * @throws ErrorServiceException 
      */
-    public void modificarDetalleRecibo(String idRecibo, String idDetalleRecibo, int cantidad, double subtotal, String idExpensaInmueble) throws ErrorServiceException {
+    public void modificarDetalleRecibo(String idRecibo, String idDetalleRecibo, int cantidad, String idExpensaInmueble) throws ErrorServiceException {
         try {
             ExpensaInmueble expensaInmueble;
             Recibo recibo = buscarRecibo(idRecibo);
             
             if (cantidad <= 0) {
                 throw new ErrorServiceException("Debe indicar la cantidad");
-            }
-            
-            if (subtotal < 0) {
-                throw new ErrorServiceException("Debe indicar el subtotal");
             }
             
             if (idExpensaInmueble == null || idExpensaInmueble.isEmpty()) {
@@ -182,7 +181,7 @@ public class ReciboServiceBean {
             } catch (Exception ex) {
                 throw new ErrorServiceException("No existe la expensa inmueble indicada");
             }
-            
+            double subtotal = expensaInmueble.getExpensa().getImporte();
             Collection<DetalleRecibo> collection;
             
             if (recibo.getDetalleRecibo() == null) {
@@ -363,9 +362,11 @@ public class ReciboServiceBean {
         try {
             Collection<DetalleRecibo> collection = new ArrayList<>();
             Collection<DetalleRecibo> collectionIter = rec.getDetalleRecibo();
-            for (DetalleRecibo dr : collectionIter) {
-                if (dr.isEliminado() == false) {
-                    collection.add(dr);
+            if (collectionIter != null) {
+                for (DetalleRecibo dr : collectionIter) {
+                    if (dr.isEliminado() == false) {
+                        collection.add(dr);
+                    }
                 }
             }
             
@@ -394,5 +395,55 @@ public class ReciboServiceBean {
             count = count + 1;
         }
         return solution;
+    }
+    
+    /**
+     * Llama a la clase de servicio de pdf para generar el recibo con todos los datos y luego llama a la clase de servicio de CuentaCorreo para enviarlo.
+     * @param idRecibo String
+     * @throws ErrorServiceException 
+     */
+    public void generarYEnviarRecibo(String idRecibo) throws ErrorServiceException {
+        try {
+            
+            SimpleDateFormat formato = new SimpleDateFormat("dd_MM_yyyy");
+
+            //Buscamos el recibo
+            Recibo recibo = buscarRecibo(idRecibo);
+            
+            //Recuperamos los datos del recibo necesarios para generar el pdf
+            double total = recibo.getTotal();
+            Date fecha = recibo.getFechaPago();
+            // Transformar la fecha a String
+            String fechaSt = formato.format(fecha);
+            Collection<DetalleRecibo> detalle = recibo.getDetalleRecibo();
+            DetalleRecibo detalleR;
+            Iterator<DetalleRecibo> iterator = detalle.iterator();
+            
+            if (iterator.hasNext()) {
+                detalleR = iterator.next();
+            } else {
+                throw new ErrorServiceException("El recibo no posee detalles");
+            }
+            //Obtenemos cliente y mail en String
+            String cliente = inmuebleService.obtenerResponsable(detalleR.getExpensaInmueble().getInmueble());
+            String mail = inmuebleService.obtenerMailResponsable(detalleR.getExpensaInmueble().getInmueble());
+            
+            String inmuebles = getInfoDpto(recibo);
+            
+            //Creamos el path donde se guardará el pdf
+            String path = "/" + cliente.replace(" ", "") + "Recibo" + fechaSt + ".pdf";
+            //Se llama a la clase de servicio para generar el recibo en pdf
+            servicePDF.generarRecibo("recibos", total, cliente, fecha, inmuebles, path);
+            //Cuerpo del mail
+            String body = "Saludos " + cliente + ". Le enviamos el recibo correspondiente al pago realizado por las expensas del consorcio. Saludos.";
+            //Se llama a la clase de servicio para mandar el mail con el archivo generado
+            correoService.sendEmail(mail, "Recibo Expensas", body, "recibos" + path);
+            
+        } catch (ErrorServiceException ex) { 
+            throw ex;
+        } catch (Exception ex) {
+            throw new ErrorServiceException("Error de sistema");
+        }
+        
     }
 }

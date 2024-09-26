@@ -19,11 +19,12 @@
                     <p:dataTable var="variable" id="reciboTabla" value="#{controllerListRecibo.reciboList}" rows="10">
                         <p:column width="50">
                                         <p:commandButton  icon="fa fa-ellipsis-v" styleClass="Fright GrayButton" id="opcionTabla"/>
-                                        <p:slideMenu overlay="true" my="left top" at="left top" trigger="opcionTabla" style="height: 190px">
+                                        <p:slideMenu overlay="true" my="left top" at="left top" trigger="opcionTabla" style="height: 230px">
                                             <p:menuitem value="Consultar" icon="fa fa-question Orange" action="#{controllerListRecibo.consultar(variable)}"/>
                                             <p:menuitem value="Modificar" icon="fa fa-pencil Purple" action="#{controllerListRecibo.modificar(variable)}"/>
                                             <p:menuitem value="Baja" icon="fa fa-trash Red" action="#{controllerListRecibo.baja(variable)}"/>
                                             <p:menuitem value="Ver Detalles" icon="fa fa-folder-open Green" action="#{controllerListRecibo.verDetalle(variable)}"/>
+                                            <p:menuitem value="Enviar recibo por mail" icon="fa fa-envelope Blue" action="#{controllerListRecibo.enviarMail(variable)}"/>
                                         </p:slideMenu>
                         </p:column>
                         <p:column headerText="Inmuebles" width="700" >

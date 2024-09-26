@@ -39,7 +39,7 @@ public class InmuebleServiceBean {
             if (piso == null || piso.isEmpty() || dpto == null || dpto.isEmpty()) {
                 throw new ErrorServiceException("Debe indicar el piso y el departamento.");
             }
-
+               
             // Verificar si ya existe un inmueble con el mismo piso y departamento.
             try {
                 dao.buscarInmueblePorPisoYDpto(piso, dpto);
@@ -53,8 +53,20 @@ public class InmuebleServiceBean {
             } catch (ErrorServiceException ex) {
                 throw new ErrorServiceException("No se encontró el propietario seleccionado");
             }
-
-            if (propietario.getHabitaConsorcio()) {
+            
+            if (propietario.getHabitaConsorcio() == false && idInquilino == null && estadoInmueble == EstadoInmueble.OCUPADO) {
+                throw new ErrorServiceException("Se encontraron incongruencias entre propietario/inquilino y el estado del inmueble");
+            }
+            
+            if (propietario.getHabitaConsorcio() == true && estadoInmueble == EstadoInmueble.DESOCUPADO) {
+                throw new ErrorServiceException("Se encontraron incongruencias entre propietario y el estado del inmueble");
+            }
+            
+            if (idInquilino != null && estadoInmueble == EstadoInmueble.DESOCUPADO) {
+                throw new ErrorServiceException("Se encontraron incongruencias entre inquilino y el estado del inmueble");
+            }
+            
+            if (propietario.getHabitaConsorcio() || estadoInmueble == EstadoInmueble.DESOCUPADO) {
                 inquilino = null;
             } else {
                 try {
@@ -66,7 +78,7 @@ public class InmuebleServiceBean {
                     throw new ErrorServiceException("No se encontró el inquilino seleccionado");
                 }
             }
-          
+            
             Inmueble inmueble = new Inmueble();
             inmueble.setId(UUID.randomUUID().toString());
             inmueble.setPiso(piso);
@@ -204,5 +216,36 @@ public class InmuebleServiceBean {
             throw new ErrorServiceException("Error de sistema.");
         }
     }
-
+    
+    /**
+     * Obtiene el nombre del responsable del inmueble
+     * @param inmueble Inmueble
+     * @return String
+     */
+    public String obtenerResponsable(Inmueble inmueble) {
+        Propietario propietario = inmueble.getPropietario();
+        Inquilino inquilino = inmueble.getInquilino();
+        
+        if (inquilino != null) {
+            return inquilino.getNombreApellido();
+        } else {
+            return propietario.getNombreApellido();
+        } 
+    }
+    
+    /**
+     * Obtiene el mail del responsable del inmueble
+     * @param inmueble Inmueble
+     * @return String
+     */
+    public String obtenerMailResponsable(Inmueble inmueble) {
+        Propietario propietario = inmueble.getPropietario();
+        Inquilino inquilino = inmueble.getInquilino();
+        
+        if (inquilino != null) {
+            return inquilino.getCorreoElectronico();
+        } else {
+            return propietario.getCorreoElectronico();
+        } 
+    }
 }

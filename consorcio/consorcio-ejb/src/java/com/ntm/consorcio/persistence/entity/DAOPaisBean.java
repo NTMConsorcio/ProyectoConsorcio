@@ -3,6 +3,7 @@ package com.ntm.consorcio.persistence.entity;
 import com.ntm.consorcio.domain.entity.Pais;
 import com.ntm.consorcio.persistence.ErrorDAOException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
+import java.io.Serializable;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ import java.util.Collection;
  */
 @Stateless
 @LocalBean
-public class DAOPaisBean {
+public class DAOPaisBean implements Serializable {
     @PersistenceContext private EntityManager em;
     
     /**

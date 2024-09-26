@@ -168,9 +168,25 @@ public class ControllerListRecibo implements Serializable {
      * Muestra los departamentos del recibo
      * @param rec Recibo
      */
-    public void getInmuebleInfo(Recibo rec) {
+    public String getInmuebleInfo(Recibo rec) {
+        String info = null;
         try {
-            serviceBean.getInfoDpto(rec);
+            info = serviceBean.getInfoDpto(rec);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Messages.show(e.getMessage(), TypeMessages.ERROR);
+        }
+        return info;
+    }
+    
+    /**
+     * Genera recibo y lo envia por mail
+     * @param rec Recibo
+     */
+    public void enviarMail(Recibo rec) {
+        try {
+            serviceBean.generarYEnviarRecibo(rec.getId());
+            Messages.show("Recibo enviado correctamente", TypeMessages.MENSAJE);
         } catch (Exception e) {
             e.printStackTrace();
             Messages.show(e.getMessage(), TypeMessages.ERROR);

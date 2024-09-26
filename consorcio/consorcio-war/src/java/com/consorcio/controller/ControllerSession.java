@@ -1,3 +1,4 @@
+
 package com.consorcio.controller;
 
 import com.ntm.consorcio.domain.entity.Menu;
@@ -176,3 +177,4 @@ public class ControllerSession implements Serializable {
         this.model = model;
     }
 }
+

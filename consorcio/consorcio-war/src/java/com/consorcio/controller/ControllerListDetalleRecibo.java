@@ -31,7 +31,7 @@ public class ControllerListDetalleRecibo implements Serializable {
     
     @PostConstruct
     public void init() {
-        Recibo recibo = (Recibo) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("RECIBO");
+        recibo = (Recibo) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("RECIBO");
         try {
             listarDetalleRecibo();
         } catch (Exception e) {
@@ -46,8 +46,11 @@ public class ControllerListDetalleRecibo implements Serializable {
     public void listarDetalleRecibo() throws ErrorServiceException {
         try {
             detalleReciboList.clear();
-            detalleReciboList.addAll(serviceBean.listarDetalleReciboActivo(recibo));
-            
+            Collection<DetalleRecibo> collection;
+            collection = serviceBean.listarDetalleReciboActivo(recibo);
+            if (collection != null) {
+                detalleReciboList.addAll(collection);
+            }
             RequestContext.getCurrentInstance().update("formPpal:detalleReciboTabla");   
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +79,7 @@ public class ControllerListDetalleRecibo implements Serializable {
      */
     public String alta() {
         try{
-            guardarSession("ALTA", null);
+            guardarSession("ALTA", null, recibo);
             return "editDetalleRecibo";
             
         } catch (Exception e) {
@@ -93,7 +96,7 @@ public class ControllerListDetalleRecibo implements Serializable {
      */
     public String consultar(DetalleRecibo detalleRecibo) {
         try{
-            guardarSession("CONSULTAR", detalleRecibo);
+            guardarSession("CONSULTAR", detalleRecibo, recibo);
             return "editDetalleRecibo";
             
         } catch (Exception e) {
@@ -110,7 +113,7 @@ public class ControllerListDetalleRecibo implements Serializable {
      */
     public String modificar(DetalleRecibo detalleRecibo) {
         try{
-            guardarSession("MODIFICAR", detalleRecibo);
+            guardarSession("MODIFICAR", detalleRecibo, recibo);
             return "editDetalleRecibo";
             
         } catch (Exception e) {
@@ -127,6 +130,7 @@ public class ControllerListDetalleRecibo implements Serializable {
     public void baja(DetalleRecibo detalleRecibo) {
         try{
             serviceBean.eliminarDetalleRecibo(recibo.getId(), detalleRecibo.getId());
+            recibo = serviceBean.buscarRecibo(recibo.getId());
             listarDetalleRecibo();
             Messages.show("Baja realizada exitosamente", TypeMessages.MENSAJE);
             RequestContext.getCurrentInstance().update("formPpal:msj");
@@ -137,34 +141,18 @@ public class ControllerListDetalleRecibo implements Serializable {
     }
     
     /**
-     * Gestiona la vista de los detalle de los detalleRecibos
-     * @param rec DetalleRecibo
-     * @return String
-     */
-    public String verDetalle(DetalleRecibo rec) {
-        try{
-            guardarSession("CONSULTAR", rec);
-            return "listDetalleRecibo";
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            Messages.show(e.getMessage(), TypeMessages.ERROR);
-            return null;
-        }
-    }
-    
-    /**
      * Guarda el caso de uso y el detalleRecibo en la sesión
      * @param casoDeUso String
      * @param detalleRecibo DetalleRecibo
      */
-    private void guardarSession(String casoDeUso, DetalleRecibo detalleRecibo){
+    private void guardarSession(String casoDeUso, DetalleRecibo detalleRecibo, Recibo rec){
         ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
         HttpSession session = (HttpSession) context.getSession(true);
         //Guarda el caso de uso en el atributo CASO_DE_USO
         session.setAttribute("CASO_DE_USO", casoDeUso.toUpperCase()); 
         //Guarda el detalleRecibo en el atributo DETALLE_RECIBO
         session.setAttribute("DETALLE_RECIBO", detalleRecibo);  
+        session.setAttribute("RECIBO", rec);
     }
     
     /**
