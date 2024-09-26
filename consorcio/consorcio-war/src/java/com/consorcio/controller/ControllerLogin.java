@@ -32,7 +32,7 @@ public class ControllerLogin {
     public String aceptar(){
         try {
             initService.iniciarAplicacion();
-            usuarioService.login(cuenta, clave);
+            usuario = usuarioService.login(cuenta, clave);
             guardarSession(usuario);
             Messages.show("Login exitoso", TypeMessages.MENSAJE);
         }catch (Exception e) {
