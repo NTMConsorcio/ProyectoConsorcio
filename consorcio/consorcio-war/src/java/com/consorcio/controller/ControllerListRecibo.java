@@ -171,7 +171,7 @@ public class ControllerListRecibo implements Serializable {
     public String getInmuebleInfo(Recibo rec) {
         String info = null;
         try {
-            info = serviceBean.getInfoDpto(rec);
+            info = serviceBean.getInfoDpto(rec.getDetalleRecibo());
         } catch (Exception e) {
             e.printStackTrace();
             Messages.show(e.getMessage(), TypeMessages.ERROR);

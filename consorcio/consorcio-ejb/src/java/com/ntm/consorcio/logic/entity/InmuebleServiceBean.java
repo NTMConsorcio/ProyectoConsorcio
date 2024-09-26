@@ -227,9 +227,9 @@ public class InmuebleServiceBean {
         Inquilino inquilino = inmueble.getInquilino();
         
         if (inquilino != null) {
-            return inquilino.getNombreApellido();
+            return inquilino.getNombreApellidoMail();
         } else {
-            return propietario.getNombreApellido();
+            return propietario.getNombreApellidoMail();
         } 
     }
     
@@ -237,6 +237,7 @@ public class InmuebleServiceBean {
      * Obtiene el mail del responsable del inmueble
      * @param inmueble Inmueble
      * @return String
+     * @deprecated 
      */
     public String obtenerMailResponsable(Inmueble inmueble) {
         Propietario propietario = inmueble.getPropietario();
