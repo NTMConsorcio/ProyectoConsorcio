@@ -36,16 +36,17 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form>
-            <p:messages id="msj" autoUpdate="true" showSummary="false" showDetail="true" closable="true" style = "z-index: 1000;"/>
+            <p:growl id="growl" showDetail="true" life="3000" autoUpdate="true" />
             <div class="login-container" style="z-index: 100;">
                 <div class="card">
+                    
                     <div class="centered-container">
                         <p:panel style= "custom-panel" >
                             <f:facet name="header">
                                 <h1 class="panel-header" style="text-align: center; font-size: 28px; font-weight: bolder">LOGIN</h1>
                             </f:facet>
-                        <div class="login-header">
-                            <h:graphicImage name="/resources/images/logo.png" library="default" alt="" width="1000"/>
+                        <div id="logo-container" style="text-align: center; padding: 5px; z-index: 100;">
+                            <h:graphicImage name="logo_cond.png" library="default" style="height: 140px;" alt="Logo condominio"/>
                         </div>
                         <div class="login-body" style="custom-margin">
                             <div class="cuenta" style="text-align: center ;margin-bottom: 20px; margin-left: 50px; margin-right: 50px; margin-top: 10px; ">
@@ -56,7 +57,7 @@ and open the template in the editor.
                             </div>
 
                             <div class="button-sign-in" style="text-align: center;margin-bottom: 10px;">
-                                <p:commandButton value="Sign In" action="#{controllerLogin.aceptar()}" styleClass="p-button-primary" update="msj"/>
+                                <p:commandButton value="Sign In" action="#{controllerLogin.aceptar()}" styleClass="p-button-primary" update="growl"/>
                             </div>  
                             
                         </div>

@@ -39,7 +39,7 @@
                         <p:commandButton id="whatsappButton" 
                                             styleClass="whatsapp-button" 
                                             icon="ui-icon-whatsapp"
-                                            onclick="window.open('#{controllerListExpensaInmueble.getWhatsAppUrl(controllerListExpensaInmueble.formatPeriodo(variable.periodo), variable.inmueble.piso, variable.inmueble.dpto, variable.expensa.importe, variable.inmueble.inquilino.telefono, variable.inmueble.propietario.telefono, variable.inmueble.inquilino.nombreApellido , variable.inmueble.propietario.nombreApellido)}')">
+                                            onclick="window.open('#{controllerListExpensaInmueble.getWhatsAppUrl(variable)}')">
                         </p:commandButton>
                         </p:column>
                         <p:column headerText="Estado" width="70" >

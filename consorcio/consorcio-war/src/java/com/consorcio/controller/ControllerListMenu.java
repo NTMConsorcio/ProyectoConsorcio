@@ -147,18 +147,4 @@ public class ControllerListMenu implements Serializable {
         session.setAttribute("MENU", menu);  
     }
     
-    /**
-     * Llama a la clase de servicio para crear los menús iniciales
-     */
-    /*
-    public void configInicial() {
-        try {
-            serviceBean.configuracionInicial();
-            Messages.show("Configuración realizada exitosamente", TypeMessages.MENSAJE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Messages.show(e.getMessage(), TypeMessages.ERROR);
-        }
-    }
-    */
 }

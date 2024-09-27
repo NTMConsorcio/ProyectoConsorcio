@@ -185,11 +185,8 @@ public class UsuarioServiceBean {
 
         try {
             
-<<<<<<< HEAD
-            if (!verificar(id)) { 
-=======
             if (!verificar(id)) {
->>>>>>> 3d436eb5f057983b0fdfd3a04e8e838809d8c6bf
+
                 throw new ErrorServiceException("Debe indicar el usuario");
             }
 

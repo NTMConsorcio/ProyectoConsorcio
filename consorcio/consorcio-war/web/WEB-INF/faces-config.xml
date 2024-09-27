@@ -8,6 +8,30 @@
         <phase-listener>com.consorcio.controller.ControllerAutenticacion</phase-listener>
     </lifecycle>
 
+    <managed-bean>
+        <managed-bean-name>controllerSession</managed-bean-name>
+        <managed-bean-class>com.consorcio.controller.ControllerSession</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <navigation-rule>
+        <from-view-id>*/logout</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/admin/login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/admin/login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
     <navigation-rule>  
         <navigation-case>
             <from-outcome>editPais</from-outcome>
@@ -251,7 +275,7 @@
     <navigation-rule> 
         <navigation-case>
             <from-outcome>listConsorcio</from-outcome>
-            <to-view-id>/admin/consorcio/listCuentaConsorcio.jsf</to-view-id>
+            <to-view-id>/admin/consorcio/listCuentaCorreo.jsf</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
@@ -259,14 +283,14 @@
     <navigation-rule> 
         <navigation-case>
             <from-outcome>editCuentaCorreo</from-outcome>
-            <to-view-id>/admin/consorcio/editCuentaConsorcio.jsf</to-view-id>
+            <to-view-id>/admin/consorcio/editCuentaCorreo.jsf</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule> 
         <navigation-case>
             <from-outcome>login</from-outcome>
-            <to-view-id>/admin/login.jsf</to-view-id>
+            <to-view-id>/admin/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>

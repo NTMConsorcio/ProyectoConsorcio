@@ -50,31 +50,25 @@ public class ControllerListExpensaInmueble {
             e.printStackTrace();
         }
     }
-
+ 
     public String formatPeriodo(Date periodo) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         return sdf.format(periodo);
     }
     
-    public String getWhatsAppUrl(String periodo, String piso, String dpto, Double importe, String phoneInquilino, String phonePropietario,String nombreInquilino,String nombrePropietario){
-        String phone;
-        String nombre;
-        //if inquilino!=null
-        if (phoneInquilino != null){
-            phone = phoneInquilino;
-            nombre = nombreInquilino;
-        } else{
-            //Sacar el else
-            //Poner primero
-            phone = phonePropietario;
-            nombre = nombrePropietario;
+    public String getWhatsAppUrl(ExpensaInmueble expensaInmueble){
+        try {
+            String url = serviceBean.WhatsAppString(expensaInmueble.getId());
+            Messages.show("Envio exitoso", TypeMessages.MENSAJE);
+            return url;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Messages.show(e.getMessage(), TypeMessages.ERROR);
+            return null;
         } 
-        String message = String.format("Bueno dÍas %s, le informamos el monto $%s de la expensa del periodo %s. Piso: %s. Departamento: %s" ,
-                                        nombre, importe, periodo, piso, dpto);      
-        Messages.show("Envio exitoso", TypeMessages.MENSAJE);
-        return "https://api.whatsapp.com/send?phone=" + phone+ "&text=" + message.replace("\n", "%0A");
         
     }
+    
         /**
      * Getter de la lista
      * @return Collection

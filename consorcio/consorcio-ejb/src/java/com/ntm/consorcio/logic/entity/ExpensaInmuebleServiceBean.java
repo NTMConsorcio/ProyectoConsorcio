@@ -10,14 +10,17 @@ import com.ntm.consorcio.persistence.entity.DAOExpensaInmuebleBean;
 import com.ntm.consorcio.domain.entity.ExpensaInmueble;
 import com.ntm.consorcio.domain.entity.EstadoExpensaInmueble;
 import com.ntm.consorcio.domain.entity.Inmueble;
+import com.ntm.consorcio.domain.entity.Inquilino;
 import com.ntm.consorcio.logic.ErrorServiceException;
 import com.ntm.consorcio.persistence.NoResultDAOException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import org.hibernate.validator.internal.util.logging.Messages;
 /**
  *
  * @author Mauro Sorbello
@@ -192,6 +195,34 @@ public class ExpensaInmuebleServiceBean {
 
         } catch (ErrorServiceException ex) {
             throw ex;
+        }
+    }
+    
+    public String WhatsAppString(String idExpensaInmueble) throws ErrorServiceException{
+        //String periodo, String piso, String dpto, Double importe, String phoneInquilino, String phonePropietario,String nombreInquilino,String nombrePropietario
+        try{
+            ExpensaInmueble expensaInmueble = buscarExpensaInmueble(idExpensaInmueble);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        String periodo= sdf.format(expensaInmueble.getPeriodo());
+        Double importe = expensaInmueble.getExpensa().getImporte();
+        String piso = expensaInmueble.getInmueble().getPiso();
+        String dpto = expensaInmueble.getInmueble().getDpto();
+        String nombre = expensaInmueble.getInmueble().getPropietario().getNombreApellido();
+        String phone = expensaInmueble.getInmueble().getPropietario().getTelefono();
+        Inquilino inquilino = expensaInmueble.getInmueble().getInquilino();
+        
+        //if inquilino!=null
+        
+        if (inquilino != null){
+            phone = inquilino.getTelefono();
+            nombre = inquilino.getNombreApellido(); 
+        }
+        String message = String.format("Bueno días %s, le informamos el monto $%s de la expensa del periodo %s. Piso: %s. Departamento: %s" ,
+                                        nombre, importe, periodo, piso, dpto);      
+        return "https://api.whatsapp.com/send?phone=" + phone+ "&text=" + message.replace("\n", "%0A");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new ErrorServiceException("Error de sistema");
         }
     }
 }   
