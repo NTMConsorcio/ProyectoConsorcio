@@ -10,6 +10,7 @@ import com.ntm.consorcio.logic.entity.ExpensaInmuebleServiceBean;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Level;
@@ -68,9 +69,8 @@ public class ControllerEditExpensaInmueble {
             
             //Verifica el caso de uso. Si es consultar o modificar recibe el nombre
             if (casoDeUso.equals("CONSULTAR") || casoDeUso.equals("MODIFICAR")) {
-                
                 estadoExpensaInmueble = expensaInmueble.getEstado();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-");
                 periodo= sdf.format(expensaInmueble.getPeriodo());
                 
                 idInmueble = expensaInmueble.getInmueble() == null ? null : expensaInmueble.getInmueble().getId();
@@ -91,8 +91,8 @@ public class ControllerEditExpensaInmueble {
      * @return String
      */
     public String aceptar() {
-        SimpleDateFormat sdfe = new SimpleDateFormat("yyyy-MM-dd");
         try {
+            SimpleDateFormat sdfe = new SimpleDateFormat("yyyy-MM-dd");
             periodoFecha = sdfe.parse(periodo);
         } catch (ParseException ex) {
             Logger.getLogger(ControllerEditExpensaInmueble.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,21 +129,23 @@ public class ControllerEditExpensaInmueble {
      * Carga las expensas para el menú desplegable
      */
     public void cargarExpensas(){
-        SimpleDateFormat sdfe = new SimpleDateFormat("yyyy-MM-dd");
+        //SimpleDateFormat sdfe = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            periodoFecha = sdfe.parse(periodo);
-        } catch (Exception ex) {
-           Messages.show(ex.getMessage(), TypeMessages.MENSAJE);
-        }
-        System.out.println(periodoFecha);
-        try{
+            String[] partes = periodo.split("-");
+            int anio = Integer.parseInt(partes[0]);
+            int mes = Integer.parseInt(partes[1]) - 1;
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(anio, mes, 1);
+            int ultimoDia = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            calendar.set(Calendar.DAY_OF_MONTH, ultimoDia);
+            periodoFecha = calendar.getTime();
             expensas = new ArrayList<>();
             expensas.add(new SelectItem(null, "Seleccione..."));
             Expensa expensa = expensaService.buscarExpensa(periodoFecha);
             idExpensa = expensa.getId();
             expensas.add(new SelectItem(expensa.getId(), "Importe Actual $:" + String.valueOf(expensa.getImporte())));
             RequestContext.getCurrentInstance().update("formPpal:idExpensa");
-        }catch(Exception e){
+        } catch(Exception e) {
             Messages.show(e.getMessage(), TypeMessages.ERROR);
         }
     }

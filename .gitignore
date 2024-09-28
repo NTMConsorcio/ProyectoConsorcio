@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-/consorcio/consorcio-ejb/build/
-=======
 /consorcio/consorcio-ejb/build/
 /consorcio/build/
 /consorcio/consorcio-ejb/dist/
@@ -16,4 +13,3 @@
 /consorcio/consorcio-war/nbproject/build-impl~.xml
 /consorcio/consorcio-ejb/nbproject/build-impl~.xml
 /consorcio/nbproject/build-impl~.xml
->>>>>>> f28100bdb2b71470c6c121be303794e7bf1c3f34

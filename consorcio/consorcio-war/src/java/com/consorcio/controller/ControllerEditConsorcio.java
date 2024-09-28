@@ -51,7 +51,7 @@ public class ControllerEditConsorcio implements Serializable {
             if (casoDeUso.equals("CONSULTAR") || casoDeUso.equals("MODIFICAR")) {
                 nombre = consorcio.getNombre();
                 idDireccion = consorcio.getDireccion().getId();
-                cargarPorLocalidad(consorcio.getDireccion().getLocalidad().getId());
+                //cargarPorLocalidad(consorcio.getDireccion().getLocalidad().getId());
                 //Si es consultar desactiva el campo
                 if (casoDeUso.equals("CONSULTAR")) {
                     desactivado = true;

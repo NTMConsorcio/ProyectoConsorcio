@@ -49,7 +49,7 @@ public class PDFExport {
             documento.add(new Paragraph("RECIBO DE PAGO"));
             documento.add(new Paragraph("Fecha: " + fecha));
             documento.add(new Paragraph("Cliente: " + cliente));
-            documento.add(new Paragraph("Monto total:" + total));
+            documento.add(new Paragraph("Monto total: $" + total));
             documento.add(new Paragraph("Descripción: Pago de las expensas del consorcio para los inmuebles " + inmuebles));
 
             // Cerrar el documento para guardarlo

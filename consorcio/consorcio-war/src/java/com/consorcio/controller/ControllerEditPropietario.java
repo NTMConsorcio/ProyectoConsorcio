@@ -57,7 +57,8 @@ public class ControllerEditPropietario {
                 correoElectronico = propietario.getCorreoElectronico();
                 esHabitante = propietario.getHabitaConsorcio();
                 idDireccion = propietario.getDireccion().getId();
-                cargarPorLocalidad(propietario.getDireccion().getLocalidad().getId());
+                //cargar();
+                //cargarPorLocalidad(propietario.getDireccion().getLocalidad().getId());
                 //Si es consultar desactiva el campo
                 if (casoDeUso.equals("CONSULTAR")) {
                     desactivado = true;
