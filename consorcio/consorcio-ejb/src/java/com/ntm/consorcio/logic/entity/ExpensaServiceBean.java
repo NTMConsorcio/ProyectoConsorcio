@@ -207,6 +207,8 @@ public class ExpensaServiceBean {
     public Expensa buscarExpensa(Date fecha) throws ErrorServiceException  {
         try {  
             return dao.buscarExpensaPorFecha(fecha);
+        } catch (NoResultDAOException ex) {
+            throw new ErrorServiceException("No se ha encontrado una expensa para el periodo indicado");
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new ErrorServiceException("Error de sistema");

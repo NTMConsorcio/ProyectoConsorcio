@@ -35,10 +35,10 @@
                                             <p:menuitem value="Baja" icon="fa fa-trash Red" action="#{controllerListExpensaInmueble.baja(variable)}"/>
                                         </p:slideMenu>
                                     </p:column>
-                        <p:column width="40" headerText="Whatsapp"> 
+                        <p:column width="40" headerText="Whatsapp" style="text-align: center;"> 
                         <p:commandButton id="whatsappButton" 
                                             styleClass="whatsapp-button" 
-                                            icon="ui-icon-whatsapp"
+                                            icon="fa fa-whatsapp"
                                             onclick="window.open('#{controllerListExpensaInmueble.getWhatsAppUrl(variable)}')">
                         </p:commandButton>
                         </p:column>

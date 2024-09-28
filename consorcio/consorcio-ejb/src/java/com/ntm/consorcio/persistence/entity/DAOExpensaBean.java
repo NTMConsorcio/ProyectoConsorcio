@@ -92,6 +92,7 @@ public class DAOExpensaBean {
             Collection<Expensa> expensas =  em.createQuery("SELECT e "
                                             + " FROM Expensa e"
                                             + " WHERE e.fechaDesde <= :fecha"
+                                            + " AND e.eliminado = FALSE"
                                             + " AND (e.fechaHasta > :fecha OR e.fechaHasta IS NULL)").
                                             setParameter("fecha", fecha).
                                             getResultList();
@@ -99,7 +100,7 @@ public class DAOExpensaBean {
             if (!expensas.isEmpty()) {
                 return expensas.iterator().next();
             } else {
-                throw new NoResultException("No se encontró expensa");
+                throw new NoResultException("No se encontró la expensa");
             }
         } catch (NoResultException ex) {
             throw new NoResultDAOException("No se encontró expensa");
