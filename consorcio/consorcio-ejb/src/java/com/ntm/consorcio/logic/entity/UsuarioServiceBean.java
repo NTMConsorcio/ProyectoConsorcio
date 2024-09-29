@@ -20,6 +20,7 @@ import javax.ejb.LocalBean;
 @Stateless
 @LocalBean
 public class UsuarioServiceBean {
+    private @EJB SecurityServiceBean securityService;
     private @EJB DAOUsuarioBean dao;
     private @EJB PerfilServiceBean perfilServiceBean;
     
@@ -59,11 +60,10 @@ public class UsuarioServiceBean {
             } catch (NoResultDAOException e) {
             }
             
-            
             Usuario usuario = new Usuario();
             usuario.setUsuario(usuario2);
             usuario.setNombre(nombre);
-            usuario.setClave(clave);
+            usuario.setClave(securityService.hashClave(clave));
             usuario.setApellido(apellido);
             usuario.setTelefono(telefono);
             usuario.setCorreoElectronico(correoElectronico);
@@ -71,8 +71,6 @@ public class UsuarioServiceBean {
             usuario.setId(UUID.randomUUID().toString());
             
             dao.guardarUsuario(usuario);
-            System.out.println("-------------------------------------------------------------------");
-            System.out.println(usuario);
             return usuario;
         } catch (ErrorServiceException e) {
             throw e;
@@ -93,7 +91,7 @@ public class UsuarioServiceBean {
      * @param clave String
      * @throws ErrorServiceException 
      */
-    public void modificarUsuario(String idUsuario, String nombre, String apellido, String telefono, String correoElectronico, String usuario2, String clave) throws ErrorServiceException {
+    public void modificarUsuario(String idUsuario, String nombre, String apellido, String telefono, String correoElectronico, String usuario2) throws ErrorServiceException {
 
         try {
             
@@ -118,14 +116,9 @@ public class UsuarioServiceBean {
             if (!verificar(usuario2)) {
                 throw new ErrorServiceException("Debe indicar el usuario");
             }
-            
-            if (!verificar(clave)) {
-                throw new ErrorServiceException("Debe indicar la clave");
-            }
 
             usuario.setUsuario(usuario2);
             usuario.setNombre(nombre);
-            usuario.setClave(clave);
             usuario.setApellido(apellido);
             usuario.setTelefono(telefono);
             usuario.setCorreoElectronico(correoElectronico);
@@ -162,7 +155,7 @@ public class UsuarioServiceBean {
                 throw new ErrorServiceException("Las claves no coinciden");
             }
 
-            usuario.setClave(clave);
+            usuario.setClave(securityService.hashClave(clave));
             
             
             dao.actualizarUsuario(usuario);
@@ -285,7 +278,7 @@ public class UsuarioServiceBean {
             }
 
             try {
-                usuario = dao.buscarUsuarioPorUsuarioClave(user, clave);
+                usuario = dao.buscarUsuarioPorUsuarioClave(user, securityService.hashClave(clave));
             } catch (NoResultDAOException e) {
                 throw new ErrorServiceLoginException("Usuario o contraseña incorrectos");
             }
