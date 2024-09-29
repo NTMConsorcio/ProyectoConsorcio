@@ -272,7 +272,7 @@
     
     <navigation-rule> 
         <navigation-case>
-            <from-outcome>listConsorcio</from-outcome>
+            <from-outcome>listCuentaCorreo</from-outcome>
             <to-view-id>/admin/consorcio/listCuentaCorreo.jsf</to-view-id>
             <redirect/>
         </navigation-case>
